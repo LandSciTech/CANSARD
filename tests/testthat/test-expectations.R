@@ -25,4 +25,10 @@
 #from the extracted data sheet to make sure that the correct TC data is recorded
 #for each doc if it is included in both.
 
+#5 All rows in TC_columns should be the same
 
+#6 uID can never be NA
+
+#7 If there are level 2 impacts (even negligible) there must be level 1 impacts.
+#If only 1 level 2 scores for level 1 are same. If multiple, scores for level 1
+#are combination based on overlap (can't automate).

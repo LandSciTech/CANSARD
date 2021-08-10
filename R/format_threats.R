@@ -81,10 +81,10 @@ format_threats <- function(df){
                 names_prefix = "X", names_sep = "_iucn_",
                 values_from = c(threat_identified, impact, scope, severity,
                                 timing, comments)) %>%
-    mutate(TC_calculated_overall_impact = recode_threat(TC_calculated_overall_impact,
-                                                        "impact", threat_code),
-           TC_assigned_overall_impact = recode_threat(TC_assigned_overall_impact,
-                                                      "impact", threat_code)) %>%
+    # mutate(TC_calculated_overall_impact = recode_threat(TC_calculated_overall_impact,
+    #                                                     "impact", threat_code),
+    #        TC_assigned_overall_impact = recode_threat(TC_assigned_overall_impact,
+    #                                                   "impact", threat_code)) %>%
     rename_all(~str_replace(.x, "(^.{1,17})_iucn_(X.*$)", "\\2_iucn_\\1") %>%
                  str_replace("iucn_threat", "threat"))
 }
