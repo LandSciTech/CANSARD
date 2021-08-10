@@ -32,3 +32,5 @@
 #7 If there are level 2 impacts (even negligible) there must be level 1 impacts.
 #If only 1 level 2 scores for level 1 are same. If multiple, scores for level 1
 #are combination based on overlap (can't automate).
+
+#8 Threats calculator values must be in expected strings see format_threats threat_code

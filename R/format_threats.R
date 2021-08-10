@@ -1,22 +1,25 @@
 threat_code <- structure(
   list(
-    code = c(0, 1, 2, 3, 4, 5, -1, -2),
+    code = c(0, 1, 2, 3, 4, 5, -1, -2, -2, 1),
     impact = c("not a threat", "negligible", "low", "medium", "high",
-               "very high", "unknown", "not calculated"),
+               "very high", "unknown", "not calculated", "not scored",
+               "insignificant"),
     scope = c("not a threat", "negligible", "small", "restricted",
-              "large", "pervasive", "unknown", "not calculated"),
+              "large", "pervasive", "unknown", "not calculated", "not scored",
+              "insignificant"),
     severity = c("neutral or potential benefit", "negligible", "slight",
-                 "moderate", "serious", "extreme", "unknown", "not calculated"),
+                 "moderate", "serious", "extreme", "unknown", "not calculated",
+                 "not scored", "insignificant"),
     timing = c("not a threat", "negligible", "low", "moderate", "high",
-               NA, "unknown", "not calculated")
+               NA, "unknown", "not calculated", "not scored", "insignificant")
   ),
-  row.names = c(NA,-8L), class = c("tbl_df", "tbl", "data.frame")
+  row.names = c(NA,-10L), class = c("tbl_df", "tbl", "data.frame")
 )
 
 
 #
-x <- "Extreme - Moderate (11-100%)"
-var <- "severity"
+# x <- "Extreme - Moderate (11-100%)"
+# var <- "severity"
 #' Convert threats from text to codes used in database
 #'
 #' If a range of threat levels is given then the average of the two threat codes
@@ -48,10 +51,11 @@ recode_threat <- Vectorize(function(x, var, threat_code = threat_code){
     code <- threat_code$code[x]
   } else {
 
-    return(x_in)
+    #return(x_in)
   }
-  if(length(code) == 0){
+  if(length(x) == 0){
     code <- 99
+    warning("input ", x_in, " does not have a code", call. = FALSE)
   }
   return(code)
 }, SIMPLIFY = TRUE, USE.NAMES = FALSE, vectorize.args = "x")
