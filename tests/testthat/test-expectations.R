@@ -34,3 +34,5 @@
 #are combination based on overlap (can't automate).
 
 #8 Threats calculator values must be in expected strings see format_threats threat_code
+
+#9 All action subtypes are in list

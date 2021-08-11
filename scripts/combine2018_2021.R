@@ -15,8 +15,12 @@ devtools::load_all(".")
 # unzip("~/../Downloads/drive-download-20210806T150949Z-001.zip",
 #       exdir = "data/data-raw")
 
-# Get the current version of the db from SAR_Climate_Change folder
+# Get the current version of the db from SAR_Climate_Change folder and the
+# action type table
 db_2018 <- read.csv("../SAR_climate_change/SE_version/Threats_and_recovery/Analyses/data/data_wkg/Can_SAR_Database.csv")
+
+action_table <- read_xlsx("../SAR_climate_change/SE_version/Threats_and_recovery/Analyses/data/data_wkg/action_table.xlsx") %>%
+  select(`Action Descriptions`, `Action Category2`)
 
 # Get the data extracted from docs published after 2018 or species listed after
 # 2018
@@ -72,7 +76,11 @@ db_2021_thCWS <- read_excel("data/data-raw/Can_SAR_data_extraction v.current.xls
                             range = "A1:Q8358",
                             na = "NA") %>%
   mutate(source = "Spreadsheet Extraction") %>%
-  filter(!is.na(uID))
+  filter(!is.na(uID)) %>%
+  rename_with(~paste0("TC_", .x),
+              c(references, assessors, calculated_overall_impact,
+                assigned_overall_impact, impact_adjustment_reasons,
+                overall_comments))
 
 # Master list of uID, common name and species
 uID_list <- read_excel("data/data-raw/list uID.xlsx")
@@ -94,17 +102,31 @@ db_2021_thFJ2 %>%
 # Ignore NAs in uID they are correct in the FJ version
 
 
-# combine the two data sets by taking adding in rows of CWS data that are not in
-# FJ
+# combine the two data sets by adding in rows of CWS data that are not in FJ
 db_2021_thCWS_notFJ <- anti_join(db_2021_thCWS, db_2021_thFJ2,
                                  by = c("uID", "threat_num", "TC_date")) %>%
-  select(intersect(colnames(db_2021_thFJ2),
-                   colnames(db_2021_thCWS)))
+  select(-threat_name, -species)
 
 db_2021_th <- bind_rows(db_2021_thFJ2,
                           db_2021_thCWS_notFJ)
 
 # 2021 Threats Data -------------------------------------------------------
+
+# some threat levels do not match look at non-matching entries and fix. Column
+# wch is which column has the problem
+check_threats(db_2021_th)
+
+db_2021_th <- db_2021_th %>%
+  mutate(across(c(impact, scope, severity, timing),
+                ~.x %>% str_replace("Hig$", "High") %>%
+                  str_replace("Ongoing", "High") %>%
+                  str_replace("Smal$", "Small") %>%
+                  str_replace("Neutral or potentially beneficial",
+                              "Neutral or potential benefit") %>%
+                  str_replace("Unkown", "Unknown") %>%
+                  str_replace("Sight", "Slight") %>%
+                  str_replace("Neglibible", "Negligible"))) %>%
+  mutate(scope = str_replace(scope, "Medium", "Restricted"))
 
 # format the threats to fit with the 2018 database
 db_2021_th_2 <- format_threats(db_2021_th)
@@ -183,12 +205,38 @@ db_2021_4 <- coalesce_join(db_2021_3,
                            by = "uID",
                            join = left_join)
 
-# TODO: add action_type and CC_action_type based on subtypes
+# add action_type and CC_action_type based on subtypes.
+action_table2 <- action_table %>% group_by(`Action Category2`) %>%
+  nest() %>%
+  mutate(data = map(data, ~paste0(.x$`Action Descriptions`,
+                                  collapse = "|")))
 
-write.csv(db_2021_4, paste0("data/interim/DB2021_", Sys.Date(), ".csv"),
+db_2021_5 <- db_2021_4 %>%
+  mutate(action_type = map2_dfc(action_table2$data,
+                                action_table2$`Action Category2`,
+                               ~ifelse(str_detect(action_subtype %>% tolower(),
+                                  .x), .y, "")),
+         CC_action_type = map2_dfc(action_table2$data,
+                                   action_table2$`Action Category2`,
+                                   ~ifelse(str_detect(CC_action_subtype %>% tolower(),
+                                                      .x), .y, ""))) %>%
+  mutate(action_type = paste(action_type$...1, action_type$...2,
+                             action_type$...3, action_type$...4,
+                             sep = ", ") %>%
+           str_replace("^NA, NA, NA, NA$", NA_character_) %>%
+           str_replace_all("NA, |, NA|NA", ""),
+         CC_action_type = paste(CC_action_type$...1, CC_action_type$...2,
+                                CC_action_type$...3, CC_action_type$...4,
+                                sep = ", ") %>%
+           str_replace("^NA, NA, NA, NA$", NA_character_) %>%
+           str_replace_all("NA, |, NA|NA", ""))
+
+write.csv(db_2021_5, paste0("data/interim/DB2021_", Sys.Date(), ".csv"),
           row.names = TRUE)
 
-
+rm(db_2021, db_2021_2, db_2021_3, db_2021_4, db_2021_th, db_2021_th_2,
+   db_2021_th_3, db_2021_thCWS, db_2021_thCWS_notFJ, db_2021_thFJ,
+   db_2021_thFJ2)
 # Reformat 2018 database --------------------------------------------------
 
 # Split into chunks for each document, SR, RS, MP, AP rename and filter columns
@@ -223,41 +271,41 @@ db_2018_sr <- select(db_2018, all_of(sr_cols)) %>%
             "AB", "BC", "MB", "NB", "NL", "NS", "NU", "NWT", "ON", "PEI", "QC",
             "SK", "YT", "arctic", "atlantic", "pacific"))) %>%
   #reorder cols to match 2021
-  select(intersect(colnames(db_2021_4), colnames(.)))
+  select(intersect(colnames(db_2021_5), colnames(.)))
 
 db_2018_rs <- select(db_2018, uID, common_name, species, large_taxonomic_group,
                      all_of(rs_cols)) %>%
+  filter(!is.na(RS_year)) %>%
   mutate(year_published = ifelse(is.na(RS_amended), RS_year, RS_amended),
          final = RS_final,
          amendment = ifelse(is.na(RS_amended), 0, 1),
          CC_action_subtype = action_subtype_CC,
-         docID = seq(1000, length.out = n()),
+         docID = seq(1500, length.out = n()),
          doc_type = "Recovery Strategies",
          doc_citation = NA_character_,
          url = NA_character_,
          web_pub_date = as.Date(NA),
          date_last_access = as.Date("2018-02-22"),
          status_appraisal_rapid_review = 0) %>%
-  select(-c(RS, RS_final, RS_amended, RS_year, action_subtype_CC))%>%
-  filter(!is.na(year_published))
+  select(-c(RS, RS_final, RS_amended, RS_year, action_subtype_CC))
 
 
 db_2018_mp <- select(db_2018, uID, common_name, species, large_taxonomic_group,
-                     all_of(mp_cols)) %>%
+                     all_of(mp_cols))%>%
+  # remove sp that don't have an MP
+  filter(!is.na(MP_year)) %>%
   mutate(year_published = MP_year,
          final = MP_final,
          amendment = 0,
          CC_action_subtype = action_subtype_CC,
-         docID = seq(1000, length.out = n()),
+         docID = seq(2000, length.out = n()),
          doc_type = "Management Plans",
          doc_citation = NA_character_,
          url = NA_character_,
          web_pub_date = as.Date(NA),
          date_last_access = as.Date("2018-02-22"),
          status_appraisal_rapid_review = 0) %>%
-  select(-c(MP, MP_final, MP_year, action_subtype_CC)) %>%
-  # remove sp that don't have an MP
-  filter(!is.na(year_published))
+  select(-c(MP, MP_final, MP_year, action_subtype_CC))
 
 db_2018_refor <- bind_rows(db_2018_sr, db_2018_rs, db_2018_mp) %>%
   arrange(uID)
@@ -287,7 +335,7 @@ db_2018_l2 <- read_excel("data/data-raw/Level 2 threats for 2018 database.xlsx",
 # setdiff(colnames(db_2018_l2), colnames(db_2018_refor))
 
 #uniquely ided by uID and doc_type?
-db_2018_l2 %>% group_by(uID, Doc_type) %>% filter(n() > 1) %>%
+db_2018_l2 %>% group_by(uID, doc_type) %>% filter(n() > 1) %>%
   {nrow(.) == 0} %>% stopifnot()
 
 db_2018_refor %>% group_by(uID, doc_type) %>% filter(n() > 1) %>%
@@ -338,14 +386,72 @@ db_2018_refor_3 <- db_2018_refor_2 %>%
   rows_patch(db_2018_th_3 %>% select(-Year), by = c("uID", "doc_type"))
 
 db_2018_refor_4 <- db_2018_refor_3 %>%
-  rows_upsert(db_2018_l2 %>% select(-`new data`, -`author SR`),
+  rows_update(db_2018_l2 %>% select(-`new data`, -`author SR`) %>%
+                # select rows with match in db2018
+                semi_join(db_2018_refor_3, by = c("uID", "doc_type")),
               by = c("uID", "doc_type"))
 
-# which uID doc_type combos are in l2 but not db_2018
-anti_join(db_2018_l2, db_2018_refor_3,
-          by = c("uID", "doc_type")) %>%
-  View()
+# Add in Rs and Mp that are missing from 2018
 # looks like some are situations where there is an RS for SC species or MP for a
-# Th or En species which were initially ignored. Some seem to have been missed
-# will add now but CC_action etc will be missing. This is the case for many 2018
-# sp though
+# Th or En species which were initially ignored. Some RS and MP seem to have
+# been missed will add now but CC_action etc will be missing. This is the case
+# for many 2018 sp though
+db_2018_refor_5 <- db_2018_refor_4 %>%
+  rows_insert(db_2018_l2 %>% select(-`new data`, -`author SR`) %>%
+                anti_join(db_2018_refor_3,
+                        by = c("uID", "doc_type")) %>%
+                mutate(docID = seq(2500, length.out = n())),
+              by = c("uID", "doc_type")) %>%
+  mutate(across(matches("X\\d\\d?_.*identified"), as.numeric))
+
+# check docIDs are unique
+db_2018_refor_5 %>% group_by(docID) %>% filter(n() > 1) %>%
+  {nrow(.) == 0} %>% stopifnot()
+
+# Combine 2018 and 2021 databases -----------------------------------------
+
+setdiff(colnames(db_2018_refor_5), colnames(db_2021_5))
+setdiff(colnames(db_2021_5), colnames(db_2018_refor_5))
+
+# Threats calculators that did not match a species in 2021 db don't have a docID
+# might match one in 2018 db
+no_doc_2021 <- db_2021_5 %>% filter(is.na(docID))
+
+# there is only 1 of each uID and they would have come from SRs only
+no_doc_2021 %>% group_by(uID) %>% filter(n() > 1)
+
+db_2018_tc_to_add <- db_2018_refor_5 %>%
+  filter(doc_type == "COSEWIC Status Reports", threat_calculator == 1)
+# also only 1 uID
+db_2018_tc_to_add %>% group_by(uID) %>% filter(n() > 1)
+
+semi_join(no_doc_2021, db_2018_tc_to_add, by = "uID")
+
+semi_join(db_2018_tc_to_add, no_doc_2021, by = "uID")
+
+inner_join(db_2018_tc_to_add, no_doc_2021, by = "uID") %>%
+  filter(as.numeric(year_published.x) >= lubridate::year(TC_date)) %>%
+  select(year_published.x, TC_date)
+# year_published is greater than TC_date for all so seems likely it was used
+
+filter(semi_join(db_2018_tc_to_add, no_doc_2021, by = "uID"),
+       if_all(matches("X.*iucn"), ~is.na(.x)))
+# all the ones that overlap have data in iucn fields
+
+# So if bind_rows 2021 with doc and 2018 that will add the TC_cols as NA and
+# then use patch to update them
+db_final <- db_2021_5 %>% filter(!is.na(docID)) %>%
+  bind_rows(db_2018_refor_5)
+
+db_final_tc_to_add <- db_final %>%
+  filter(doc_type == "COSEWIC Status Reports",
+         threat_calculator == 1,
+         is.na(TC_date),
+         is.na(doc_citation))
+
+db_final_tc_to_add <- rows_patch(db_final_tc_to_add,
+             semi_join(no_doc_2021, db_final_tc_to_add, by = "uID"),
+             by = "uID")
+
+db_final_2 <- rows_patch(db_final, db_final_tc_to_add,
+                         by = c("uID", "docID"))

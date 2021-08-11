@@ -43,18 +43,21 @@ recode_threat <- Vectorize(function(x, var, threat_code = threat_code){
 
   x <- x %>% str_to_lower() %>% str_replace("very high", "very") %>%
     str_which(str_replace(threat_code[[var]], "very high", "very"))
-  if(length(x) == 2){
 
-    code <- (threat_code$code[x[1]] + threat_code$code[x[2]])/2
-  } else if(length(x) == 1){
+  code <- threat_code$code[x] %>% unique()
+  if(length(code) == 2){
 
-    code <- threat_code$code[x]
-  } else {
-
+    code <- (code[1] + code[2])/2
+    return(code)
+  } else if(length(code) == 1){
+    return(code)
+  } else if(length(code) > 2) {
+    code <- 100
     #return(x_in)
-  }
-  if(length(x) == 0){
+  } else if(length(code) == 0){
     code <- 99
+  }
+  if(code >=99){
     warning("input ", x_in, " does not have a code", call. = FALSE)
   }
   return(code)
@@ -91,4 +94,32 @@ format_threats <- function(df){
     #                                                   "impact", threat_code)) %>%
     rename_all(~str_replace(.x, "(^.{1,17})_iucn_(X.*$)", "\\2_iucn_\\1") %>%
                  str_replace("iucn_threat", "threat"))
+}
+
+check_threats <- function(df){
+
+  df1 <- mutate(df, across(where(is.character), ~.x %>%  str_to_lower() %>%
+                        str_replace("very high", "very") %>%
+                          str_replace("-- uncertainty ranges --", NA_character_)))
+  threat_code <- mutate(threat_code,
+                        across(where(is.character),
+                               ~str_replace(.x, "very high", "very")))
+
+  threat_cols <- c("impact", "scope", "severity", "timing")
+
+  miss_l <- purrr::map2_dfc(df1[threat_cols], threat_cols,
+                                   ~str_detect(.x, paste0(threat_code[[.y]],
+                                                          collapse = "|"),
+                                               negate = TRUE)) %>%
+    rowwise() %>%
+    mutate(wch = ifelse(length(threat_cols[which(c(impact, scope, severity,
+                                                   timing))]) == 0,
+                        NA,
+                        threat_cols[which(c(impact, scope, severity, timing))]),
+              miss = sum(impact, scope, severity, timing, na.rm = TRUE))
+
+  df2 <- df[which(miss_l$miss > 0), ]
+  df2$wch <- filter(miss_l, miss > 0) %>% pull(wch)
+
+  df2 %>% select(uID, common_name, all_of(threat_cols), wch)
 }
