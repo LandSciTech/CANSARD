@@ -63,11 +63,22 @@ db_2021_thFJ <- read_excel("data/data-raw/Can_SAR_data_extraction v.current.xlsx
          source = "Hand Extraction")
 
 # get TC_date and docID from the main spreadsheet
+db_2021_tolink <- db_2021 %>% filter(threat_calculator == 1) %>%
+  select(uID, TC_date, docID) %>%
+  distinct() %>%
+  filter(!docID %in% c(232, 101, 276, 269, 122, 344, 256))
+
 db_2021_thFJ2 <- left_join(db_2021_thFJ,
-                           db_2021 %>% filter(threat_calculator == 1) %>%
-                             select(uID, TC_date, docID) %>%
-                             distinct(),
+                           db_2021_tolink,
                            by = "uID")
+
+db_2021_thmissing <-read_excel("data/data-raw/Can_SAR_data_extraction v.current.xlsx",
+                               sheet = "TC to Add",
+                               #col_types = c(rep("guess", 9), "date", rep("guess", 7)),
+                               na = "NA") %>%
+  mutate(source = "Hand Extraction")
+
+db_2021_thFJ3 <- bind_rows(db_2021_thFJ2, db_2021_thmissing)
 
 # Threats data automatically extracted from threats calculator spreadsheets
 # provided by CWS with uIDs added by hand by FJ
@@ -82,6 +93,34 @@ db_2021_thCWS <- read_excel("data/data-raw/Can_SAR_data_extraction v.current.xls
                 assigned_overall_impact, impact_adjustment_reasons,
                 overall_comments))
 
+# ones with missing uID are the Athabasca Endemics bundle but this TC
+# was extracted by Florence so not needed here
+
+# TCs from spreadsheet to add to specific docs
+db_2021_addCWS <- db_2021_thCWS %>% filter(uID %in% c(316, 827, 829)) %>%
+  mutate(docID = case_when(uID == 316 ~ 232,
+                           uID == 827 ~ 101,
+                           uID == 829 ~ 276)) %>%
+  left_join(db_2021 %>% select(uID, common_name) %>% distinct(), by = "uID") %>%
+  select(-species, -threat_name)
+
+db_2021_thFJ4 <- bind_rows(db_2021_thFJ3, db_2021_addCWS)
+
+
+# confirm by hand that docIDs are correct for anything with dup uID
+# db_2021_thFJ2 %>%
+#   group_by(uID, docID) %>%
+#   slice(1) %>%
+#   group_by(uID) %>%
+#   filter(n() > 1) %>%
+#   arrange(uID) %>%
+#   write.csv("data/interim/check_dub_tcs.csv")
+
+# filter the noTC and TC spreadsheets out of db_2021 before join. Need to
+# consider how to connect TC spreadsheet with docID (should work with TC_date)
+# add missings to a new sheet
+# TC data and same are fine as they are
+
 # Master list of uID, common name and species
 uID_list <- read_excel("data/data-raw/list uID.xlsx")
 
@@ -92,8 +131,8 @@ db_2021_thCWS %>%
   filter(N > 1) %>% nrow() == 0
 
 # Different Docs can use the same TC
-db_2021_thFJ2 %>%
-  group_by(uID, threat_num, TC_date) %>%
+db_2021_thFJ4 %>%
+  group_by(uID, threat_num, TC_date, docID) %>%
   summarise(N = n()) %>%
   filter(N > 1) %>% nrow() == 0
 
@@ -103,11 +142,11 @@ db_2021_thFJ2 %>%
 
 
 # combine the two data sets by adding in rows of CWS data that are not in FJ
-db_2021_thCWS_notFJ <- anti_join(db_2021_thCWS, db_2021_thFJ2,
+db_2021_thCWS_notFJ <- anti_join(db_2021_thCWS, db_2021_thFJ4,
                                  by = c("uID", "threat_num", "TC_date")) %>%
   select(-threat_name, -species)
 
-db_2021_th <- bind_rows(db_2021_thFJ2,
+db_2021_th <- bind_rows(db_2021_thFJ4,
                           db_2021_thCWS_notFJ)
 
 # 2021 Threats Data -------------------------------------------------------
@@ -126,7 +165,8 @@ db_2021_th <- db_2021_th %>%
                   str_replace("Unkown", "Unknown") %>%
                   str_replace("Sight", "Slight") %>%
                   str_replace("Neglibible", "Negligible"))) %>%
-  mutate(scope = str_replace(scope, "Medium", "Restricted"))
+  mutate(scope = str_replace(scope, "Medium", "Restricted") %>%
+           str_replace("Serious - Moderate", "Large - Restricted"))
 
 # format the threats to fit with the 2018 database
 db_2021_th_2 <- format_threats(db_2021_th)
@@ -179,7 +219,6 @@ db_2021_th_3 %>%
   group_by(uID, docID) %>%
   filter(n() > 1) %>% {nrow(.) == 0} %>% stopifnot()
 
-
 # Prepare the 2021 database -----------------------------------------------
 
 # Filter empty rows that were either docs that were not available or species
@@ -195,8 +234,8 @@ db_2021_2 <- db_2021 %>% filter(!(is.na(web_pub_date)|is.na(doc_citation)|
 # Check that uID, and TC_date and docID uniquely identify *This ought to be docID but we
 # didn't include it in TC datasheet. Problem is that sometimes the RS and SR
 # used same TC I added docID into threats above so should work
-db_2021_2 %>% group_by(uID, TC_date, docID) %>% summarise(N = n()) %>%
-  filter(N > 1) %>% {nrow(.) == 0} %>% stopifnot()
+db_2021_2 %>% group_by(uID, TC_date, docID) %>%
+  filter(n() > 1) %>% {nrow(.) == 0} %>% stopifnot()
 
 db_2021_3 <- coalesce_join(db_2021_2, db_2021_th_3, by = c("uID", "docID"))
 
@@ -262,6 +301,8 @@ db_2018_sr <- select(db_2018, all_of(sr_cols)) %>%
          status_appraisal_rapid_review = ifelse(is.na(status_appraisal), 0, 1),
          final = 1,
          amendment = 0) %>%
+  # All species with out a report in old db are in new db so remove old version
+  filter(COSEWIC_report == 1) %>%
   #remove columns that are no longer in use
   select(-all_of(c("COSEWIC_report", "genus", "taxonomic_group", "year_assessment",
             "cosewic_designation", "designation_change", "year_order_council",
@@ -330,7 +371,8 @@ db_2018_l2 <- read_excel("data/data-raw/Level 2 threats for 2018 database.xlsx",
                          Doc_type == "COSEWIC Status Report" ~ "COSEWIC Status Reports",
                          Doc_type == "Management Plan" ~ "Management Plans")
   ) %>%
-  rename(doc_type = Doc_type)
+  rename(doc_type = Doc_type) %>%
+  rename_with(~str_replace(.x, "_threat_notes", " notes"))
 
 # setdiff(colnames(db_2018_l2), colnames(db_2018_refor))
 
@@ -455,3 +497,74 @@ db_final_tc_to_add <- rows_patch(db_final_tc_to_add,
 
 db_final_2 <- rows_patch(db_final, db_final_tc_to_add,
                          by = c("uID", "docID"))
+
+# look for duplicates based on year published and uID
+# db_final_2 %>% group_by(uID, year_published, doc_type) %>%
+#   filter(n() > 1) %>%
+#   View()
+# These were re-published online after the 2018 data but were not actually new
+# we will keep the newly extracted versions since they have more data
+
+db_final_3 <- db_final_2 %>% group_by(uID, year_published, doc_type) %>%
+  filter(!(n() > 1 & is.na(web_pub_date)))
+
+# Prairie Skink old RS has no threats data. Shouldn't it have been added with level2?
+ # Threats were not extracted from old versions if the new one was included in 2021 db
+
+# filter out old docs that are not final when there is a newer version
+db_final_4 <- db_final_3 %>% group_by(uID, doc_type) %>%
+  filter(!(n() > 1 & final == 0 & is.na(web_pub_date))) %>%
+  ungroup()
+
+# there are still some RS that do not have threats. Less clear sometimes what
+# constitutes a new document. Ie round pigtoe had ammended RS in 2016 and then
+# another amendment in 2019. No threat data for the 2016 one.
+
+# reorder columns
+
+# shouldn't be NA for any doc
+col_meta <- c('uID', 'common_name', 'species', 'docID', 'doc_type', 'sara_status',
+             'doc_citation', 'url', 'web_pub_date', 'year_published',
+             'date_last_access', 'status_appraisal_rapid_review', 'final',
+             'amendment', 'large_taxonomic_group')
+
+# should be NA unless sr
+col_sr <- c('author', 'EOO', 'IAO', 'locations', 'endemic_NA',
+            'endemic_canada', 'continuous_USA')
+
+# should be NA unless RS or MP CHab is NA for MP also
+col_rs <- c('Critical_habitat', 'action_subtype', 'notes_action_subtype',
+            'CC_action', 'CC_action_subtype', 'notes_CC_action_subtype',
+            'action_type', 'CC_action_type')
+
+# in all docs
+col_CC <- c('CC_not_mentioned', 'CC_unknown', 'CC_in_knowledge_gap',
+            'CC_unknown_impact', 'CC_unknown_scope', 'CC_unknown_severity',
+            'CC_unknown_timing', 'CC_threat', 'Note on CC threat',
+            'CC_relative_impact')
+
+# in all docs
+col_tc <- c('threat_calculator', 'source', 'TC_version', 'TC_date', 'TC_assessors',
+            'TC_references', 'TC_calculated_overall_impact',
+            'TC_assigned_overall_impact', 'TC_impact_adjustment_reasons',
+            'TC_overall_comments')
+
+# in all docs
+th_nums <- db_final_4 %>% select(contains("identified")) %>% colnames() %>%
+  str_extract("\\d\\d?\\.?\\d?") %>%
+  as.numeric() %>% sort()
+
+col_th <- db_final_4 %>% select(starts_with("X")) %>% colnames() %>%
+  str_remove("X\\d\\d?\\.?\\d?") %>% unique()
+
+col_th <- map(th_nums, ~paste0("X", .x, col_th)) %>% unlist() %>%
+  str_subset("X\\d\\d?\\..* notes", negate = TRUE)
+
+db_final_5 <- db_final_4 %>%
+  select(all_of(col_meta), all_of(col_sr), all_of(col_rs), all_of(col_CC),
+         all_of(col_tc), all_of(col_th))
+
+# Do something about when the writers did not fill in level 1 but only level 2
+# Fill in large_taxonomic_group and sara_status
+#
+
