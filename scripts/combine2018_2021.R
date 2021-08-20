@@ -254,11 +254,11 @@ db_2021_5 <- db_2021_4 %>%
   mutate(action_type = map2_dfc(action_table2$data,
                                 action_table2$`Action Category2`,
                                ~ifelse(str_detect(action_subtype %>% tolower(),
-                                  .x), .y, "")),
+                                  .x), .y, NA)),
          CC_action_type = map2_dfc(action_table2$data,
                                    action_table2$`Action Category2`,
                                    ~ifelse(str_detect(CC_action_subtype %>% tolower(),
-                                                      .x), .y, ""))) %>%
+                                                      .x), .y, NA))) %>%
   mutate(action_type = paste(action_type$...1, action_type$...2,
                              action_type$...3, action_type$...4,
                              sep = ", ") %>%
@@ -268,10 +268,8 @@ db_2021_5 <- db_2021_4 %>%
                                 CC_action_type$...3, CC_action_type$...4,
                                 sep = ", ") %>%
            str_replace("^NA, NA, NA, NA$", NA_character_) %>%
-           str_replace_all("NA, |, NA|NA", ""))
+           str_remove_all("NA, |, NA|NA"))
 
-write.csv(db_2021_5, paste0("data/interim/DB2021_", Sys.Date(), ".csv"),
-          row.names = TRUE)
 
 rm(db_2021, db_2021_2, db_2021_3, db_2021_4, db_2021_th, db_2021_th_2,
    db_2021_th_3, db_2021_thCWS, db_2021_thCWS_notFJ, db_2021_thFJ,
@@ -518,19 +516,121 @@ db_final_4 <- db_final_3 %>% group_by(uID, doc_type) %>%
 
 # there are still some RS that do not have threats. Less clear sometimes what
 # constitutes a new document. Ie round pigtoe had ammended RS in 2016 and then
-# another amendment in 2019. No threat data for the 2016 one.
+# another amendment in 2019. No threat data for the 2016 one. Also seem FJ did
+# not extract threats for RS if species was in new data even if doc in new data
+# was just SR
+
+# find missing TC data
+filter(db_final_4, if_all(matches("X\\d\\..*identified"), ~is.na(.x)),
+       !sara_status %in% c("Not listed"), is.na(doc_citation)) %>%
+  write.csv("missingLevel2.csv", row.names = FALSE)
+
+# connect to Sar DMS data
+leg_list_data <- read_xlsx("data/data-raw/SARB_legal_list_2021_04_15.xlsx")
+
+col_ll <- c('COS_ID', 'LEG_ID', 'LEGAL NAME POPULATION (E)',
+            'SCIENTIFIC NAME (E)', 'COSEWIC COMMON NAME POPULATION (E)',
+            'TAXONMIC GROUP (E)', 'COSEWIC STATUS (E)', 'SARA STATUS (E)',
+            'RANGES (E)', 'COSEWIC EXAMINED DATE {E}', 'DATE OF LISTING (E)',
+            'MINISTER RECEIPT DATE (E)', 'RESPONSE DATE (E)',
+            'GIC RECEIPT DATE (E)', 'GIC DECISION DATE (E)',
+            'GIC DECISION (E)')
+
+leg_list_data <- leg_list_data %>%
+  select(all_of(col_ll)) %>%
+  rename_all(~str_replace(.x, " .E.$", "_sardms") %>%
+               str_replace_all(" ", "_") %>% str_to_lower()) %>%
+  mutate(cosewic_common_name_population_sardms =
+           str_remove_all(cosewic_common_name_population_sardms,
+                          "\\(|\\)") %>%
+           str_replace_all("’", "'") %>%
+           str_replace_all(" \\-| \\- |\\- ", "-") %>%
+           str_replace_all(" \\-| \\- |\\- ", "-") %>%
+           str_replace_all(" – ", "-") %>%
+           str_replace_all(" \\/| \\/ |\\/ ", "/")%>%
+           str_replace_all(" \\/| \\/ |\\/ ", "/") %>%
+           tolower()) %>%
+  mutate(across(where(~is(.x,"POSIXct")), ~as.character(as.Date(.x))))
+
+# Fix spelling of names to match SAR DMS
+db_final_5 <- db_final_4 %>%
+  mutate(common_name = common_name %>%
+           str_replace_all(" -| - |- ", "-") %>%
+           str_replace_all(" \\-| \\- |\\- ", "-") %>%
+           str_replace_all(" \\/| \\/ |\\/ ", "/") %>%
+           str_replace_all(" /| / |/ ", "/") %>%
+           str_replace_all("’", "'") %>%
+           str_replace_all("Coastrange Sculpin Cultus population",
+                           "Coastrange Sculpin Cultus Lake population") %>%
+           str_replace_all("Dolphin and Union Caribou",
+                           "Caribou Dolphin and Union population") %>%
+           tolower() %>%
+           str_replace("c stickleback",
+                       "c threespine stickleback") %>%
+           str_replace("grey fox", "gray fox") %>%
+           str_squish() %>%
+           str_replace("northern resident killer whales",
+                       "killer whale northeast pacific northern resident population") %>%
+           str_replace("offshore killer whale",
+                       "killer whale northeast pacific offshore population") %>%
+           str_replace("southern resident killer whales",
+                       "killer whale northeast pacific southern resident population") %>%
+           str_replace("northern saw-whet owl subspecies",
+                       "northern saw-whet owl brooksi subspecies") %>%
+           str_replace_all("rocky mountain sculpin eastslope \\(missouri river\\) populations",
+                       "rocky mountain sculpin missouri river populations") %>%
+           str_replace_all("rocky mountain sculpin eastslope \\(saskatchewan-nelson river\\) populations",
+                       "rocky mountain sculpin saskatchewan-nelson river populations") %>%
+           str_replace_all("rocky mountain sculpin westslope \\(pacific\\) populations",
+                       "rocky mountain sculpin pacific populations") %>%
+           str_replace("wavyrayed lampmussel", "wavy-rayed lampmussel") %>%
+           str_replace("western toad non.calling population",
+                       "western toad non-calling population") %>%
+           str_replace("westslope cutthroat trout alberta population \\(or saskatchewan-nelson river populations 2019\\)",
+                       "westslope cutthroat trout saskatchewan-nelson rivers populations") %>%
+           str_replace("island blue insulanus subspecies", "island blue") %>%
+           str_replace("rocky mountain sculpin westslope populations",
+                       "rocky mountain sculpin pacific populations") %>%
+           str_replace("red knot rufa subspecies",
+                       "red knot rufa subspecies tierra del fuego/patagonia wintering population")) %>%
+  left_join(leg_list_data,
+            by = c(common_name = "cosewic_common_name_population_sardms")) %>%
+  #combine the columns from each
+  mutate(large_taxonomic_group = case_when(
+    taxonmic_group_sardms %in% c("Reptiles", "Amphibians") ~ "Herpetofauna",
+    taxonmic_group_sardms %in% c("Lichens", "Mosses", "Vascular Plants") ~ "Plants",
+    taxonmic_group_sardms %in% c("Arthropods", "Molluscs") ~ "Invertebrates",
+    taxonmic_group_sardms %in% c("Fishes (marine)") ~ "Marine Fishes",
+    taxonmic_group_sardms %in% c("Fishes (freshwater)") ~ "Freshwater Fishes",
+    taxonmic_group_sardms %in% c("Mammals (terrestrial)") ~ "Terrestrial Mammals",
+    taxonmic_group_sardms %in% c("Mammals (marine)") ~ "Marine Mammals",
+    TRUE ~ taxonmic_group_sardms
+  )) %>%
+  mutate(across(contains("sardms"),
+                ~ifelse(lubridate::year(cosewic_examined_date_sardms) ==
+                          year_published &
+                          doc_type == "COSEWIC Status Reports",
+                        .x,
+                        NA))) %>%
+  select(-c(legal_name_population_sardms, scientific_name_sardms,
+            taxonmic_group_sardms, sara_status_sardms, cos_id,
+            leg_id)) %>%
+  rename_with(~str_remove(.x, "_sardms"))
 
 # reorder columns
 
 # shouldn't be NA for any doc
 col_meta <- c('uID', 'common_name', 'species', 'docID', 'doc_type', 'sara_status',
-             'doc_citation', 'url', 'web_pub_date', 'year_published',
-             'date_last_access', 'status_appraisal_rapid_review', 'final',
-             'amendment', 'large_taxonomic_group')
+              'doc_citation', 'url', 'web_pub_date', 'year_published',
+              'date_last_access', 'status_appraisal_rapid_review', 'final',
+              'amendment', 'large_taxonomic_group')
 
 # should be NA unless sr
 col_sr <- c('author', 'EOO', 'IAO', 'locations', 'endemic_NA',
-            'endemic_canada', 'continuous_USA')
+            'endemic_canada', 'continuous_USA', 'cosewic_status', 'ranges',
+            'cosewic_examined_date', 'date_of_listing', 'minister_receipt_date',
+            'response_date', 'gic_receipt_date', 'gic_decision_date',
+            'gic_decision')
 
 # should be NA unless RS or MP CHab is NA for MP also
 col_rs <- c('Critical_habitat', 'action_subtype', 'notes_action_subtype',
@@ -544,7 +644,7 @@ col_CC <- c('CC_not_mentioned', 'CC_unknown', 'CC_in_knowledge_gap',
             'CC_relative_impact')
 
 # in all docs
-col_tc <- c('threat_calculator', 'source', 'TC_version', 'TC_date', 'TC_assessors',
+col_tc <- c('threat_calculator', 'TC_version', 'TC_date', 'TC_assessors',
             'TC_references', 'TC_calculated_overall_impact',
             'TC_assigned_overall_impact', 'TC_impact_adjustment_reasons',
             'TC_overall_comments')
@@ -560,11 +660,40 @@ col_th <- db_final_4 %>% select(starts_with("X")) %>% colnames() %>%
 col_th <- map(th_nums, ~paste0("X", .x, col_th)) %>% unlist() %>%
   str_subset("X\\d\\d?\\..* notes", negate = TRUE)
 
-db_final_5 <- db_final_4 %>%
+db_final_6 <- db_final_5 %>%
   select(all_of(col_meta), all_of(col_sr), all_of(col_rs), all_of(col_CC),
-         all_of(col_tc), all_of(col_th))
+         all_of(col_tc), all_of(col_th)) %>%
+  rename_with(~str_replace_all(.x, " ", "_"))
 
-# Do something about when the writers did not fill in level 1 but only level 2
-# Fill in large_taxonomic_group and sara_status
-#
+# Do something about when the writers did not fill in level 1 but only level 2.
+# I will update threat identified but not the impact, severity, scope, timing
+# because they are supposed to be rolled up to level 2 based on whether the
+# threats overlap
+
+# look at rows with no level 1
+# db_final_6 %>% filter(X4_threat_identified == 0,
+# X4.1_threat_identified == 1|X4.2_threat_identified == 1|X4.3_threat_identified == 1)
+
+# easier to do with base R
+db_final_7 <- db_final_6
+
+for (i in 1:11) {
+  lev1 <- paste0("X", i, "_threat_identified")
+  lev2 <- paste0("X", th_nums[which(floor(th_nums) == i)],
+                 "_threat_identified") %>%
+  setdiff(lev1)
+
+  anylev2 <- rowSums(db_final_7[lev2], na.rm = TRUE) > 0
+
+  db_final_7[[lev1]] <- case_when(
+    db_final_7[[lev1]] == 0 & anylev2 ~ 1,
+    TRUE ~ db_final_7[[lev1]])
+}
+
+write.csv(db_final_7, paste0("data/data-out/CAN_SARD_", Sys.Date(), ".csv"),
+          row.names = FALSE)
+# seem to be missing TC data. Asked Florence to add.
+# 521 Goldenseal 292 Rocky Mountain Sculpin Westslope (Pacific) populations
+
+# assign tc_version based on which lev 2 threats are used
 
