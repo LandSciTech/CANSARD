@@ -15,12 +15,8 @@ devtools::load_all(".")
 # unzip("~/../Downloads/drive-download-20210806T150949Z-001.zip",
 #       exdir = "data/data-raw")
 
-# Get the current version of the db from SAR_Climate_Change folder and the
-# action type table
+# Get the current version of the db from SAR_Climate_Change folder
 db_2018 <- read.csv("../SAR_climate_change/SE_version/Threats_and_recovery/Analyses/data/data_wkg/Can_SAR_Database.csv")
-
-action_table <- read_xlsx("../SAR_climate_change/SE_version/Threats_and_recovery/Analyses/data/data_wkg/action_table.xlsx") %>%
-  select(`Action Descriptions`, `Action Category2`)
 
 # Get the data extracted from docs published after 2018 or species listed after
 # 2018
@@ -52,6 +48,11 @@ db_2021 <- mutate(
           as.Date()
       })
 )
+
+# Action table from google drive
+action_table <- read_excel("data/data-raw/Can_SAR_data_extraction v.current.xlsx",
+                           sheet = "Action Types", skip = 1) %>%
+  select(`Type of action`, `Action sub-types`)
 
 # Threats data for the 2021 db
 db_2021_thFJ <- read_excel("data/data-raw/Can_SAR_data_extraction v.current.xlsx",
@@ -245,18 +246,33 @@ db_2021_4 <- coalesce_join(db_2021_3,
                            join = left_join)
 
 # add action_type and CC_action_type based on subtypes.
-action_table2 <- action_table %>% group_by(`Action Category2`) %>%
+action_table2 <- action_table %>%
+  mutate(`Action sub-types` = tolower(`Action sub-types`)) %>%
+  group_by(`Type of action`) %>%
   nest() %>%
-  mutate(data = map(data, ~paste0(.x$`Action Descriptions`,
+  mutate(data = map(data, ~paste0(.x$`Action sub-types`,
                                   collapse = "|")))
 
 db_2021_5 <- db_2021_4 %>%
+  mutate(CC_action_subtype = str_replace(CC_action_subtype,
+                                         regex("manage human threats",
+                                               ignore_case = TRUE),
+                                         "regulate human activities") %>%
+           str_replace(regex("manage predation", ignore_case = TRUE),
+                       "Manage native species negatively impacting species at risk"),
+         action_subtype = str_replace(action_subtype,
+                                      regex("manage human threats",
+                                            ignore_case = TRUE),
+                                      "regulate human activities") %>%
+           str_replace(",,|, ,", ",") %>%
+           str_replace(regex("manage predation", ignore_case = TRUE),
+                       "Manage native species negatively impacting species at risk")) %>%
   mutate(action_type = map2_dfc(action_table2$data,
-                                action_table2$`Action Category2`,
+                                action_table2$`Type of action`,
                                ~ifelse(str_detect(action_subtype %>% tolower(),
                                   .x), .y, NA)),
          CC_action_type = map2_dfc(action_table2$data,
-                                   action_table2$`Action Category2`,
+                                   action_table2$`Type of action`,
                                    ~ifelse(str_detect(CC_action_subtype %>% tolower(),
                                                       .x), .y, NA))) %>%
   mutate(action_type = paste(action_type$...1, action_type$...2,
@@ -355,9 +371,30 @@ rm(db_2018, db_2018_mp, db_2018_rs, db_2018_sr)
 # level 2 threats identified in docs when no TC
 db_2018_l2 <- read_excel("data/data-raw/Level 2 threats for 2018 database.xlsx",
                          sheet = "Threats data (2018)",
-                         col_types = c(rep("guess", 8), "text", rep("guess", 73)),
+                         col_types = c(rep("guess", 9), "text", rep("guess", 73)),
                          skip = 1) %>%
   filter(`new data` == 0, threat_calculator == 0, !is.na(doc_citation)) %>%
+  mutate(
+    web_pub_date = str_replace(web_pub_date, "\\.0", "") %>%
+      janitor::convert_to_date(
+        character_fun = function(x){
+          lubridate::parse_date_time(x, orders = c("Y", "Ydm"), truncated = 3) %>%
+            as.Date()
+        }),
+    Doc_type = case_when(Doc_type == "Recovery Strategy" ~ "Recovery Strategies",
+                         Doc_type == "COSEWIC Status Report" ~ "COSEWIC Status Reports",
+                         Doc_type == "Management Plan" ~ "Management Plans")
+  ) %>%
+  rename(doc_type = Doc_type) %>%
+  rename_with(~str_replace(.x, "_threat_notes", " notes")) %>%
+  select(-docID)
+
+# meta data from l2 sheet for ones with tc
+db_2018_l2_tc <- read_excel("data/data-raw/Level 2 threats for 2018 database.xlsx",
+                         sheet = "Threats data (2018)",
+                         col_types = c(rep("guess", 9), "text", rep("guess", 73)),
+                         skip = 1) %>%
+  filter(`new data` == 0, threat_calculator == 1, !is.na(doc_citation)) %>%
   mutate(
     web_pub_date = str_replace(web_pub_date, "\\.0", "") %>%
       janitor::convert_to_date(
@@ -396,10 +433,10 @@ db_2018_th %>% group_by(uID, threat_num) %>% filter(n() > 1) %>%
 # format threats for database
 db_2018_th_2 <- format_threats(db_2018_th)
 
+# use docID to get docType from main sheet
 db_2018_th_3 <- db_2018_th_2 %>%
-  mutate(Doc_type = ifelse(Doc_type == "RS", "Recovery Strategies",
-                           "Management Plans")) %>%
-  rename(doc_type = Doc_type)
+  left_join(db_2018_l2_tc %>% select(uID, docID, doc_type), by = c("uID", "docID")) %>%
+  select(-docID)
 
 db_2018_th_3 %>% group_by(uID, doc_type) %>% filter(n() > 1) %>%
   {nrow(.) == 0} %>% stopifnot()
@@ -436,11 +473,15 @@ db_2018_refor_4 <- db_2018_refor_3 %>%
 # Th or En species which were initially ignored. Some RS and MP seem to have
 # been missed will add now but CC_action etc will be missing. This is the case
 # for many 2018 sp though
+
+# need to get species, and some other data before adding.
+toinsert <- db_2018_l2_tc %>% select(-`new data`, -`author SR`) %>%
+  anti_join(db_2018_refor_3,
+            by = c("uID", "doc_type")) %>%
+  mutate(docID = seq(2500, length.out = n()))
+
 db_2018_refor_5 <- db_2018_refor_4 %>%
-  rows_insert(db_2018_l2 %>% select(-`new data`, -`author SR`) %>%
-                anti_join(db_2018_refor_3,
-                        by = c("uID", "doc_type")) %>%
-                mutate(docID = seq(2500, length.out = n())),
+  rows_insert(toinsert,
               by = c("uID", "doc_type")) %>%
   mutate(across(matches("X\\d\\d?_.*identified"), as.numeric))
 
@@ -640,8 +681,7 @@ col_rs <- c('Critical_habitat', 'action_subtype', 'notes_action_subtype',
 # in all docs
 col_CC <- c('CC_not_mentioned', 'CC_unknown', 'CC_in_knowledge_gap',
             'CC_unknown_impact', 'CC_unknown_scope', 'CC_unknown_severity',
-            'CC_unknown_timing', 'CC_threat', 'Note on CC threat',
-            'CC_relative_impact')
+            'CC_unknown_timing', 'CC_threat', 'CC_relative_impact')
 
 # in all docs
 col_tc <- c('threat_calculator', 'TC_version', 'TC_date', 'TC_assessors',
@@ -663,7 +703,19 @@ col_th <- map(th_nums, ~paste0("X", .x, col_th)) %>% unlist() %>%
 db_final_6 <- db_final_5 %>%
   select(all_of(col_meta), all_of(col_sr), all_of(col_rs), all_of(col_CC),
          all_of(col_tc), all_of(col_th)) %>%
-  rename_with(~str_replace_all(.x, " ", "_"))
+  mutate(CC_action_subtype = str_replace(CC_action_subtype,
+                                         regex("manage human threats",
+                                               ignore_case = TRUE),
+                                         "regulate human activities") %>%
+           str_replace(regex("manage predation", ignore_case = TRUE),
+                       "Manage native species negatively impacting species at risk"),
+         action_subtype = str_replace(action_subtype,
+                                      regex("manage human threats",
+                                            ignore_case = TRUE),
+                                      "regulate human activities") %>%
+           str_replace(",,|, ,", ",") %>%
+           str_replace(regex("manage predation", ignore_case = TRUE),
+                       "Manage native species negatively impacting species at risk"))
 
 # Do something about when the writers did not fill in level 1 but only level 2.
 # I will update threat identified but not the impact, severity, scope, timing
@@ -689,6 +741,10 @@ for (i in 1:11) {
     db_final_7[[lev1]] == 0 & anylev2 ~ 1,
     TRUE ~ db_final_7[[lev1]])
 }
+
+# 11 recovery docs with out species etc b/c they were in FJs level 2 threats but
+# skipped in the 2018 db
+
 
 write.csv(db_final_7, paste0("data/data-out/CAN_SARD_", Sys.Date(), ".csv"),
           row.names = FALSE)
