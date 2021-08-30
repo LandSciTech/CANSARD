@@ -1,7 +1,10 @@
 context("testing the final database")
-
+library(dplyr)
+library(stringr)
 # load the database
-db <- read.csv("data/data-out/CAN_SARD_2021-08-20.csv", stringsAsFactors = FALSE)
+fls <- list.files("data/data-out/", full.names = TRUE)
+fls <- fls[which(file.mtime(fls) == max(file.mtime(fls)))]
+db <- read.csv(fls, stringsAsFactors = FALSE)
 
 # #Create db_expected and check vals are correct
 # db_expected <-  data.frame(colnms = colnames(db)) %>%

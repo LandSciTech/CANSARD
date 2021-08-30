@@ -33,7 +33,7 @@ ct[which(nms == "TC_date")] <- "guess"
 
 db_2021 <- read_excel("data/data-raw/Can_SAR_data_extraction v.current.xlsx",
                       sheet = "Extracted Data", skip = 2,
-                      na = c("NA", "N", "-"),
+                      na = c("NA",  "-"),
                       col_types = ct)
 
 # Fix TC_date Comes in as character with mixture of excel numeric
