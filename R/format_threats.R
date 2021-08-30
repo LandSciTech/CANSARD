@@ -69,9 +69,6 @@ format_threats <- function(df){
   df %>% ungroup() %>%
     mutate(
       threat_num = str_replace(threat_num, ",", "."),
-      threat_identified = if_else(str_detect(impact, "Not a Threat")|
-                                    is.na(impact),
-                                  0, 1),
       impact = recode_threat(impact, "impact", threat_code),
       scope = scope %>%
         str_replace("-- Uncertainty Ranges --", NA_character_) %>%
@@ -83,6 +80,18 @@ format_threats <- function(df){
         str_replace("-- Uncertainty Ranges --", NA_character_) %>%
         recode_threat("timing", threat_code)
     ) %>%
+    # if impact is NA but scope or severity are not then it should be based on that
+    mutate(
+      impact = case_when(is.na(impact) ~ case_when(scope == 1 | severity == 1 ~ 1,
+                                                   scope == 0 | severity == 0 ~ 0,
+                                                   scope == -1 | severity == -1 ~ -1,
+                                                   scope == -2 | severity == -2 ~ -2,
+                                                   is.na(scope) & !is.na(severity) ~ -1,
+                                                   !is.na(scope) & is.na(severity) ~ -1,
+                                                   TRUE ~ impact),
+                         TRUE ~ impact),
+      threat_identified = if_else(impact == 0|is.na(impact), 0, 1)
+      )%>%
     pivot_wider(id_cols = -impact_code,
                 names_from = threat_num,
                 names_prefix = "X", names_sep = "_iucn_",

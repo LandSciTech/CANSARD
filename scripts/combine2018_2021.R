@@ -700,9 +700,11 @@ col_th <- db_final_4 %>% select(starts_with("X")) %>% colnames() %>%
 col_th <- map(th_nums, ~paste0("X", .x, col_th)) %>% unlist() %>%
   str_subset("X\\d\\d?\\..* notes", negate = TRUE)
 
+# reorder cols
 db_final_6 <- db_final_5 %>%
   select(all_of(col_meta), all_of(col_sr), all_of(col_rs), all_of(col_CC),
          all_of(col_tc), all_of(col_th)) %>%
+  # fix values that don't match expected
   mutate(CC_action_subtype = str_replace(CC_action_subtype,
                                          regex("manage human threats",
                                                ignore_case = TRUE),
@@ -715,7 +717,18 @@ db_final_6 <- db_final_5 %>%
                                       "regulate human activities") %>%
            str_replace(",,|, ,", ",") %>%
            str_replace(regex("manage predation", ignore_case = TRUE),
-                       "Manage native species negatively impacting species at risk"))
+                       "Manage native species negatively impacting species at risk"),
+         CC_unknown_scope = str_replace(CC_unknown_scope, "Nr", "NR"),
+         # assign tc_version based on which lev 2 threats are used
+         TC_version = case_when(threat_calculator == 1 &
+                                  is.na(TC_version) &
+                                  !is.na(X8.4_threat_identified) ~ 2.3,
+                                threat_calculator == 1 &
+                                  is.na(TC_version) &
+                                  is.na(X8.4_threat_identified) ~ 1.1,
+                                TRUE ~ TC_version)
+         ) %>%
+  rename_with(~str_replace(.x, " ", "_"))
 
 # Do something about when the writers did not fill in level 1 but only level 2.
 # I will update threat identified but not the impact, severity, scope, timing
@@ -742,14 +755,8 @@ for (i in 1:11) {
     TRUE ~ db_final_7[[lev1]])
 }
 
-# 11 recovery docs with out species etc b/c they were in FJs level 2 threats but
-# skipped in the 2018 db
-
 
 write.csv(db_final_7, paste0("data/data-out/CAN_SARD_", Sys.Date(), ".csv"),
           row.names = FALSE)
-# seem to be missing TC data. Asked Florence to add.
-# 521 Goldenseal 292 Rocky Mountain Sculpin Westslope (Pacific) populations
 
-# assign tc_version based on which lev 2 threats are used
 

@@ -110,7 +110,7 @@ test_that("all values are in expected for that column", {
     mutate(fail_mess = paste0(colnms, ": ", fail))
 
   expect_true(all(pass4$pass),
-              label = paste0(fail_mess2$fail_mess, collapse = " and \\n"))
+              label = paste0(fail_mess2$fail_mess, collapse = " and \n\r"))
 })
 
 test_that("Data is not missing in required fields",{
@@ -118,6 +118,60 @@ test_that("Data is not missing in required fields",{
     group_by(colnms) %>%
     mutate(pass = pull(db, colnms)%>% is.na() %>% any() %>% `!`,
            nmissing = pull(db, colnms)%>% is.na() %>% sum())
+
+  fail_mess <- filter(missing_data, !pass) %>%
+    mutate(fail_mess = paste0("Column ", colnms," has ", nmissing, " missing values"))
+
+  expect_true(all(missing_data$pass),
+              label = paste0(fail_mess$fail_mess, collapse = " and \n\r"))
+})
+
+test_that("Data is internally consistent",{
+  id <- db %>% filter(CC_not_mentioned == 1, CC_threat == 1) %>% pull(docID)
+
+  expect_true(length(id) == 0,
+              label = paste0("CC_not_mentioned and CC_threat are both 1 for docID ",
+                             paste0(id, collapse = ", "), "\n"))
+
+  id <- db %>% filter(CC_not_mentioned == 1, CC_unknown == 1) %>% pull(docID)
+
+  expect_true(length(id) == 0,
+              label = paste0("CC_not_mentioned and CC_unknown are both 1 for docID ",
+                             paste0(id, collapse = ", "), "\n"))
+
+  th_nums <- db %>% select(contains("identified")) %>% colnames() %>%
+    str_extract("\\d\\d?\\.?\\d?") %>%
+    as.numeric() %>% sort()
+
+  notidedscpsev <- function(th_num){
+    col_th <- db %>% select(starts_with("X")) %>% colnames() %>%
+      str_remove("X\\d\\d?\\.?\\d?") %>% unique()
+
+    col_th <- map(th_num, ~paste0("X", .x, col_th)) %>% unlist() %>%
+      str_subset("notes|comments", negate = TRUE)
+
+    tim <- db %>% select(all_of(col_th)) %>% select(contains("timing"))
+    scp <- db %>% select(all_of(col_th)) %>% select(contains("scope"))
+    sev <- db %>% select(all_of(col_th)) %>% select(contains("severity"))
+    imp <- db %>% select(all_of(col_th)) %>% select(contains("impact"))
+    ided <- db %>% select(all_of(col_th)) %>% select(contains("identified"))
+
+    fail <- ifelse(ided == 0 & (scp != 0 & sev != 0 & tim > 2) &
+                     (!is.na(scp) & !is.na(sev)),
+                   TRUE, FALSE)
+    id <- db %>% filter(fail) %>% select(docID, common_name) %>% mutate(th_num = th_num)
+
+    if(length(id) > 0){
+      return(id)
+    } else {
+      return(NULL)
+    }
+
+  }
+
+  pass <- purrr::map_dfr(th_nums, notidedscpsev)
+
+  expect_true(nrow(pass) == 0)
 })
 
 
