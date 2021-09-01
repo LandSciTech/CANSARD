@@ -12,7 +12,7 @@ devtools::load_all(".")
 # https://drive.google.com/drive/folders/1p3SYAWkgI4GX8wsaw3UgXuf_twmuedHK?usp=sharing
 
 # unzip the file into data/data-raw Only do once
-# unzip("~/../Downloads/drive-download-20210806T150949Z-001.zip",
+# unzip("~/../Downloads/drive-download-20210901T194224Z-001.zip",
 #       exdir = "data/data-raw")
 
 # Get the current version of the db from SAR_Climate_Change folder
@@ -759,4 +759,22 @@ for (i in 1:11) {
 write.csv(db_final_7, paste0("data/data-out/CAN_SARD_", Sys.Date(), ".csv"),
           row.names = FALSE)
 
+# missing data #============================
 
+# There are 171 docs with data missing in important fields sara_status,
+# CC_not_mentioned, CC_threat, and CC_unknown.
+
+# 398 with missing doc_citation and web_pub_date and 880 with missing url. Do we
+# want to keep url
+
+# 51 with missing cosewic_status, ranges and cosewic_examinined_date because
+# they are older than the cosewic_examined_date so the data does not necessarily
+# still apply
+
+# 173 RS  and 55 MP are missing action type and subtype probably because CC was
+# not a threat in the status report so it was not extracted in the 2018 db
+
+# 139 docs with no level 1 threats. These are RS and MP from 2018 database
+
+# 266 docs with no level 2 threats. These include the above and old SR where l2
+# threats were not extracted because there was a new SR in the 2021 data

@@ -1,6 +1,7 @@
 context("testing the final database")
 library(dplyr)
 library(stringr)
+library(tidyr)
 # load the database
 fls <- list.files("data/data-out/", full.names = TRUE)
 fls <- fls[which(file.mtime(fls) == max(file.mtime(fls)))]
@@ -114,6 +115,7 @@ test_that("all values are in expected for that column", {
 })
 
 test_that("Data is not missing in required fields",{
+  # Fields that are never NA
   missing_data <- db_expected %>% filter(na_allowed == 0) %>%
     group_by(colnms) %>%
     mutate(pass = pull(db, colnms)%>% is.na() %>% any() %>% `!`,
@@ -124,6 +126,115 @@ test_that("Data is not missing in required fields",{
 
   expect_true(all(missing_data$pass),
               label = paste0(fail_mess$fail_mess, collapse = " and \n\r"))
+
+  # Fields not NA if SR
+  col_sr <- c('author', 'EOO', 'IAO', 'endemic_NA',
+              'endemic_canada', 'continuous_USA', 'cosewic_status', 'ranges',
+              'cosewic_examined_date')
+
+  # Note locations can be NA because sometimes it is not determined in the sr
+
+  missing_data_SR <- db_expected %>% filter(colnms %in% col_sr) %>%
+    group_by(colnms) %>%
+    mutate(pass = db %>% filter(doc_type == "COSEWIC Status Reports") %>%
+             pull(colnms) %>% is.na() %>% any() %>% `!`,
+           nmissing = db %>% filter(doc_type == "COSEWIC Status Reports") %>%
+             pull(colnms) %>% is.na() %>% sum())
+
+  fail_mess_SR <- filter(missing_data_SR, !pass) %>%
+    mutate(fail_mess = paste0("Column ", colnms," has ", nmissing, " missing values"))
+
+  expect_true(all(missing_data_SR$pass),
+              label = paste0("Missing in Status reports:\n\r",
+                             paste0(fail_mess_SR$fail_mess, collapse = " and \n\r")))
+
+  # Fields not NA if RS
+  col_rs <- c('Critical_habitat', 'action_subtype', 'CC_action', 'action_type')
+  col_rs_cc <- c('CC_action_subtype', 'CC_action_type')
+
+  missing_data_RS <- db_expected %>% filter(colnms %in% col_rs) %>%
+    group_by(colnms) %>%
+    mutate(pass = db %>% filter(doc_type == "Recovery Strategies") %>%
+             pull(colnms) %>% is.na() %>% any() %>% `!`,
+           nmissing = db %>% filter(doc_type == "Recovery Strategies") %>%
+             pull(colnms) %>% is.na() %>% sum())
+
+  missing_data_RS2 <- db_expected %>% filter(colnms %in% col_rs_cc) %>%
+    group_by(colnms) %>%
+    mutate(pass = db %>% filter(doc_type == "Recovery Strategies", CC_action == 1) %>%
+             pull(colnms) %>% is.na() %>% any() %>% `!`,
+           nmissing = db %>% filter(doc_type == "Recovery Strategies", CC_action == 1) %>%
+             pull(colnms) %>% is.na() %>% sum())
+
+  missing_data_RS <- bind_rows(missing_data_RS, missing_data_RS2)
+
+  fail_mess_RS <- filter(missing_data_RS, !pass) %>%
+    mutate(fail_mess = paste0("Column ", colnms," has ", nmissing, " missing values"))
+
+  expect_true(all(missing_data_RS$pass),
+              label = paste0("Missing in Recovery Strategies:\n\r",
+                             paste0(fail_mess_RS$fail_mess, collapse = " and \n\r")))
+
+  # Fields not NA if MP
+  col_mp <- c('action_subtype', 'CC_action', 'action_type')
+  col_mp_cc <- c('CC_action_subtype', 'CC_action_type')
+
+  missing_data_MP <- db_expected %>% filter(colnms %in% col_mp) %>%
+    group_by(colnms) %>%
+    mutate(pass = db %>% filter(doc_type == "Management Plans") %>%
+             pull(colnms) %>% is.na() %>% any() %>% `!`,
+           nmissing = db %>% filter(doc_type == "Management Plans") %>%
+             pull(colnms) %>% is.na() %>% sum())
+
+  missing_data_MP2 <- db_expected %>% filter(colnms %in% col_mp_cc) %>%
+    group_by(colnms) %>%
+    mutate(pass = db %>% filter(doc_type == "Management Plans", CC_action == 1) %>%
+             pull(colnms) %>% is.na() %>% any() %>% `!`,
+           nmissing = db %>% filter(doc_type == "Management Plans", CC_action == 1) %>%
+             pull(colnms) %>% is.na() %>% sum())
+
+  missing_data_MP <- bind_rows(missing_data_MP, missing_data_MP2)
+
+  fail_mess_MP <- filter(missing_data_MP, !pass) %>%
+    mutate(fail_mess = paste0("Column ", colnms," has ", nmissing, " missing values"))
+
+  expect_true(all(missing_data_MP$pass),
+              label = paste0("Missing in Management Plans:\n\r",
+                             paste0(fail_mess_MP$fail_mess, collapse = " and \n\r")))
+
+  # threat ided NA, should always be 0 or 1
+  th_l1_miss <- db %>% summarise(across(matches("^X\\d\\d?_threat_identified"),
+                          ~sum(is.na(.x)))) %>%
+    pivot_longer(everything()) %>%
+    filter(value > 0)
+  th_l2_miss <- db %>% summarise(across(c(matches("^X\\d\\d?\\..*_threat_identified"),
+                          -c(X8.4_threat_identified, X8.5_threat_identified,
+                             X8.6_threat_identified, X11.5_threat_identified)),
+                          ~sum(is.na(.x)))) %>%
+    pivot_longer(everything()) %>%
+    filter(value > 0)
+
+  expect_true(nrow(th_l1_miss) == 0,
+              label = paste0("Level 1 threat data is missing: \n\r",
+                             paste0(th_l1_miss$name, " has ", th_l1_miss$value,
+                                    " missing values", collapse = " and \n\r")))
+
+  expect_true(nrow(th_l2_miss) == 0,
+              label = paste0("Level 2 threat data is missing: \n\r",
+                             paste0(th_l2_miss$name, " has ", th_l2_miss$value,
+                                    " missing values", collapse = " and \n\r")))
+
+  # db %>% filter(if_all(matches("^X\\d\\d?\\..*_threat_identified"), is.na)) %>%
+  #   View
+  # db %>% filter(is.na(X7.2_threat_identified), !is.na(X1.1_threat_identified)) %>%
+  #   View
+
+  # tc = 1 then tc version not NA
+  tc_v_miss <- db %>% filter(threat_calculator == 1, is.na(TC_version)) %>%
+    pull(docID)
+  expect_true(length(tc_v_miss) == 0,
+              label = paste0("TC_version is missing for docID ",
+                     paste0(tc_v_miss, collapse = ", "), "\n"))
 })
 
 test_that("Data is internally consistent",{
@@ -139,6 +250,22 @@ test_that("Data is internally consistent",{
               label = paste0("CC_not_mentioned and CC_unknown are both 1 for docID ",
                              paste0(id, collapse = ", "), "\n"))
 
+  id <- db %>%
+    filter(CC_threat == 1, CC_relative_impact == 0 |is.na(CC_relative_impact)) %>%
+    pull(docID)
+
+  expect_true(length(id) == 0,
+              label = paste0("CC_threat is 1 and relative impact is not > 0 for docID ",
+                             paste0(id, collapse = ", "), "\n"))
+
+  id <- db %>%
+    filter(CC_threat == 0, CC_relative_impact > 0) %>%
+    pull(docID)
+
+  expect_true(length(id) == 0,
+              label = paste0("CC_threat is 0 and relative impact is > 0 for docID ",
+                             paste0(id, collapse = ", "), "\n"))
+
   th_nums <- db %>% select(contains("identified")) %>% colnames() %>%
     str_extract("\\d\\d?\\.?\\d?") %>%
     as.numeric() %>% sort()
@@ -147,7 +274,7 @@ test_that("Data is internally consistent",{
     col_th <- db %>% select(starts_with("X")) %>% colnames() %>%
       str_remove("X\\d\\d?\\.?\\d?") %>% unique()
 
-    col_th <- map(th_num, ~paste0("X", .x, col_th)) %>% unlist() %>%
+    col_th <- purrr::map(th_num, ~paste0("X", .x, col_th)) %>% unlist() %>%
       str_subset("notes|comments", negate = TRUE)
 
     tim <- db %>% select(all_of(col_th)) %>% select(contains("timing"))
@@ -168,10 +295,84 @@ test_that("Data is internally consistent",{
     }
 
   }
+  fail <- purrr::map_dfr(th_nums, notidedscpsev)
 
-  pass <- purrr::map_dfr(th_nums, notidedscpsev)
-
-  expect_true(nrow(pass) == 0)
+  expect_true(nrow(fail) == 0,
+              label = "Threats that should be identified based on scope, severity and timing are not")
+  if(nrow(fail) > 0){
+    print(fail)
+  }
 })
 
+# Make a csv with all rows with missing data
+if(interactive()){
+  has_missing <- function(df){
+    col_all <- db_expected %>% filter(na_allowed == 0) %>% pull(colnms) %>%
+      str_subset("url", TRUE)
 
+    col_sr <- c('author', 'EOO', 'IAO', 'endemic_NA',
+                'endemic_canada', 'continuous_USA', 'cosewic_status', 'ranges',
+                'cosewic_examined_date')
+
+    col_rs <- c('Critical_habitat', 'action_subtype', 'CC_action', 'action_type')
+    col_rs_cc <- c('CC_action_subtype', 'CC_action_type')
+
+    col_mp <- c('action_subtype', 'CC_action', 'action_type')
+    col_mp_cc <- c('CC_action_subtype', 'CC_action_type')
+
+    col_th1 <- db %>% select(matches("^X\\d\\d?_threat_identified")) %>%
+      colnames()
+
+    col_th2 <- db %>% select(matches("^X\\d\\d?\\..*_threat_identified")) %>%
+      colnames()
+
+    col_tc <- "TC_version"
+
+    meta <- df %>% mutate(across(all_of(col_all), is.na)) %>%
+      rowwise() %>%
+      mutate(miss_meta = col_all[which(c_across(all_of(col_all)))] %>%
+               paste0(collapse = ", "))
+
+    sr <- df %>%
+      filter(doc_type == "COSEWIC Status Reports") %>%
+      mutate(across(all_of(col_sr), is.na)) %>%
+      rowwise() %>%
+      mutate(miss_sr = col_sr[which(c_across(all_of(col_sr)))] %>%
+               paste0(collapse = ", "))
+
+    rs <- df %>%
+      filter(doc_type == "Recovery Strategies") %>%
+      mutate(across(all_of(col_rs), is.na)) %>%
+      rowwise() %>%
+      mutate(miss_rs = col_rs[which(c_across(all_of(col_rs)))] %>%
+               paste0(collapse = ", "))
+
+    mp <- df %>%
+      filter(doc_type == "Management Plans") %>%
+      mutate(across(all_of(col_mp), is.na)) %>%
+      rowwise() %>%
+      mutate(miss_mp = col_mp[which(c_across(all_of(col_mp)))] %>%
+               paste0(collapse = ", "))
+
+    rsmp_cc <- df %>%
+      filter(doc_type %in% c("Management Plans", "Recovery Strategies"),
+             CC_threat == 1) %>%
+      mutate(across(all_of(col_mp_cc), is.na)) %>%
+      rowwise() %>%
+      mutate(miss_rsmp_cc = col_mp_cc[which(c_across(all_of(col_mp_cc)))] %>%
+               paste0(collapse = ", "))
+
+    tc <- df %>%
+      filter(threat_calculator == 1) %>%
+      mutate(across(all_of(col_tc), is.na)) %>%
+      rowwise() %>%
+      mutate(miss_tcv = col_tc[which(c_across(all_of(col_tc)))] %>%
+               paste0(collapse = ", "))
+
+    th1 <- df %>% mutate(across(all_of(col_th1), is.na)) %>%
+      rowwise() %>%
+      mutate(miss_th1 = col_th1[which(c_across(all_of(col_th1)))] %>%
+               paste0(collapse = ", "))
+    # TO finish
+  }
+}
