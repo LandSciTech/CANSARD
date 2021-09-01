@@ -96,7 +96,10 @@ format_threats <- function(df){
                 names_from = threat_num,
                 names_prefix = "X", names_sep = "_iucn_",
                 values_from = c(threat_identified, impact, scope, severity,
-                                timing, comments)) %>%
+                                timing, comments),
+                values_fill = list(threat_identified = 0, impact = NA_real_,
+                                   scope = NA_real_, severity = NA_real_,
+                                   timing = NA_real_, comments = NA_character_)) %>%
     # mutate(TC_calculated_overall_impact = recode_threat(TC_calculated_overall_impact,
     #                                                     "impact", threat_code),
     #        TC_assigned_overall_impact = recode_threat(TC_assigned_overall_impact,
