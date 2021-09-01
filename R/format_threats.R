@@ -66,7 +66,7 @@ recode_threat <- Vectorize(function(x, var, threat_code = threat_code){
 
 
 format_threats <- function(df){
-  df %>% ungroup() %>%
+  df_out <- df %>% ungroup() %>%
     mutate(
       threat_num = str_replace(threat_num, ",", "."),
       impact = recode_threat(impact, "impact", threat_code),
@@ -106,6 +106,39 @@ format_threats <- function(df){
     #                                                   "impact", threat_code)) %>%
     rename_all(~str_replace(.x, "(^.{1,17})_iucn_(X.*$)", "\\2_iucn_\\1") %>%
                  str_replace("iucn_threat", "threat"))
+
+  th_cols <- c("X1_threat_identified", "X1.1_threat_identified", "X1.2_threat_identified",
+               "X1.3_threat_identified", "X2_threat_identified", "X2.1_threat_identified",
+               "X2.2_threat_identified", "X2.3_threat_identified", "X2.4_threat_identified",
+               "X3_threat_identified", "X3.1_threat_identified", "X3.2_threat_identified",
+               "X3.3_threat_identified", "X4_threat_identified", "X4.1_threat_identified",
+               "X4.2_threat_identified", "X4.3_threat_identified", "X4.4_threat_identified",
+               "X5_threat_identified", "X5.1_threat_identified", "X5.2_threat_identified",
+               "X5.3_threat_identified", "X5.4_threat_identified", "X6_threat_identified",
+               "X6.1_threat_identified", "X6.2_threat_identified", "X6.3_threat_identified",
+               "X7_threat_identified", "X7.1_threat_identified", "X7.2_threat_identified",
+               "X7.3_threat_identified", "X8_threat_identified", "X8.1_threat_identified",
+               "X8.2_threat_identified", "X8.3_threat_identified", "X9_threat_identified",
+               "X9.1_threat_identified", "X9.2_threat_identified", "X9.3_threat_identified",
+               "X9.4_threat_identified", "X9.5_threat_identified", "X9.6_threat_identified",
+               "X10_threat_identified", "X10.1_threat_identified", "X10.2_threat_identified",
+               "X10.3_threat_identified", "X11_threat_identified", "X11.1_threat_identified",
+               "X11.2_threat_identified", "X11.3_threat_identified", "X11.4_threat_identified",
+               "X8.4_threat_identified", "X8.5_threat_identified", "X8.6_threat_identified",
+               "X11.5_threat_identified")
+
+  #add any missing threat nums
+  cols_to_add <- setdiff(th_cols, colnames(df_out))
+
+  if(length(cols_to_add) > 0){
+    alt_df <- as.data.frame(matrix(0, ncol = length(cols_to_add)))
+    colnames(alt_df) <- cols_to_add
+
+    df_out <- bind_cols(df_out, alt_df)
+  }
+
+  return(df_out)
+
 }
 
 check_threats <- function(df){
