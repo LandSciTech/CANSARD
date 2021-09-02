@@ -3,6 +3,10 @@
 #' Join two dfs and then combine duplicate columns by replacing NAs in x
 #' with y
 #'
+#' @param x first data frame
+#' @param y second data frame
+#' @param by columns to join by
+#' @param join type of join
 
 coalesce_join <- function(x, y, by, join = full_join){
   x %>%

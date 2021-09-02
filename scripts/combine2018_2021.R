@@ -11,9 +11,9 @@ devtools::load_all(".")
 # Download the data from google drive
 # https://drive.google.com/drive/folders/1p3SYAWkgI4GX8wsaw3UgXuf_twmuedHK?usp=sharing
 
-# unzip the file into data/data-raw Only do once
+# unzip the file into data-raw/data-raw Only do once
 # unzip("~/../Downloads/drive-download-20210901T194224Z-001.zip",
-#       exdir = "data/data-raw")
+#       exdir = "data-raw/data-raw")
 
 # Get the current version of the db from SAR_Climate_Change folder
 db_2018 <- read.csv("../SAR_climate_change/SE_version/Threats_and_recovery/Analyses/data/data_wkg/Can_SAR_Database.csv")
@@ -21,7 +21,7 @@ db_2018 <- read.csv("../SAR_climate_change/SE_version/Threats_and_recovery/Analy
 # Get the data extracted from docs published after 2018 or species listed after
 # 2018
 # Have to specify some col types that are being read wrong
-nms <- read_xlsx("data/data-raw/Can_SAR_data_extraction v.current.xlsx",
+nms <- read_xlsx("data-raw/data-raw/Can_SAR_data_extraction v.current.xlsx",
                  sheet = "Extracted Data", skip = 2,
                  na = "NA",
                  n_max = 0) %>% names()
@@ -31,7 +31,7 @@ ct <- case_when(str_detect(nms, "Date|DATE|date") ~ "date",
 # TC_date needs to be dealt with separately
 ct[which(nms == "TC_date")] <- "guess"
 
-db_2021 <- read_excel("data/data-raw/Can_SAR_data_extraction v.current.xlsx",
+db_2021 <- read_excel("data-raw/data-raw/Can_SAR_data_extraction v.current.xlsx",
                       sheet = "Extracted Data", skip = 2,
                       na = c("NA",  "-"),
                       col_types = ct)
@@ -50,12 +50,12 @@ db_2021 <- mutate(
 )
 
 # Action table from google drive
-action_table <- read_excel("data/data-raw/Can_SAR_data_extraction v.current.xlsx",
+action_table <- read_excel("data-raw/data-raw/Can_SAR_data_extraction v.current.xlsx",
                            sheet = "Action Types", skip = 1) %>%
   select(`Type of action`, `Action sub-types`)
 
 # Threats data for the 2021 db
-db_2021_thFJ <- read_excel("data/data-raw/Can_SAR_data_extraction v.current.xlsx",
+db_2021_thFJ <- read_excel("data-raw/data-raw/Can_SAR_data_extraction v.current.xlsx",
                          sheet = "Threats Calculator Data",
                          range = "A1:I7828",
                          #col_types = c(rep("guess", 9), "date", rep("guess", 7)),
@@ -73,7 +73,7 @@ db_2021_thFJ2 <- left_join(db_2021_thFJ,
                            db_2021_tolink,
                            by = "uID")
 
-db_2021_thmissing <-read_excel("data/data-raw/Can_SAR_data_extraction v.current.xlsx",
+db_2021_thmissing <-read_excel("data-raw/data-raw/Can_SAR_data_extraction v.current.xlsx",
                                sheet = "TC to Add",
                                #col_types = c(rep("guess", 9), "date", rep("guess", 7)),
                                na = "NA") %>%
@@ -83,7 +83,7 @@ db_2021_thFJ3 <- bind_rows(db_2021_thFJ2, db_2021_thmissing)
 
 # Threats data automatically extracted from threats calculator spreadsheets
 # provided by CWS with uIDs added by hand by FJ
-db_2021_thCWS <- read_excel("data/data-raw/Can_SAR_data_extraction v.current.xlsx",
+db_2021_thCWS <- read_excel("data-raw/data-raw/Can_SAR_data_extraction v.current.xlsx",
                             sheet = "TC Spreadsheet Data",
                             range = "A1:Q8358",
                             na = "NA") %>%
@@ -115,7 +115,7 @@ db_2021_thFJ4 <- bind_rows(db_2021_thFJ3, db_2021_addCWS)
 #   group_by(uID) %>%
 #   filter(n() > 1) %>%
 #   arrange(uID) %>%
-#   write.csv("data/interim/check_dub_tcs.csv")
+#   write.csv("data-raw/interim/check_dub_tcs.csv")
 
 # filter the noTC and TC spreadsheets out of db_2021 before join. Need to
 # consider how to connect TC spreadsheet with docID (should work with TC_date)
@@ -123,7 +123,7 @@ db_2021_thFJ4 <- bind_rows(db_2021_thFJ3, db_2021_addCWS)
 # TC data and same are fine as they are
 
 # Master list of uID, common name and species
-uID_list <- read_excel("data/data-raw/list uID.xlsx")
+uID_list <- read_excel("data-raw/data-raw/list uID.xlsx")
 
 # check that each uID threat_num is unique
 db_2021_thCWS %>%
@@ -196,12 +196,12 @@ db_2021_th_3 <- filter(db_2021_th_2, if_any(matches("X.*iucn"), ~!is.na(.x)))
 # dupDifs <- purrr::map_dfr(unique(db_2021_th_3dups$uID), showDifs,
 #                           df = db_2021_th_3dups)
 #
-# write.csv(dupDifs, "data/data-raw/reconcileDuplicates.csv", row.names = FALSE)
+# write.csv(dupDifs, "data-raw/data-raw/reconcileDuplicates.csv", row.names = FALSE)
 #
 # # those with keep_both == 0 are the same with mostly changes from NA to not
 # # applicable. Those where there was a real difference I checked manually and
 # # recorded the docID
-# dupDifs <- read.csv("data/data-raw/reconcileDuplicates.csv")
+# dupDifs <- read.csv("data-raw/data-raw/reconcileDuplicates.csv")
 #
 # true_dups <- filter(dupDifs, keep_both == 0) %>% pull(uID) %>% unique()
 #
@@ -369,7 +369,7 @@ rm(db_2018, db_2018_mp, db_2018_rs, db_2018_sr)
 
 # Add level 2 threats for 2018 database -----------------------------------
 # level 2 threats identified in docs when no TC
-db_2018_l2 <- read_excel("data/data-raw/Level 2 threats for 2018 database.xlsx",
+db_2018_l2 <- read_excel("data-raw/data-raw/Level 2 threats for 2018 database.xlsx",
                          sheet = "Threats data (2018)",
                          col_types = c(rep("guess", 9), "text", rep("guess", 73)),
                          skip = 1) %>%
@@ -393,7 +393,7 @@ db_2018_l2 <- read_excel("data/data-raw/Level 2 threats for 2018 database.xlsx",
   mutate(across(contains("identified"), as.numeric))
 
 # meta data from l2 sheet for ones with tc
-db_2018_l2_tc <- read_excel("data/data-raw/Level 2 threats for 2018 database.xlsx",
+db_2018_l2_tc <- read_excel("data-raw/data-raw/Level 2 threats for 2018 database.xlsx",
                          sheet = "Threats data (2018)",
                          col_types = c(rep("guess", 9), "text", rep("guess", 73)),
                          skip = 1) %>%
@@ -423,7 +423,7 @@ db_2018_refor %>% group_by(uID, doc_type) %>% filter(n() > 1) %>%
   {nrow(.) == 0} %>% stopifnot()
 
 # level 2 threats in recovery docs when tc used
-db_2018_th <- read_excel("data/data-raw/Level 2 threats for 2018 database.xlsx",
+db_2018_th <- read_excel("data-raw/data-raw/Level 2 threats for 2018 database.xlsx",
                          sheet = "TC data (RS-MP 2018)",
                          na = "NA") %>%
   mutate(source = "Hand Extraction")
@@ -582,7 +582,7 @@ db_final_4 <- db_final_3 %>% group_by(uID, doc_type) %>%
 #   write.csv("missingLevel2.csv", row.names = FALSE)
 
 # connect to Sar DMS data
-leg_list_data <- read_xlsx("data/data-raw/SARB_legal_list_2021_04_15.xlsx")
+leg_list_data <- read_xlsx("data-raw/data-raw/SARB_legal_list_2021_04_15.xlsx")
 
 col_ll <- c('COS_ID', 'LEG_ID', 'LEGAL NAME POPULATION (E)',
             'SCIENTIFIC NAME (E)', 'COSEWIC COMMON NAME POPULATION (E)',
@@ -771,7 +771,7 @@ for (i in 1:11) {
 }
 
 
-write.csv(db_final_7, paste0("data/data-out/CAN_SARD_", Sys.Date(), ".csv"),
+write.csv(db_final_7, paste0("data-raw/data-out/CAN_SARD_", Sys.Date(), ".csv"),
           row.names = FALSE)
 
 # missing data #============================

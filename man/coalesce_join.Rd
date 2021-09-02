@@ -6,6 +6,15 @@
 \usage{
 coalesce_join(x, y, by, join = full_join)
 }
+\arguments{
+\item{x}{first data frame}
+
+\item{y}{second data frame}
+
+\item{by}{columns to join by}
+
+\item{join}{type of join}
+}
 \description{
 Join two dfs and then combine duplicate columns by replacing NAs in x
 with y
