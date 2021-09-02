@@ -30,10 +30,12 @@ threat_code <- structure(
 #' @param var which threat component is being converted
 #' @param threat_code A data.frame with corresponding threat levels and codes
 #'
-#' @return
+#' @return a data.frame
 #' @export
-#'
-#' @examples
+#' @import dplyr
+#' @import tidyr
+#' @import stringr
+
 recode_threat <- Vectorize(function(x, var, threat_code = threat_code){
   if(is.na(x)){
     return(NA_real_)

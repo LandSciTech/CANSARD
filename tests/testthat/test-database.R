@@ -3,7 +3,8 @@ library(dplyr)
 library(stringr)
 library(tidyr)
 # load the database
-fls <- list.files("data/data-out/", full.names = TRUE)
+dat_pth <- "../../data/"
+fls <- list.files(paste0(dat_pth, "data-out/"), full.names = TRUE)
 fls <- fls[which(file.mtime(fls) == max(file.mtime(fls)))]
 db <- read.csv(fls, stringsAsFactors = FALSE)
 
@@ -18,7 +19,7 @@ db <- read.csv(fls, stringsAsFactors = FALSE)
 
 # write.csv(db_expected, "data/interim/expectedValues2.csv", quote = TRUE, row.names = FALSE)
 
-db_expected <- read.csv("data/interim/expectedValues.csv")
+db_expected <- read.csv(paste0(dat_pth, "interim/expectedValues.csv"))
 
 test_that("all values are in expected for that column", {
   # see db_expected for vars that have a specific list of possible values
@@ -400,7 +401,8 @@ if(interactive()){
   }
   db_miss <- has_missing(db)
 
-  write.csv(db_miss, "data/interim/CAN_SARD_missing_data.csv", row.names = FALSE)
+  write.csv(db_miss, paste0(dat_pth, "interim/CAN_SARD_missing_data.csv"),
+            row.names = FALSE)
 
   # TODO on reading in: determine action_types and CC_action_type from
   # action_subtypes, process tc data

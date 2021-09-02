@@ -1,3 +1,5 @@
-^Can_SAR_database\.Rproj$
+^CANSARD\.Rproj$
 ^\.Rproj\.user$
 ^data-raw$
+^\.github$
+^README\.Rmd$
