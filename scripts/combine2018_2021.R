@@ -373,7 +373,9 @@ db_2018_l2 <- read_excel("data/data-raw/Level 2 threats for 2018 database.xlsx",
                          sheet = "Threats data (2018)",
                          col_types = c(rep("guess", 9), "text", rep("guess", 73)),
                          skip = 1) %>%
-  filter(`new data` == 0, threat_calculator == 0, !is.na(doc_citation)) %>%
+  filter(`new data` == 0,
+         threat_calculator == 0,
+         !is.na(doc_citation)) %>%
   mutate(
     web_pub_date = str_replace(web_pub_date, "\\.0", "") %>%
       janitor::convert_to_date(
@@ -387,7 +389,8 @@ db_2018_l2 <- read_excel("data/data-raw/Level 2 threats for 2018 database.xlsx",
   ) %>%
   rename(doc_type = Doc_type) %>%
   rename_with(~str_replace(.x, "_threat_notes", " notes")) %>%
-  select(-docID)
+  select(-docID) %>%
+  mutate(across(contains("identified"), as.numeric))
 
 # meta data from l2 sheet for ones with tc
 db_2018_l2_tc <- read_excel("data/data-raw/Level 2 threats for 2018 database.xlsx",
@@ -407,7 +410,8 @@ db_2018_l2_tc <- read_excel("data/data-raw/Level 2 threats for 2018 database.xls
                          Doc_type == "Management Plan" ~ "Management Plans")
   ) %>%
   rename(doc_type = Doc_type) %>%
-  rename_with(~str_replace(.x, "_threat_notes", " notes"))
+  rename_with(~str_replace(.x, "_threat_notes", " notes"))%>%
+  mutate(across(contains("identified"), as.numeric))
 
 # setdiff(colnames(db_2018_l2), colnames(db_2018_refor))
 
@@ -433,12 +437,18 @@ db_2018_th %>% group_by(uID, threat_num) %>% filter(n() > 1) %>%
 # format threats for database
 db_2018_th_2 <- format_threats(db_2018_th)
 
-# use docID to get docType from main sheet
-db_2018_th_3 <- db_2018_th_2 %>%
-  left_join(db_2018_l2_tc %>% select(uID, docID, doc_type), by = c("uID", "docID")) %>%
-  select(-docID)
+# need to add new columns to db_2018_l2_tc
+cols_to_add <- setdiff(colnames(db_2018_th_2), colnames(db_2018_l2_tc))[-1:-2]
 
-db_2018_th_3 %>% group_by(uID, doc_type) %>% filter(n() > 1) %>%
+alt_df <- as.data.frame(matrix(ncol = length(cols_to_add)))
+colnames(alt_df) <- cols_to_add
+
+db_2018_l2_tc2 <- bind_cols(db_2018_l2_tc, alt_df) %>%
+  # update threats into db_2018_l2_tc
+  rows_update(db_2018_th_2 %>% select(-c(Year, source)),
+              by = c("uID", "docID", "common_name"))
+
+db_2018_l2_tc2 %>% group_by(uID, doc_type) %>% filter(n() > 1) %>%
   {nrow(.) == 0} %>% stopifnot()
 # changed in source uID 398 Year was 2016 instead of 2017 for 1 threat_num
 
@@ -447,12 +457,13 @@ db_2018_refor %>% group_by(uID, doc_type) %>% filter(n() > 1) %>%
 
 db_2018_l2 %>% group_by(uID, doc_type) %>% filter(n() > 1) %>%
   {nrow(.) == 0} %>% stopifnot()
-# combine all three into one. for Rs mp threats can use patch since should be NA
-# in db_2018. For l2 threats FJ made some changes to level 1 threats as well so
+# combine all three into one. For l2 threats FJ made some changes to level 1 threats as well so
 # should update. Should not be any uIDs that are not in db_2018
 
 # need to add new columns to db_2018_refor
-cols_to_add <- c(setdiff(colnames(db_2018_th_3), colnames(db_2018_refor))[-1],
+cols_to_add <- c(setdiff(setdiff(colnames(db_2018_l2_tc2),
+                                 colnames(db_2018_l2))[-1],
+                 colnames(db_2018_refor)),
                  setdiff(colnames(db_2018_l2), colnames(db_2018_refor))[-1:-2])
 
 alt_df <- as.data.frame(matrix(ncol = length(cols_to_add)))
@@ -460,10 +471,14 @@ colnames(alt_df) <- cols_to_add
 db_2018_refor_2 <- bind_cols(db_2018_refor, alt_df)
 
 db_2018_refor_3 <- db_2018_refor_2 %>%
-  rows_patch(db_2018_th_3 %>% select(-Year), by = c("uID", "doc_type"))
-
-db_2018_refor_4 <- db_2018_refor_3 %>%
   rows_update(db_2018_l2 %>% select(-`new data`, -`author SR`) %>%
+                # select rows with match in db2018
+                semi_join(db_2018_refor_2, by = c("uID", "doc_type")),
+              by = c("uID", "doc_type"))
+
+# use patch becasue some already have tc data that was not in l2
+db_2018_refor_4 <- db_2018_refor_3 %>%
+  rows_patch(db_2018_l2_tc2 %>% select(-`new data`, -`author SR`, -docID) %>%
                 # select rows with match in db2018
                 semi_join(db_2018_refor_3, by = c("uID", "doc_type")),
               by = c("uID", "doc_type"))
@@ -476,7 +491,7 @@ db_2018_refor_4 <- db_2018_refor_3 %>%
 
 # need to get species, and some other data before adding.
 toinsert <- db_2018_l2_tc %>% select(-`new data`, -`author SR`) %>%
-  anti_join(db_2018_refor_3,
+  anti_join(db_2018_refor_4,
             by = c("uID", "doc_type")) %>%
   mutate(docID = seq(2500, length.out = n()))
 
@@ -761,17 +776,17 @@ write.csv(db_final_7, paste0("data/data-out/CAN_SARD_", Sys.Date(), ".csv"),
 
 # missing data #============================
 
-# There are 171 docs with data missing in important fields sara_status,
+# There are 139 docs with data missing in important fields sara_status,
 # CC_not_mentioned, CC_threat, and CC_unknown.
 
-# 398 with missing doc_citation and web_pub_date and 880 with missing url. Do we
+# 290 with missing doc_citation and web_pub_date and 880 with missing url. Do we
 # want to keep url
 
 # 51 with missing cosewic_status, ranges and cosewic_examinined_date because
 # they are older than the cosewic_examined_date so the data does not necessarily
 # still apply
 
-# 173 RS  and 55 MP are missing action type and subtype probably because CC was
+# 172 RS  and 56 MP are missing action type and subtype probably because CC was
 # not a threat in the status report so it was not extracted in the 2018 db
 
 # 139 docs with no level 1 threats. These are RS and MP from 2018 database
