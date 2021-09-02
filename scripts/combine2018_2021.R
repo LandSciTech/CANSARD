@@ -576,10 +576,10 @@ db_final_4 <- db_final_3 %>% group_by(uID, doc_type) %>%
 # not extract threats for RS if species was in new data even if doc in new data
 # was just SR
 
-# find missing TC data
-filter(db_final_4, if_all(matches("X\\d\\..*identified"), ~is.na(.x)),
-       !sara_status %in% c("Not listed"), is.na(doc_citation)) %>%
-  write.csv("missingLevel2.csv", row.names = FALSE)
+# # find missing TC data captured in test-database now
+# filter(db_final_4, if_all(matches("X\\d\\..*identified"), ~is.na(.x)),
+#        !sara_status %in% c("Not listed"), is.na(doc_citation)) %>%
+#   write.csv("missingLevel2.csv", row.names = FALSE)
 
 # connect to Sar DMS data
 leg_list_data <- read_xlsx("data/data-raw/SARB_legal_list_2021_04_15.xlsx")
