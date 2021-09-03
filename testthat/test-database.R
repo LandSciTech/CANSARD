@@ -3,8 +3,6 @@ library(dplyr)
 library(stringr)
 library(tidyr)
 # load the database
-stop(getwd())
-# need to change this because it does not work for running tests in RCMDCHEck
 dat_pth <- "../data-raw/"
 fls <- list.files(paste0(dat_pth, "data-out/"), full.names = TRUE)
 fls <- fls[which(file.mtime(fls) == max(file.mtime(fls)))]
