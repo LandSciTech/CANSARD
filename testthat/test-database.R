@@ -19,7 +19,7 @@ db <- read.csv(fls, stringsAsFactors = FALSE)
 
 # write.csv(db_expected, "data/interim/expectedValues2.csv", quote = TRUE, row.names = FALSE)
 
-db_expected <- read.csv(paste0(dat_pth, "interim/expectedValues.csv"))
+db_expected <- read.csv(paste0(dat_pth, "data-out/expectedValues.csv"))
 
 test_that("all values are in expected for that column", {
   # see db_expected for vars that have a specific list of possible values
