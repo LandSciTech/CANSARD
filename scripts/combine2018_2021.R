@@ -771,7 +771,7 @@ for (i in 1:11) {
 }
 
 
-write.csv(db_final_7, paste0("data-raw/data-out/CAN_SARD_", Sys.Date(), ".csv"),
+write.csv(db_final_7, paste0("data-raw/interim/CAN_SARD_", Sys.Date(), ".csv"),
           row.names = FALSE)
 
 # missing data #============================
@@ -793,3 +793,12 @@ write.csv(db_final_7, paste0("data-raw/data-out/CAN_SARD_", Sys.Date(), ".csv"),
 
 # 266 docs with no level 2 threats. These include the above and old SR where l2
 # threats were not extracted because there was a new SR in the 2021 data
+
+# Additional formatting
+# remove url, change docID > rowID and uID > speciesID
+
+db2 <- db %>% select(-url) %>%
+  rename(rowID = docID, speciesID = uID) %>%
+  select(rowID, speciesID, everything())
+
+write.csv(db2, paste0(dat_pth, "data-out/CAN_SARD.csv"), row.names = FALSE)

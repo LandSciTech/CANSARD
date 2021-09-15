@@ -406,5 +406,5 @@ if(interactive()){
             row.names = FALSE)
 
   # TODO on reading in: determine action_types and CC_action_type from
-  # action_subtypes, process tc data
+  # action_subtypes, process tc data, rename uID to speciesID and docID to rowID
 }
