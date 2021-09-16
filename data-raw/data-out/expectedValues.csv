@@ -1,12 +1,11 @@
 colnms,vals,expectation,na_allowed
-uID,"817, 394, 396, 805, 367, 318, 368, 178, 142, 163, 1039, 108, 128, 29, 526, 155, 489, 255, 826, 438, 491, 369, 806, 1001, 1018, 1023, 36, 527, 26, 143, 502, 34, 1024, 258, 833, 1003, 1004, 315, 792, 62",is.numeric,0
+speciesID,"817, 394, 396, 805, 367, 318, 368, 178, 142, 163, 1039, 108, 128, 29, 526, 155, 489, 255, 826, 438, 491, 369, 806, 1001, 1018, 1023, 36, 527, 26, 143, 502, 34, 1024, 258, 833, 1003, 1004, 315, 792, 62",is.numeric,0
 common_name,"acuteleaf small limestone moss, allegheny mountain dusky salamander appalachian population, allegheny mountain dusky salamander carolinian population, american bumble bee, american chestnut, american ",is.character,0
 species,"Seligeria acutifolia, Desmognathus ochrophaeus, Bombus pensylvanicus, Castanea dentata, Frasera caroliniensis, Panax quinquefolius, Synthliboramphus antiquus, Armeria maritima ssp. interior, Anarhicha",is.character,0
-docID,"1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 13, 14, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 31, 32, 35, 28, 38, 39, 41, 42, 40, 43, 44, 47, 48, 49, 51, 54, 57, 58, 59, 60, 61, 62, 63, 64, 67, 68, 69, 71, 72, 7","unique, is.numeric",0
+rowID,"1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 13, 14, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 31, 32, 35, 28, 38, 39, 41, 42, 40, 43, 44, 47, 48, 49, 51, 54, 57, 58, 59, 60, 61, 62, 63, 64, 67, 68, 69, 71, 72, 7","unique, is.numeric",0
 doc_type,"COSEWIC Status Reports, Recovery Strategies, Management Plans",vals,0
 sara_status,"Not listed, Threatened, Endangered, Special Concern, Extirpated, NA",vals,0
 doc_citation,"COSEWIC. 2018. COSEWIC assessment and status report on the Acuteleaf Small Limestone Moss Seligeria acutifolia in Canada. Committee on the Status of Endangered Wildlife in Canada. Ottawa. xi + 35 pp.,",is.character,0
-url,"https://species-registry.canada.ca/index-en.html#/documents?documentTypeId=18,12,10&sortBy=documentTypeSort&sortDirection=asc&pageSize=10&keywords=Acuteleaf%20Small%20Limestone%20Moss, https://species",is.character,0
 web_pub_date,"2019-02-22, 2019-12-20, 2019-03-06, 2019-10-09, 2019-01-31, 2019-02-18, 2018-06-20, 2018-10-18, 2019-01-03, 2020-02-27, 2014-10-15, 2019-12-23, 2018-12-31, 2021-03-04, 2020-01-16, 2019-10-02, 2019-09-","is.character, plausible_date",0
 year_published,"2018, 2019, 2020, 2013, 2021, 2017, 2015, 2014, 2012, 2016, 2008, 2011, 2010, 2009, 2005, 2006, 2007, 2004, 2002, 2003, 2001, 2000, NA","is.numeric, plausible_year",0
 date_last_access,"2021-04-08, 2021-04-09, 2021-04-16, 2021-04-10, 2021-04-11, 2021-04-12, 2021-04-13, 2021-04-14, 2021-04-15, 2021-04-17, 2021-04-18, 2021-04-19, 2021-04-20, 2021-04-21, 2021-04-22, 2021-04-23, 2021-04-","is.character, plausible_date",0
