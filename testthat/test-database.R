@@ -233,39 +233,39 @@ test_that("Data is not missing in required fields",{
 
   # tc = 1 then tc version not NA
   tc_v_miss <- db %>% filter(threat_calculator == 1, is.na(TC_version)) %>%
-    pull(docID)
+    pull(rowID)
   expect_true(length(tc_v_miss) == 0,
-              label = paste0("TC_version is missing for docID ",
+              label = paste0("TC_version is missing for rowID ",
                      paste0(tc_v_miss, collapse = ", "), "\n"))
 })
 
 test_that("Data is internally consistent",{
-  id <- db %>% filter(CC_not_mentioned == 1, CC_threat == 1) %>% pull(docID)
+  id <- db %>% filter(CC_not_mentioned == 1, CC_threat == 1) %>% pull(rowID)
 
   expect_true(length(id) == 0,
-              label = paste0("CC_not_mentioned and CC_threat are both 1 for docID ",
+              label = paste0("CC_not_mentioned and CC_threat are both 1 for rowID ",
                              paste0(id, collapse = ", "), "\n"))
 
-  id <- db %>% filter(CC_not_mentioned == 1, CC_unknown == 1) %>% pull(docID)
+  id <- db %>% filter(CC_not_mentioned == 1, CC_unknown == 1) %>% pull(rowID)
 
   expect_true(length(id) == 0,
-              label = paste0("CC_not_mentioned and CC_unknown are both 1 for docID ",
+              label = paste0("CC_not_mentioned and CC_unknown are both 1 for rowID ",
                              paste0(id, collapse = ", "), "\n"))
 
   id <- db %>%
     filter(CC_threat == 1, CC_relative_impact == 0 |is.na(CC_relative_impact)) %>%
-    pull(docID)
+    pull(rowID)
 
   expect_true(length(id) == 0,
-              label = paste0("CC_threat is 1 and relative impact is not > 0 for docID ",
+              label = paste0("CC_threat is 1 and relative impact is not > 0 for rowID ",
                              paste0(id, collapse = ", "), "\n"))
 
   id <- db %>%
     filter(CC_threat == 0, CC_relative_impact > 0) %>%
-    pull(docID)
+    pull(rowID)
 
   expect_true(length(id) == 0,
-              label = paste0("CC_threat is 0 and relative impact is > 0 for docID ",
+              label = paste0("CC_threat is 0 and relative impact is > 0 for rowID ",
                              paste0(id, collapse = ", "), "\n"))
 
   th_nums <- db %>% select(contains("identified")) %>% colnames() %>%
@@ -288,7 +288,7 @@ test_that("Data is internally consistent",{
     fail <- ifelse(ided == 0 & (scp != 0 & sev != 0 & tim > 2) &
                      (!is.na(scp) & !is.na(sev)),
                    TRUE, FALSE)
-    id <- db %>% filter(fail) %>% select(docID, common_name) %>% mutate(th_num = th_num)
+    id <- db %>% filter(fail) %>% select(rowID, common_name) %>% mutate(th_num = th_num)
 
     if(length(id) > 0){
       return(id)
@@ -306,105 +306,3 @@ test_that("Data is internally consistent",{
   }
 })
 
-# Make a csv with all rows with missing data
-if(interactive()){
-  has_missing <- function(df){
-    col_all <- db_expected %>% filter(na_allowed == 0) %>% pull(colnms) %>%
-      str_subset("url|docID", TRUE)
-
-    col_sr <- c('author', 'EOO', 'IAO', 'endemic_NA',
-                'endemic_canada', 'continuous_USA', 'cosewic_status', 'ranges',
-                'cosewic_examined_date')
-
-    col_rs <- c('Critical_habitat', 'action_subtype', 'CC_action', 'action_type')
-    col_rs_cc <- c('CC_action_subtype', 'CC_action_type')
-
-    col_mp <- c('action_subtype', 'CC_action', 'action_type')
-    col_mp_cc <- c('CC_action_subtype', 'CC_action_type')
-
-    col_th1 <- db %>% select(matches("^X\\d\\d?_threat_identified")) %>%
-      colnames()
-
-    col_th2 <- db %>% select(matches("^X\\d\\d?\\..*_threat_identified"),
-                             -c(X8.4_threat_identified, X8.5_threat_identified,
-                                X8.6_threat_identified, X11.5_threat_identified)) %>%
-      colnames()
-
-    col_tc <- "TC_version"
-
-    meta <- df %>% mutate(across(all_of(col_all), is.na)) %>%
-      rowwise() %>%
-      mutate(miss_all = col_all[which(c_across(all_of(col_all)))] %>%
-               paste0(collapse = ", ")) %>%
-      select(docID, contains("miss"))
-
-    sr <- df %>%
-      filter(doc_type == "COSEWIC Status Reports") %>%
-      mutate(across(all_of(col_sr), is.na)) %>%
-      rowwise() %>%
-      mutate(miss_sr = col_sr[which(c_across(all_of(col_sr)))] %>%
-               paste0(collapse = ", ")) %>%
-      select(docID, contains("miss"))
-
-    rs <- df %>%
-      filter(doc_type == "Recovery Strategies") %>%
-      mutate(across(all_of(col_rs), is.na)) %>%
-      rowwise() %>%
-      mutate(miss_rs = col_rs[which(c_across(all_of(col_rs)))] %>%
-               paste0(collapse = ", ")) %>%
-      select(docID, contains("miss"))
-
-    mp <- df %>%
-      filter(doc_type == "Management Plans") %>%
-      mutate(across(all_of(col_mp), is.na)) %>%
-      rowwise() %>%
-      mutate(miss_mp = col_mp[which(c_across(all_of(col_mp)))] %>%
-               paste0(collapse = ", ")) %>%
-      select(docID, contains("miss"))
-
-    rsmp_cc <- df %>%
-      filter(doc_type %in% c("Management Plans", "Recovery Strategies"),
-             CC_action == 1) %>%
-      mutate(across(all_of(col_mp_cc), is.na)) %>%
-      rowwise() %>%
-      mutate(miss_rsmp_cc = col_mp_cc[which(c_across(all_of(col_mp_cc)))] %>%
-               paste0(collapse = ", ")) %>%
-      select(docID, contains("miss"))
-
-    tc <- df %>%
-      filter(threat_calculator == 1) %>%
-      mutate(across(all_of(col_tc), is.na)) %>%
-      rowwise() %>%
-      mutate(miss_tcv = col_tc[which(c_across(all_of(col_tc)))] %>%
-               paste0(collapse = ", ")) %>%
-      select(docID, contains("miss"))
-
-    th1 <- df %>% mutate(across(all_of(col_th1), is.na)) %>%
-      rowwise() %>%
-      mutate(miss_th1 = ifelse(any(c_across(all_of(col_th1))),
-                               "Level 1 threats", "")) %>%
-      select(docID, contains("miss"))
-
-    th2 <- df %>% mutate(across(all_of(col_th2), is.na)) %>%
-      rowwise() %>%
-      mutate(miss_th2 = ifelse(any(c_across(all_of(col_th2))),
-                               "Level 2 threats", "")) %>%
-      select(docID, contains("miss"))
-
-    df_miss <- purrr::reduce(lst(meta, sr, rs, mp, rsmp_cc, tc, th1, th2),
-                             left_join, .init = df, by = "docID") %>%
-      mutate(across(contains("miss"), ~replace_na(.x, ""))) %>%
-      rowwise() %>%
-      filter(!all(purrr::map_lgl(c_across(contains("miss")),
-                                       ~is.na(.x)|.x == ""))) %>%
-      relocate(contains("miss"), .before = uID)
-
-  }
-  db_miss <- has_missing(db)
-
-  write.csv(db_miss, paste0(dat_pth, "interim/CAN_SARD_missing_data.csv"),
-            row.names = FALSE)
-
-  # TODO on reading in: determine action_types and CC_action_type from
-  # action_subtypes, process tc data, rename uID to speciesID and docID to rowID
-}
