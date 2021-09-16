@@ -99,6 +99,8 @@ if(interactive()){
   write.csv(db_miss, paste0(dat_pth, "interim/CAN_SARD_missing_data.csv"),
             row.names = FALSE)
 
+  # Note chnage to a xlsx before uploading to google b/c conversion from csv to
+  # google sheet is no good
 }
 
 # Bring in missing data that has been updated #=============================================
@@ -107,7 +109,9 @@ miss <- read.csv("data-raw/data-raw/CAN_SARD_missing_data_updates_2021_09_16.csv
 db <- read.csv("data-raw/data-out/CAN_SARD.csv", stringsAsFactors = FALSE)
 
 # TODO on reading in when they have been used: determine action_types and
-# CC_action_type from action_subtypes, process tc data
+# CC_action_type from action_subtypes, process tc data. *** Consider whether
+# patch is best thing to use. use update if changed cells that were not NA in
+# original ie if level 1 threat is changed while doing level 2.
 
 # filter miss to just data that has been updated and rename ID cols to match
 miss2 <- miss %>% rename(rowID = docID, speciesID = uID) %>%
@@ -115,6 +119,7 @@ miss2 <- miss %>% rename(rowID = docID, speciesID = uID) %>%
   filter(change_made != "") %>%
   select(-change_made, -matches("^miss"), -url)
 
+# *** consider using rows_update if changed cells that are not NA
 db <- rows_patch(db, miss2, by = "rowID")
 
 # run test-database with this db object to check that updates worked as expected
