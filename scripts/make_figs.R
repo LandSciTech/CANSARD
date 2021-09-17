@@ -30,7 +30,8 @@ theme_set(new_theme)
 
 db <- db %>%
   mutate(large_taxonomic_group = str_to_sentence(large_taxonomic_group),
-         doc_type = str_remove(doc_type, "COSEWIC ") %>% str_to_sentence())
+         doc_type = str_remove(doc_type, "COSEWIC ") %>% str_to_sentence() %>%
+           factor(levels = c("Status reports", "Recovery strategies", "Management plans")))
 
 taxa <- db %>%
   ggplot(aes(large_taxonomic_group, fill = doc_type))+
@@ -40,7 +41,7 @@ taxa <- db %>%
   theme(legend.direction = "horizontal", legend.position = "right")
 
 # summarise to number of species
-taxa_sp <- db %>% group_by(uID) %>%
+taxa_sp <- db %>% group_by(speciesID) %>%
   summarise(large_taxonomic_group = first(large_taxonomic_group)) %>%
   ggplot(aes(large_taxonomic_group))+
   geom_bar()+
@@ -53,9 +54,9 @@ year <- ggplot(db, aes(year_published, fill = doc_type))+
   theme(legend.direction = "horizontal", legend.position = "none")
 
 threat_sum <- db %>%
-  select(uID, common_name, doc_type, matches("X.*identified")) %>%
+  select(speciesID, common_name, doc_type, matches("X.*identified")) %>%
   pivot_longer(names_to = "threat", values_to = "present",
-               cols = c(-uID, -common_name, -doc_type)) %>%
+               cols = c(-speciesID, -common_name, -doc_type)) %>%
   mutate(threat = str_remove(threat, "_threat_identified") %>%
            str_remove("X") %>% as.numeric() %>% as.factor()) %>%
   filter(present == 1) %>%
@@ -83,9 +84,9 @@ l1_th_names <- tribble(
 )
 
 threat_sum_l1 <- db %>%
-  select(docID, common_name, doc_type, matches("X\\d\\d?_.*identified")) %>%
+  select(rowID, common_name, doc_type, matches("X\\d\\d?_.*identified")) %>%
   pivot_longer(names_to = "threat", values_to = "present",
-               cols = c(-docID, -common_name, -doc_type)) %>%
+               cols = c(-rowID, -common_name, -doc_type)) %>%
   mutate(threat = str_remove(threat, "_threat_identified") %>%
            str_remove("X") %>% as.numeric()) %>%
   filter(present == 1) %>%
@@ -100,7 +101,7 @@ threat_sum_l1 <- db %>%
   theme(legend.direction = "horizontal", legend.position = "none")+
   coord_flip()
 
-action_types <- db %>% select(docID, common_name, action_type, doc_type) %>%
+action_types <- db %>% select(rowID, common_name, action_type, doc_type) %>%
   separate_rows(action_type, sep = ", ") %>%
   mutate(action_type = factor(action_type,
                        levels = c("Outreach and stewardship",
@@ -115,7 +116,7 @@ action_types <- db %>% select(docID, common_name, action_type, doc_type) %>%
                              "Habitat\nmanagement",
                              "Population\nmanagement")))+
   scale_fill_manual(values = shades::brightness(viridis::viridis(3),
-                                                shades::delta(-0.1))[1:3])+
+                                                shades::delta(-0.1))[2:3])+
   labs(x = "Action type", y = "Number of documents", fill = "Document type")+
   theme(legend.direction = "horizontal", legend.position = "none")+
   coord_flip()
