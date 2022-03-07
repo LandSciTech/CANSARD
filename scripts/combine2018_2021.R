@@ -662,14 +662,15 @@ db_final_5 <- db_final_4 %>%
     taxonmic_group_sardms %in% c("Mammals (marine)") ~ "Marine Mammals",
     TRUE ~ taxonmic_group_sardms
   )) %>%
-  mutate(across(contains("sardms"),
+  mutate(across(c(contains("sardms"), -taxonmic_group_sardms),
                 ~ifelse(lubridate::year(cosewic_examined_date_sardms) ==
                           year_published &
                           doc_type == "COSEWIC Status Reports",
                         .x,
                         NA))) %>%
   select(-c(legal_name_population_sardms, scientific_name_sardms,
-            taxonmic_group_sardms, sara_status_sardms, cos_id,
+            #taxonmic_group_sardms,
+            sara_status_sardms, cos_id,
             leg_id)) %>%
   rename_with(~str_remove(.x, "_sardms"))
 
@@ -679,7 +680,7 @@ db_final_5 <- db_final_4 %>%
 col_meta <- c('uID', 'common_name', 'species', 'docID', 'doc_type', 'sara_status',
               'doc_citation', 'url', 'web_pub_date', 'year_published',
               'date_last_access', 'status_appraisal_rapid_review', 'final',
-              'amendment', 'large_taxonomic_group')
+              'amendment', 'taxonmic_group')
 
 # should be NA unless sr
 col_sr <- c('author', 'EOO', 'IAO', 'locations', 'endemic_NA',
@@ -794,11 +795,25 @@ write.csv(db_final_7, paste0("data-raw/interim/CAN_SARD_", Sys.Date(), ".csv"),
 # 266 docs with no level 2 threats. These include the above and old SR where l2
 # threats were not extracted because there was a new SR in the 2021 data
 
-# Additional formatting
-# remove url, change docID > rowID and uID > speciesID
 
-db2 <- db %>% select(-url) %>%
-  rename(rowID = docID, speciesID = uID) %>%
-  select(rowID, speciesID, everything())
 
-write.csv(db2, paste0(dat_pth, "data-out/CAN_SARD.csv"), row.names = FALSE)
+# Additional formatting after review #======================
+
+db_final_7 <- read.csv(paste0("data-raw/interim/CAN_SARD_", Sys.Date(), ".csv"),
+                       stringsAsFactors = FALSE)
+
+# change url to the species page rather than docs
+base_url <- "https://species-registry.canada.ca/index-en.html#/species?sortBy=commonNameSort&sortDirection=asc&pageSize=10&keywords="
+
+db_final_8 <- db_final_7 %>% rename(rowID = docID, speciesID = uID,
+                             taxonomic_group = taxonmic_group) %>%
+  select(rowID, speciesID, everything()) %>%
+  mutate(url = common_name %>% str_replace_all("-", " - ") %>%
+                       stringi::stri_trans_general("latin-ascii") %>%
+                       str_replace_all("/", "%20%2F%20") %>%
+                       str_replace_all("'", "%27") %>%
+                       str_replace_all("\\s", "%20") %>%
+                       {paste0(base_url, .)})
+
+write.csv(db_final_8, paste0("data-raw/interim/CAN_SARD_", Sys.Date(), ".csv"),
+          row.names = FALSE)
