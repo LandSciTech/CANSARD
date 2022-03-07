@@ -25,33 +25,46 @@ fig_path <- "figs/"
 new_theme <- theme_classic()+
   theme(legend.text = element_text(size = rel(0.7)),
         legend.title = element_text(size = rel(0.8)),
-        legend.key.size = unit(1.4, "lines"))
+        legend.key.size = unit(1.4, "lines"),
+        strip.background = element_blank(),
+        strip.text = element_blank())
 theme_set(new_theme)
 
 db <- db %>%
-  mutate(large_taxonomic_group = str_to_sentence(large_taxonomic_group),
+  mutate(taxonomic_group = str_to_sentence(taxonomic_group),
          doc_type = str_remove(doc_type, "COSEWIC ") %>% str_to_sentence() %>%
-           factor(levels = c("Status reports", "Recovery strategies", "Management plans")))
+           factor(levels = c("Status reports", "Recovery strategies", "Management plans")),
+         doc_type2 = ifelse(doc_type == "Status reports", "Status", "Recovery") %>%
+           factor(levels = c("Status", "Recovery"))) %>%
+  group_by(speciesID, doc_type2, doc_type) %>%
+  filter(year_published == max(year_published))
+
 
 taxa <- db %>%
-  ggplot(aes(large_taxonomic_group, fill = doc_type))+
+  ggplot(aes(taxonomic_group, fill = doc_type))+
   geom_bar()+
   coord_flip()+
+  scale_x_discrete(limits = rev)+
   labs(x = "Taxonomic group", y = "Number of documents", fill = "Document type")+
   theme(legend.direction = "horizontal", legend.position = "right")
 
 # summarise to number of species
-taxa_sp <- db %>% group_by(speciesID) %>%
-  summarise(large_taxonomic_group = first(large_taxonomic_group)) %>%
-  ggplot(aes(large_taxonomic_group))+
+taxa_sp <- db %>% group_by(speciesID, doc_type, doc_type2) %>%
+  summarise(taxonomic_group = first(taxonomic_group)) %>%
+  ggplot(aes(taxonomic_group, fill = doc_type))+
   geom_bar()+
+  scale_x_discrete(limits = rev)+
   coord_flip()+
-  labs(x = "Taxonomic group", y = "Number of species/DUs")
+  labs(x = "Taxonomic group", y = "Number of wildlife species",
+       fill = "Document type")+
+  theme(legend.direction = "horizontal", legend.position = "right")+
+  facet_wrap(~doc_type2)
 
 year <- ggplot(db, aes(year_published, fill = doc_type))+
   geom_bar()+
-  labs(x = "Year published", y = "Number of documents", fill = "Document type")+
-  theme(legend.direction = "horizontal", legend.position = "none")
+  labs(x = "Year published", y = "Number of wildlife species", fill = "Document type")+
+  theme(legend.direction = "horizontal", legend.position = "none")+
+  facet_wrap(~doc_type2, nrow = 2)
 
 threat_sum <- db %>%
   select(speciesID, common_name, doc_type, matches("X.*identified")) %>%
@@ -84,22 +97,24 @@ l1_th_names <- tribble(
 )
 
 threat_sum_l1 <- db %>%
-  select(rowID, common_name, doc_type, matches("X\\d\\d?_.*identified")) %>%
+  select(speciesID, common_name, doc_type, doc_type2,
+         matches("X\\d\\d?_.*identified")) %>%
   pivot_longer(names_to = "threat", values_to = "present",
-               cols = c(-rowID, -common_name, -doc_type)) %>%
+               cols = c(-speciesID, -common_name, -doc_type, -doc_type2)) %>%
   mutate(threat = str_remove(threat, "_threat_identified") %>%
            str_remove("X") %>% as.numeric()) %>%
   filter(present == 1) %>%
-  group_by(threat, doc_type) %>%
+  group_by(threat, doc_type, doc_type2) %>%
   summarise(N = n()) %>%
-  mutate(prop = N/sum(N)) %>%
   left_join(l1_th_names, by = c(threat = "code")) %>%
   mutate(name = factor(name, levels = rev(l1_th_names$name))) %>%
   ggplot(aes(name, N, fill = doc_type))+
   geom_col()+
-  labs(x = "Threat", y = "Number of documents", fill = "Document type")+
+  scale_y_continuous(breaks = c(0,200, 400))+
+  labs(x = "Threat", y = "Number of wildlife species", fill = "Document type")+
   theme(legend.direction = "horizontal", legend.position = "none")+
-  coord_flip()
+  coord_flip()+
+  facet_wrap(~doc_type2)
 
 action_types <- db %>% select(rowID, common_name, action_type, doc_type) %>%
   separate_rows(action_type, sep = ", ") %>%
@@ -117,12 +132,12 @@ action_types <- db %>% select(rowID, common_name, action_type, doc_type) %>%
                              "Population\nmanagement")))+
   scale_fill_manual(values = shades::brightness(viridis::viridis(3),
                                                 shades::delta(-0.1))[2:3])+
-  labs(x = "Action type", y = "Number of documents", fill = "Document type")+
+  labs(x = "Action type", y = "Number of wildlife\nspecies", fill = "Document type")+
   theme(legend.direction = "horizontal", legend.position = "none")+
   coord_flip()
 
-ggpubr::ggarrange(taxa, year, threat_sum_l1, action_types, legend = "bottom",
-                  common.legend = TRUE,
+ggpubr::ggarrange(taxa_sp, year, threat_sum_l1, action_types, legend = "bottom",
+                  common.legend = TRUE, widths = c(3,2),
                   labels = "auto")
 
 ggsave(paste0(fig_path, "CANSARD_summary.png"), width = 183, height = 175, units = "mm")
@@ -130,7 +145,7 @@ ggsave(paste0(fig_path, "CANSARD_summary.png"), width = 183, height = 175, units
 ggsave(paste0(fig_path, "CANSARD_summary.eps"), width = 183, height = 175, units = "mm")
 
 ggsave(paste0(fig_path, "CANSARD_tax_grps.png"),
-       taxa + theme(legend.position = "none"), width = 110,
+       taxa_sp + theme(legend.position = "none"), width = 110,
        height = 80, units = "mm")
 
 ggsave(paste0(fig_path, "CANSARD_year_pub.png"), year, width = 110,
