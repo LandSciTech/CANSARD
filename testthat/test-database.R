@@ -7,7 +7,7 @@ dat_pth <- "../data-raw/"
 # fls <- list.files(paste0(dat_pth, "data-out/"), full.names = TRUE)
 # fls <- fls[which(file.mtime(fls) == max(file.mtime(fls)))]
 
-db <- read.csv(paste0(dat_pth, "data-out/CAN_SARD.csv"), stringsAsFactors = FALSE)
+db <- read.csv(paste0(dat_pth, "data-out/CAN-SARD.csv"), stringsAsFactors = FALSE)
 
 # #Create db_expected and check vals are correct
 # db_expected <-  data.frame(colnms = colnames(db)) %>%
