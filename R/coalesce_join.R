@@ -11,8 +11,8 @@
 coalesce_join <- function(x, y, by, join = full_join){
   x %>%
     join(y, by = by) %>%
-    bind_cols(map_dfc(grep("\\.x", names(.), value = TRUE), function(x){
-      set_names(
+    bind_cols(purrr::map_dfc(grep("\\.x", names(.), value = TRUE), function(x){
+      purrr::set_names(
         list(coalesce(.[[x]], .[[gsub("\\.x", ".y", x)]])),
         gsub("\\.x", "", x)
       )

@@ -1,4 +1,7 @@
 library(dplyr)
+library(tidyr)
+library(stringr)
+library(readxl)
 
 # Make a csv with all rows with missing data #============================================
 if(interactive()){
@@ -103,7 +106,7 @@ if(interactive()){
   # google sheet is no good
 }
 
-# Bring in missing data that has been updated #=============================================
+# Round 1 Bring in missing data that has been updated #=============================================
 miss <- read.csv("data-raw/data-raw/CAN_SARD_missing_data_updates_2021_09_16.csv")
 
 # use whichever is more up to date
@@ -137,3 +140,116 @@ db <- rows_patch(db, miss2, by = "rowID")
 
 # save a new version of db
 write.csv(db, "data-raw/data-out/CAN-SARD.csv", row.names = FALSE)
+
+# Round 2 Bring in missing data that has been updated #=============================================
+miss <- read.csv("data-raw/data-raw/CAN_SARD_missing_data_updates_2022_03_14.csv", skip = 1)
+
+miss_th <- read.csv("data-raw/data-raw/CAN_SARD_missing_data_updates_2022_03_14_threat_calculators.csv")
+
+# use whichever is more up to date
+db <- read.csv("data-raw/data-out/CAN-SARD.csv", stringsAsFactors = FALSE)
+#db <- db_final_8
+
+miss_th2 <- miss_th %>%
+  mutate(severity = str_replace_all(severity, "Neutral",
+                                    "Neutral or potential benefit")) %>%
+  rename(rowID = docID, speciesID = uID) %>%
+  format_threats()
+
+action_table <- read_excel("data-raw/data-out/CAN-SARD_data_dictionary.xlsx",
+                           sheet = "Action Types") %>%
+  select(`Type of action`, `Action sub-types`)
+
+miss2 <- miss %>%
+  mutate(action_subtype = action_subtype %>%
+           str_replace("re-est.* pop.*[,$]", "re-establishing populations,") %>%
+           str_replace("re-esteblishing populations", "re-establishing populations") %>%
+           str_replace("regulate human activitie,", "regulate human activities,") %>%
+           str_replace("regulate human activites", "regulate human activities") %>%
+           str_replace("captive breading", "captive breeding") %>%
+           str_replace("seeds storage", "seed storage") %>%
+           str_replace("mitigate climate chance", "mitigate climate change") %>%
+           str_replace("emergency responce", "emergency response") %>%
+           str_replace("emergecy response", "emergency response"),
+         CC_action_subtype = CC_action_subtype %>%
+           str_replace("captive breading", "captive breeding") %>%
+           str_replace("mitigate climate chance", "mitigate climate change")) %>%
+  classify_actions(action_table)
+
+# this is acting like numeric when really it should be character
+miss2$X8.3_iucn_comments <- as.character(miss2$X8.3_iucn_comments)
+
+# combine threats keeping threats unless it is NA
+miss3 <- coalesce_join(miss_th2, miss2, by = "rowID")
+
+
+# TODO  *** Consider whether
+# patch is best thing to use. use update if changed cells that were not NA in
+# original ie if level 1 threat is changed while doing level 2.
+
+base_url <- "https://species-registry.canada.ca/index-en.html#/species?sortBy=commonNameSort&sortDirection=asc&pageSize=10&keywords="
+
+# filter miss to just data that has been updated and rename ID cols to match
+miss4 <- miss3 %>%  select(rowID, speciesID, everything()) %>%
+  mutate(url = common_name %>% str_replace_all("-", " - ") %>%
+           stringi::stri_trans_general("latin-ascii") %>%
+           str_replace_all("/", "%20%2F%20") %>%
+           str_replace_all("'", "%27") %>%
+           str_replace_all("\\s", "%20") %>%
+           {paste0(base_url, .)}) %>%
+  select(-large_taxonomic_group) %>%
+  left_join(db %>% select(rowID, taxonomic_group), by = "rowID")
+
+miss_update <-  miss4 %>%
+  filter(change_made == "yes") %>%
+  select(-change_made, -matches("^miss"))
+
+# These docs have newer versions already in the database. The missing
+# data should be marked as NE for not extracted
+miss_ne <- miss4 %>%
+  filter(change_made %in% c("no", "new data already extracted"))
+
+# cols that are missing data and should be changed to NE for these SP
+to_ne <- miss_ne %>% unite("miss", contains("miss"), sep = ", ") %>%
+  select(rowID, speciesID, miss) %>% pull(miss) %>%
+  paste0(collapse = ", ") %>%
+  strsplit(", ") %>% .[[1]] %>% unique() %>%
+  str_subset("NA|Level 2 threats|Level 1 threats", negate = TRUE) %>%
+  sort() %>%
+  .[-1]
+
+to_ne <- miss_ne %>% select(contains("identified")) %>% names() %>%
+  c(to_ne, "CC_in_knowledge_gap", "CC_unknown_impact", "CC_unknown_scope",
+    "CC_unknown_severity", "CC_unknown_timing", "CC_action")
+
+miss_ne <- mutate(miss_ne, across(all_of(to_ne),
+                                  ~ifelse(is.na(.x) | .x == "", "NE", .x))) %>%
+  select(-change_made, -matches("^miss"))
+
+# these should be removed since the doc does not exist or not listed
+miss_remove <- miss4 %>%
+  filter(str_detect(change_made, "remove")) %>%
+  select(-change_made, -matches("^miss"))
+
+# still missing data
+miss_still <- miss4 %>%
+  filter(change_made %in% c("", "TC exist elsewhere")) %>%
+  select(-change_made, -matches("^miss"))
+
+# Update the database
+db <- rows_update(db, miss_update, by = "rowID")
+
+db <- rows_update(db, miss_ne, by = "rowID")
+
+db <- rows_delete(db, miss_remove %>% select(rowID), by = "rowID")
+# run test-database with this db object to check that updates worked as expected
+
+# fix problems identified
+db <- db %>%
+  mutate(sara_status = sara_status %>% str_trim() %>% str_to_sentence() %>%
+           str_replace("Special concern", "Special Concern") )
+
+# save a new version of db
+write.csv(db, "data-raw/data-out/CAN-SARD.csv", row.names = FALSE)
+
+

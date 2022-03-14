@@ -61,7 +61,7 @@ test_that("all values are in expected for that column", {
            str_detect(colnms, "comments|note", negate = TRUE)) %>%
     group_by(colnms) %>%
     mutate(vals_in = colnms %>% {pull(db, .)} %>% unique() %>% list()) %>%
-    mutate(vals = case_when(str_detect(colnms, "identified") ~ list(c(0, 1, 2, NA)),
+    mutate(vals = case_when(str_detect(colnms, "identified") ~ list(c(0, 1, 2, NA, "NE")),
                             TRUE ~ list(c(NA, -4:9 * 0.5, 5))),
            pass = vals_in[[1]] %in% vals[[1]] %>%
              all(),
