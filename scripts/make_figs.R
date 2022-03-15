@@ -66,7 +66,7 @@ year <- ggplot(db, aes(year_published, fill = doc_type))+
   theme(legend.direction = "horizontal", legend.position = "none")+
   facet_wrap(~doc_type2, nrow = 2)
 
-threat_sum <- db %>%
+threat_sum <- db %>% ungroup() %>%
   select(speciesID, common_name, doc_type, matches("X.*identified")) %>%
   pivot_longer(names_to = "threat", values_to = "present",
                cols = c(-speciesID, -common_name, -doc_type)) %>%
@@ -75,7 +75,6 @@ threat_sum <- db %>%
   filter(present == 1) %>%
   group_by(threat, doc_type) %>%
   summarise(N = n()) %>%
-  mutate(prop = N/sum(N)) %>%
   ggplot(aes(threat, N, fill = doc_type))+
   geom_col()+
   labs(x = "Threat", y = "Number of documents", fill = "Document type")+
