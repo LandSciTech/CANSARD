@@ -147,7 +147,7 @@ miss <- read.csv("data-raw/data-raw/CAN_SARD_missing_data_updates_2022_03_14.csv
 miss_th <- read.csv("data-raw/data-raw/CAN_SARD_missing_data_updates_2022_03_14_threat_calculators.csv")
 
 # use whichever is more up to date
-db <- read.csv("data-raw/data-out/CAN-SARD.csv", stringsAsFactors = FALSE)
+db <- read.csv("data-raw/data-out/CAN-SAR_database.csv", stringsAsFactors = FALSE)
 #db <- db_final_8
 
 miss_th2 <- miss_th %>%
@@ -247,9 +247,10 @@ db <- rows_delete(db, miss_remove %>% select(rowID), by = "rowID")
 # fix problems identified
 db <- db %>%
   mutate(sara_status = sara_status %>% str_trim() %>% str_to_sentence() %>%
-           str_replace("Special concern", "Special Concern") )
+           str_replace("Special concern", "Special Concern")) %>%
+  rename(report_writers = author)
 
 # save a new version of db
-write.csv(db, "data-raw/data-out/CAN-SARD.csv", row.names = FALSE)
+write.csv(db, "data-raw/data-out/CAN-SAR_database.csv", row.names = FALSE)
 
 
