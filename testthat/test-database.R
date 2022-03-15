@@ -130,7 +130,7 @@ test_that("Data is not missing in required fields",{
               label = paste0(fail_mess$fail_mess, collapse = " and \n\r"))
 
   # Fields not NA if SR
-  col_sr <- c('author', 'EOO', 'IAO', 'endemic_NA',
+  col_sr <- c('report_writers', 'EOO', 'IAO', 'endemic_NA',
               'endemic_canada', 'continuous_USA', 'cosewic_status', 'ranges',
               'cosewic_examined_date')
 

@@ -14,7 +14,7 @@ status_appraisal_rapid_review,"0, 1, NA",vals,0
 final,"1, 0, NA",vals,0
 amendment,"0, 1, NA",vals,0
 taxonomic_group,"Amphibians, Arthropods, Birds, Fishes (freshwater), Fishes (marine), Lichens, Mammals (marine), Mammals (terrestrial), Molluscs, Mosses, Reptiles, Vascular Plants",vals,0
-author,"Golinski K, Caners R, Belland R, Boutin A, NA, Sheffield C, Grant P, LambE , Hilger H, Attanayake A U, Heron J, Catling P, Cannings S G, Lepitzk D, Carney J, Wallace S, Neilson J, Szkokan-Emilson E, C",is.character,1
+report_writers,"Golinski K, Caners R, Belland R, Boutin A, NA, Sheffield C, Grant P, LambE , Hilger H, Attanayake A U, Heron J, Catling P, Cannings S G, Lepitzk D, Carney J, Wallace S, Neilson J, Szkokan-Emilson E, C",is.character,1
 EOO,"8 km2, 56 km2, 4 km2, NA, 45,000 km2, 838 km2, 1600 km2, 80,000 km2, 1,216 km2, 2,004,000 km2, 13,617 km2, 718,238 km2, 30,555 km2, 1121 km2, 116 km2, >20 000 km2, 32 053 km2, 31 km2, 499,449 km2, 2,1","is.character, plausible_units",1
 IAO,"8 km2, 56 km2, 4 km2, NA, 40 km2, 104 km2, 36 km2, unknown, 468 km2, 500,000 km?, 988 km2, 3372 km2, 108 km2, 236 km2, 32 km2, > 2 000 km, 2000 km2, 12 km2, 391,292 km2, 312 km2, 44 km2, 228 km2, > 2,","is.character, plausible_units",1
 locations,"2.0, 1.0, NA, 9.0, 7.0, 100-1000, 9-13, >10, <100, 44318.0, 0-1, 36.0, 44474.0, 45.0, 3.0, 44414.0, > 10, unknown, 0.0, 4.0, 3 to 78, 5.0, Unknown, 25.0, 44257.0, >50, 8.0, 6.0, 15.0, 44289.0, >>10, 1","is.character, plausible_units",1
