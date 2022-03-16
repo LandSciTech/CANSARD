@@ -5,7 +5,6 @@ library(dplyr)
 library(tidyr)
 library(stringr)
 
-
 # load data
 db <- read.csv("data-raw/data-out/CAN-SAR_database.csv")
 
