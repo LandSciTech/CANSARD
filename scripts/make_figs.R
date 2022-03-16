@@ -6,7 +6,7 @@ library(tidyr)
 library(stringr)
 
 # load data
-db <- read.csv("data-raw/data-out/CAN-SARD.csv")
+db <- read.csv("data-raw/data-out/CAN-SAR_database.csv")
 
 # Set colour scheme to either viridis or grey
 scale_fill_discrete <- function(...){
