@@ -57,7 +57,7 @@ taxa_sp <- db %>% group_by(speciesID, doc_type, doc_type2) %>%
   coord_flip()+
   labs(x = "Taxonomic group", y = "Number of wildlife species",
        fill = "Document type")+
-  theme(legend.direction = "horizontal", legend.position = "right")+
+  theme(legend.direction = "horizontal", legend.position = "none")+
   facet_wrap(~doc_type2)
 
 year <- ggplot(db, aes(year_published, fill = doc_type))+
@@ -115,7 +115,7 @@ threat_sum_l1 <- db %>%
   coord_flip()+
   facet_wrap(~doc_type2)
 
-action_types <- db %>% select(rowID, common_name, action_type, doc_type) %>%
+action_types <- db %>% ungroup() %>% select(rowID, common_name, action_type, doc_type) %>%
   separate_rows(action_type, sep = ", ") %>%
   mutate(action_type = factor(action_type,
                        levels = c("Outreach and stewardship",
@@ -131,17 +131,25 @@ action_types <- db %>% select(rowID, common_name, action_type, doc_type) %>%
                              "Population\nmanagement")))+
   scale_fill_manual(values = shades::brightness(viridis::viridis(3),
                                                 shades::delta(-0.1))[2:3])+
-  labs(x = "Action type", y = "Number of wildlife\nspecies", fill = "Document type")+
+  labs(x = "Action type", y = "Number of wildlife species", fill = "Document type")+
   theme(legend.direction = "horizontal", legend.position = "none")+
   coord_flip()
 
-ggpubr::ggarrange(taxa_sp, year, threat_sum_l1, action_types, legend = "bottom",
-                  common.legend = TRUE, widths = c(3,2),
-                  labels = "auto")
+cp1 <- cowplot::plot_grid(taxa_sp, threat_sum_l1,
+                   #legend = "bottom", common.legend = TRUE,
+                   labels = c("a", "c"), align = "v", axis = "l", ncol = 1)
+
+cp2 <- cowplot::plot_grid(year, action_types,
+                          #legend = "bottom", common.legend = TRUE,
+                          labels = c("b", "d"), align = "v", axis = "l", ncol = 1)
+
+cowplot::plot_grid(cp1, cp2, rel_widths = c(3,2))
 
 ggsave(paste0(fig_path, "CANSARD_summary.png"), width = 183, height = 175, units = "mm")
 
-ggsave(paste0(fig_path, "CANSARD_summary.eps"), width = 183, height = 175, units = "mm")
+ggsave(paste0(fig_path, "CANSARD_summary.eps"),
+       plot = cowplot::plot_grid(cp1, cp2, rel_widths = c(3,2)),
+       width = 183, height = 175, units = "mm")
 
 ggsave(paste0(fig_path, "CANSARD_tax_grps.png"),
        taxa_sp + theme(legend.position = "none"), width = 110,
