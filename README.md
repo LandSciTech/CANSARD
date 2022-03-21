@@ -5,7 +5,7 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/see24/CANSARD/workflows/R-CMD-check/badge.svg)](https://github.com/see24/CANSARD/actions)
+[![R-CMD-check](https://github.com/LandSciTech/CANSARD/workflows/R-CMD-check/badge.svg)](https://github.com/LandSciTech/CANSARD/actions)
 <!-- badges: end -->
 
 The goal of CANSARD is to be a home for the development version of The

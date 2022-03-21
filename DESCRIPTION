@@ -7,8 +7,9 @@ Authors@R:
            role = c("aut", "cre"),
            email = "sarah.endicott@canada.ca",
            comment = c(ORCID = "0000-0001-9644-5343"))
-Description: This package stores and validates data in the Canadian Species At Risk Database
-    (CAN-SARD). It performs automatic testing of the database whenever changes are made
+Description: This package stores and validates data in the Canadian Species At 
+    Risk (CAN-SAR) Database. It performs automatic testing of the database
+    whenever changes are made.
 License: TBD
 Encoding: UTF-8
 LazyData: true
