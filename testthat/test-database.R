@@ -7,7 +7,7 @@ dat_pth <- "../data-raw/"
 # fls <- list.files(paste0(dat_pth, "data-out/"), full.names = TRUE)
 # fls <- fls[which(file.mtime(fls) == max(file.mtime(fls)))]
 
-db <- read.csv(paste0(dat_pth, "data-out/CAN-SARD.csv"), stringsAsFactors = FALSE)
+db <- read.csv(paste0(dat_pth, "data-out/CAN-SAR_database.csv"), stringsAsFactors = FALSE)
 
 # #Create db_expected and check vals are correct
 # db_expected <-  data.frame(colnms = colnames(db)) %>%
@@ -96,9 +96,13 @@ test_that("all values are in expected for that column", {
 
   datechr <- db_expected %>% filter(str_detect(expectation, "date")) %>%
     group_by(colnms) %>%
-    mutate(pass = pull(db, colnms) %>% as.Date() %>%
-             {lubridate::is.Date(.) & . > as.Date("1980-01-01")} %>%
+    mutate(pass1 = pull(db, colnms) %>% lubridate::ymd() %>%
+             {lubridate::is.Date(.) & . > lubridate::ymd("1980-01-01")} %>%
              all(na.rm = TRUE),
+           pass2 = setequal(pull(db, colnms) %>% lubridate::ymd() %>%
+                              is.na() %>% which(),
+                            pull(db, colnms) %>% is.na() %>% which()),
+           pass = all(pass1, pass2),
            fail = "Not likely date")
 
   yr <- db_expected %>% filter(str_detect(expectation, "year")) %>%

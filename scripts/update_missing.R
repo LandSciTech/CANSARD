@@ -250,6 +250,16 @@ db <- db %>%
            str_replace("Special concern", "Special Concern")) %>%
   rename(report_writers = author)
 
+
+# dates formatted wrong
+fix_date <- function(x){
+  str_trim(x) %>% str_replace_all("\\(|\\)", "") %>%
+    {coalesce(lubridate::dmy(.), lubridate::ymd(.))}
+}
+
+# expect some warnings
+db <- mutate(db, across(contains("date"), fix_date))
+
 # save a new version of db
 write.csv(db, "data-raw/data-out/CAN-SAR_database.csv", row.names = FALSE)
 
