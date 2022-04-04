@@ -10,7 +10,7 @@ Authors@R:
 Description: This package stores and validates data in the Canadian Species At 
     Risk (CAN-SAR) Database. It performs automatic testing of the database
     whenever changes are made.
-License: TBD
+License: CC BY 4.0
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
