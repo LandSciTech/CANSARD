@@ -588,8 +588,6 @@ col_ll <- c('COS_ID', 'LEG_ID', 'LEGAL NAME POPULATION (E)',
             'SCIENTIFIC NAME (E)', 'COSEWIC COMMON NAME POPULATION (E)',
             'TAXONMIC GROUP (E)', 'COSEWIC STATUS (E)', 'SARA STATUS (E)',
             'RANGES (E)', 'COSEWIC EXAMINED DATE {E}', 'DATE OF LISTING (E)',
-            'MINISTER RECEIPT DATE (E)', 'RESPONSE DATE (E)',
-            'GIC RECEIPT DATE (E)', 'GIC DECISION DATE (E)',
             'GIC DECISION (E)')
 
 leg_list_data <- leg_list_data %>%
@@ -685,8 +683,7 @@ col_meta <- c('uID', 'common_name', 'species', 'docID', 'doc_type', 'sara_status
 # should be NA unless sr
 col_sr <- c('author', 'EOO', 'IAO', 'locations', 'endemic_NA',
             'endemic_canada', 'continuous_USA', 'cosewic_status', 'ranges',
-            'cosewic_examined_date', 'date_of_listing', 'minister_receipt_date',
-            'response_date', 'gic_receipt_date', 'gic_decision_date',
+            'cosewic_examined_date', 'date_of_listing',
             'gic_decision')
 
 # should be NA unless RS or MP CHab is NA for MP also
