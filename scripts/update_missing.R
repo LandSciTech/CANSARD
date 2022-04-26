@@ -263,4 +263,16 @@ db <- mutate(db, across(contains("date"), fix_date))
 # save a new version of db
 write.csv(db, "data-raw/data-out/CAN-SAR_database.csv", row.names = FALSE)
 
+# remove unlisted species # ====================================================
+db <- read.csv("data-raw/data-out/CAN-SAR_database.csv", stringsAsFactors = FALSE)
 
+unlisted <- filter(db, sara_status == "Not listed")
+
+write.csv(unlisted, "data-raw/data-raw/Not_listed_species_2021_03_29.csv", row.names = FALSE)
+
+db <- filter(db, sara_status != "Not listed")
+
+n_distinct(db$speciesID)
+## 594
+
+write.csv(db, "data-raw/data-out/CAN-SAR_database.csv", row.names = FALSE)
