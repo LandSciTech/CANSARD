@@ -1,0 +1,3326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eml:eml xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:stmml="http://www.xml-cml.org/schema/stmml-1.2" packageId="doi:10.17605/OSF.IO/E4A58" system="doi" xsi:schemaLocation="https://eml.ecoinformatics.org/eml-2.2.0 https://eml.ecoinformatics.org/eml-2.2.0/eml.xsd">
+  <dataset>
+    <title>CAN-SAR: A database for Canadian species at risk information</title>
+	<creator id="https://orcid.org/0000-0001-9644-5343">
+      <individualName>
+        <givenName>Sarah</givenName>
+        <surName>Endicott</surName>
+      </individualName>
+	  <electronicMailAddress>sarah.endicott@ec.gc.ca</electronicMailAddress>
+    </creator>
+	<associatedParty id="https://orcid.org/0000-0001-9504-4484">
+      <individualName>
+        <givenName>Ilona</givenName>
+        <surName>Naujokaitis-Lewis</surName>
+      </individualName>
+      <electronicMailAddress>ilona.naujokaitis-lewis@ec.gc.ca</electronicMailAddress>
+      <role>principalInvestigator</role>
+      <role>author</role>
+    </associatedParty>
+    <associatedParty>
+      <individualName>
+        <givenName>Jessica M.</givenName>
+        <surName>Guezen</surName>
+      </individualName>
+      <role>author</role>
+    </associatedParty>
+    <pubDate>2022</pubDate>
+	<licensed>
+      <licenseName>Creative Commons Attribution 4.0 International Public License</licenseName>
+      <url>https://creativecommons.org/licenses/by/4.0/</url>
+      <identifier>CC BY 4.0</identifier>
+    </licensed>
+	<abstract>
+      <markdown>CAN-SAR: A database of Canadian Species at Risk information is an initiative led by Dr. Ilona Naujokaitis-Lewis from Environment Climate Change Canada. The aim of this database is to provide open and accessible data reflecting information obtained from Canadian species at risk listing and recovery planning documents. Ongoing efforts include development of a living database that will facilitate contributions from other parties in an effort to increase efficiencies and decrease multiple (redundant) efforts with the broad over-arching goal of improving the conservation of species at risk. **NOTE:** The current version of CAN-SAR includes documents available as of **March 23, 2021** for species with SARA statuses Special Concern, Threatened, or Endangered. For the authoritative source of current species at risk information please consult the SARA Public Registry (https://www.canada.ca/en/environment-climate-change/services/species-risk-public-registry.html).</markdown>
+    </abstract>
+	<keywordSet>
+      <keyword>endangered species</keyword>
+      <keyword>biodiversity</keyword>
+      <keywordThesaurus>LTER controlled vocabulary</keywordThesaurus>
+    </keywordSet>
+    <keywordSet>
+      <keyword>populations</keyword>
+      <keywordThesaurus>LTER core area</keywordThesaurus>
+    </keywordSet>
+	<coverage>
+      <geographicCoverage>
+        <geographicDescription>Canada</geographicDescription>
+        <boundingCoordinates>
+          <westBoundingCoordinate>-140.9978</westBoundingCoordinate>
+          <eastBoundingCoordinate>-52.6481</eastBoundingCoordinate>
+          <northBoundingCoordinate>83.2332</northBoundingCoordinate>
+          <southBoundingCoordinate>41.6751</southBoundingCoordinate>
+        </boundingCoordinates>
+      </geographicCoverage>
+      <temporalCoverage>
+        <rangeOfDates>
+          <beginDate>
+            <calendarDate>2000-05-01</calendarDate>
+          </beginDate>
+          <endDate>
+            <calendarDate>2021-03-23</calendarDate>
+          </endDate>
+        </rangeOfDates>
+      </temporalCoverage>
+      <taxonomicCoverage>
+        <taxonomicClassification>
+          <taxonRankValue>Desmognathus ochrophaeus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Castanea dentata</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Frasera caroliniensis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Panax quinquefolius</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Synthliboramphus antiquus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Armeria maritima ssp. interior</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Anarhichas lupus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Omus audouini</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Patagioenas fasciata</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Physella johnsoni</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Tyto alba</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Salix jejuna</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Cetorhinus maximus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Leptogium platynum</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Eleocharis geniculata</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Catharus bicknelli</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Ictiobus cyprinellus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Viola pedata</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Moxostoma duquesnei</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Cypseloides niger</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Anzia colpodes</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Emydoidea blandingii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Salix silicicola</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Degelia plumbea</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Coluber constrictor foxii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Prophysaon coeruleum</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Erioderma pedicellatum</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Allogona profunda</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Epilobium torreyi</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Salvelinus confluentus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Thamnophis butleri</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Rangifer tarandus caribou</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Rangifer tarandus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Notropis percobromus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Ptychoramphus aleuticus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Setophaga cerulea</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Calcarius ornatus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Chaetura pelagica</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Ascaphus truei</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Pooecetes gramineus affinis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Cottus aleuticus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Cottus hubbsi</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Chordeiles minor</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Symphyotrichum prenanthoides</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Nephroma occultum</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Exoglossum maxillingua</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Hypsiglena chlorophaea</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Rangifer tarandus groenlandicus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Psilocarphus brevissimus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Pantherophis gloydi</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Erynnis persius persius</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Ligumia nasuta</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Peltigera hydrothyria</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Antrostomus vociferus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Canis lupus lycaon</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Gasterosteus aculeatus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Coccothraustes vespertinus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Vernonia fasciculata</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Truncilla donaciformis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Balaenoptera physalus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Plestiodon fasciatus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Prodoxus quinquepunctellus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Tanacetum huronense var. floccosum</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Anaxyrus fowleri</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Callophrys irus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Agalinis gattingeri</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Gnaphosa snohomish</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Hydrastis canadensis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Erimystax x-punctatus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Pantherophis spiloides</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Pituophis catenifer deserticola</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Spea intermontana</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Ardea herodias fannini</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Phrynosoma hernandesi</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Urocyon cinereoargenteus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Eschrichtius robustus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Arnica griscomii ssp. griscomii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Ursus arctos</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Bombus bohemicus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Dalea villosa</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Phoca vitulina mellonae</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Obovaria olivaria</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Somatochlora hineana</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Prays atomocella</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Brychius hungerfordi</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Carex juniperorum</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Lycaeides melissa samuelis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Nerodia sipedon insularum</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Acipenser fulvescens</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Achillea millefolium var. megacephala</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Calamospiza melanocorys</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Toxolasma parvum</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Myotis lucifugus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Caretta caretta</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Calochortus lyallii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Deschampsia mackenzieana</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Epeoloides pilosulus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Quadrula quadrula</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Acroscyphus sphaerophoroides</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Catostomus platyrhynchus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Tegeticula corruptrix</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Rhinichthys cataractae</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Colinus virginianus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Ichthyomyzon fossor</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Accipiter gentilis laingi</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Graptemys geographica</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Myotis septentrionalis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Orcinus orca</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Epioblasma rangiana</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Aegolius acadicus brooksi</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Lepomis peltastes</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Anarhichas denticulatus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Contopus cooperi</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Polyodon spathula</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Copablepharon grandis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Leptogium polycarpum</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Falco peregrinus anatum/tundrius</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Falco peregrinus pealei</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Cephalanthera austiniae</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Hybognathus placitus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Ursus maritimus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Haplodontium macrocarpum</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Crotalus viridis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Plestiodon septentrionalis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Patera pennsylvanica</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Opsopoeodus emiliae</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Liparis liliifolia</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Phrynosoma douglasii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Kootenaia burkei</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Ophiogomphus howei</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Villosa iris</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Osmerus mordax</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Oncorhynchus mykiss</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Gomphus quadricolor</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Villosa fabalis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Melanerpes erythrocephalus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Phalaropus lobatus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Clinostomus elongatus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Moxostoma carinatum</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Stylurus amnicola</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Cottus sp.</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Brotherella roellii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Pleurobema sintoxia</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Bombus affinis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Lasioglossum sablense</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Simpsonaias ambigua</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Catostomus sp. cf. catostomus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Salix brachycarpa var. psammophila</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Contia tenuis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Zacoleus idahoensis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Asio flammeus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Cottus confusus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Solidago speciosa</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Ichthyomyzon unicuspis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Notropis photogenis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Gomphus ventricosus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Lespedeza virginica</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Lipocarpha micrantha</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Ambystoma texanum</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Chelydra serpentina</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Epioblasma triquetra</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Yucca glauca</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Mesoplodon bidens</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Rhinichthys osculus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Micranthes spicata</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Apalone spinifera</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Bryoandersonia illecebra</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Clemmys guttata</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Anarhichas minor</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Eremophila alpestris strigata</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Morone saxatilis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Rhynchospora macrostachya</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Actaea elata</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Psilocarphus elatior</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Nearctula sp.</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Obliquaria reflexa</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Crossidium seriatum</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Perimyotis subflavus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Salix turnorii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Lewisiopsis tweedyi</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Marmota vancouverensis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Entosphenus macrostomus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Schinia verna</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Argia vivida</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Aneides vagrans</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Lampsilis fasciola</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Limenitis weidemeyerii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Iris missouriensis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Reithrodontomys megalotis dychei</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Reithrodontomys megalotis megalotis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Chrysemys picta bellii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Crotalus oreganus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Hybognathus argyritis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Anaxyrus boreas</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Peltigera gowardii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Oncorhynchus clarkii lewisi</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Eurybia divaricata</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Camassia scilloides</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Sphyrapicus thyroideus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Gulo gulo</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Bison bison athabascae</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Glyptemys insculpta</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Pannaria lurida</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Bombus terricola</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Icteria virens virens</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Sebastes ruberrimus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Tegeticula yuccasella</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Podistera yukonensis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Sanfilippodytes bertae</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Ascaphus montanus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Platanthera praeclara</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Athene cunicularia</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Balaenoptera musculus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Phoebastria nigripes</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Lanius ludovicianus excubitorides</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Bartramia stricta</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Plethodon idahoensis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Sanicula arctopoides</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Notropis bifrenatus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Rhodostethia rosea</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Castilleja rupicola</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Noturus stigmosus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Riparia riparia</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Hirundo rustica</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Ochotona collaris</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Rangifer tarandus pearyi</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Polites sonora</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Euphyes vestris vestris</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Apodemia mormo</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Oarisma poweshiek</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Schinia avemensis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Schinia bimatris</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Ambystoma tigrinum</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Hesperia dacotae</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Copablepharon fuscum</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Danaus plexippus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Rana aurora</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Dicamptodon tenebrosus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Taxidea taxus jacksoni</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Entosthodon rubiginosus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Magnipelta mycophaga</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Fundulus notatus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Asplenium scolopendrium var. americanum</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Urocyon cineroargenteus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Carex sabulosa</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Taxidea taxus taxus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Coluber constrictor flaviventris</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Charina bottae</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Ambystoma mavortium</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Lampsillis cariosa</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Lepisosteus oculatus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Myoxocephalus thompsonii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Leptogium rivulare</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Eubalaena glacialis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Phoebastria albatrus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Fraxinus quadrangulata</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Ptelea trifoliata</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Symphyotrichum anticostense</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Allogona townsendiana</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Oxytropis lagopus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Lepomis gulosus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Acipenser brevirostrum</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Euphagus carolinus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Parkesia motacilla</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Staala gwaii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Hemphillia dromedarius</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Obovaria subrotunda</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Ptychobranchus fasciolaris</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Haliotis kamtschatkana</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Dolichonyx oryzivorus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Buteo regalis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Ammodramus savannarum pratensis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Cirsium pitcheri</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Mustela erminea haidarum</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Fissidens exillis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Loxia curvirostra percna</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Brachyramphus marmoratus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Coluber constrictor mormon</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Canis sp. cf. lycaon</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Rhynchophanes mccownii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Chimaphila maculata</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Fabronia pusilla</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Salvelinus malma malma</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Physella wrighti</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Braya longii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Plebejus saepiolus insulanus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Efferia okanagana</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Symphyotrichum nahanniense</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Salix chlorolepis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Collema coniophilum</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Cicuta maculata var. victorinii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Limnanthes macounii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Gentianopsis virgata ssp. Victorinii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Armeria maritima ssp. Interior</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Numenius borealis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Podiceps auritus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Cardellina canadensis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Eubalaena japonica</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Dermochelys coriacea</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Enhydra lutris</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Delphinapterus leucas</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Carcharodon carcharias</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Hexanchus griseus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Sebastes sp.type 1</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Sebastes sp.type 2</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Galeorhinus galeus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Eumetopias jubatus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Megaptera novaengliae</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Empidonax virescens</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Adiantum capillus-veneris</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Hydrocotyle umbellata</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Germaria angustata</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Contopus virens</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Pterygoneurum kozlovii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Vermivora chrysoptera</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Pagophila eburnea</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Entosthodon fascicularis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Hibiscus moscheutos</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Ixobrychus exilis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Icteria virens auricollis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Hypochlora alba</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Cicindela formosa gibsoni</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Oreoscoptes montanus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Cryptantha minima</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Vulpes velox</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Copablepharon longipenne</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Pinus albicaulis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Aechmophorus occidentalis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Anaxyrus cognatus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Numenius americanus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Chenopodium subglabrum</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Tripterocalyx micranthus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Anthus spragueii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Centrocerus urophasianus urophasianus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Tradescantia occidentalis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Sebastolobus altivelis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Hyperodon ampullatus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Megascops kennicottii kennicottii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Megascops kennicottii macfarlanei</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Pedicularis furbishiae</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Rana pretiosa</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Hesperia ottoe</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Euphydryas editha taylori</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Setophaga kirtlandii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Fissidens pauperculus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Triphysaria versicolor</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Magnolia acuminata</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Balsamorhiza deltoidea</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Trillium flexipes</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Geum peckii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Opuntia humifusa</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Plantago cordata</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Pycnanthemum incanum</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Coreopsis rosea</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Polygala incarnata</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Lupinus lepidus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Lotus formosissimus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Agalinis skinneriana</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Ranunculus alismifolius</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Gentiana alba</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Stylophorum diphyllum</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Cypripedium candidum</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Woodsia obtusa</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Drosera filiformis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Papaipema aweme</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Cicindela marginipennis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Cicindela patruela</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Cicindela parowana wallisi</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Lotus pinnatus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Phacelia ramosissima</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Ranunculus californicus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Microseris bigelovii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Silene scouleri ssp. Grandis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Camissonia contorta</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Epilobium densiflorum</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Lupinus densiflorus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Minuartia pusilla</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Cornus florida</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Carex tumulicola</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Aristida basiramea</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Plagiobothrys figuratus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Orthocarpus barbatus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Triteleia howellii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Juncus kelloggii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Uropappus lindleyi</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Centaurium muehlenbergii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Potamogeton odgenii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Lasthenia glaberrima</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Orthocarpus bracteosus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Agalinis aspera</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Symphyotrichum frondosum</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Collomia tenella</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Tonella tenella</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Silene spaldingii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Antennaria flagellaris</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Lupinus rivularis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Castilleja victoriae</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Sida hermaphrodita</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Meconella oregana</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Isoetes prototypus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Esox americanus vermiculatus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Plestiodon skiltonianus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Lilaeopsis chinensis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Bartonia paniculata ssp. paniculata</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Baccharis halimifolia</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Lomatium grayi</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Cirsium hillii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Tetraneuris herbacea</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Polystichum lemmonii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Polystichum scopulinum</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Phlox speciosa ssp. Occidentalis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Plagiobothrys tenellus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Pseudacris triseriata</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Aplodontia rufa</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Martes americana atrata</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Bryoerythrophyllum columbianum</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Gyrinophilus porphyriticus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Erimyzon sucetta</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Notropis anogenus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Trichophorum planifolium</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Platanthera leucophaea</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Potamogeton hillii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Juncus caesariensis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Minytrema melanops</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Coregonus kiyi kiyi</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Thamnophis sauritus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Sylvilagus nuttalli nuttallii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Arnoglossum platagineum</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Hemphillia glandulosa</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Otus flammeolus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Microtus pinetorum</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Melanerpes lewis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Heterodon platirhinos</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Liatris spicata</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Celtis tenuifolia</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Enemion biternatum</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Clethra alnifolia</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Symphyotrichum praealtum</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Antrozous pallidus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Satyrium behrii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Picoides albolarvatus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Sorex bendirii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Castilleja levisecta</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Triphora trianthophoros</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Morus rubra</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Rosa setigera</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Iris lacustris</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Aletris farinosa</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Smilax rotundifolia</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Ammodramus henslowii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Coregonus reighardi</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Sistrurus catenatus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Scapanus townsendii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Buchnera americana</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Tephrosia virginiana</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Viola praemorsa ssp. praemora</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Eleocharis tuberculosa</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Polemonium vanbruntiae</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Sericocarpus regidus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Lampropeltis triangulum</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Falco peregrinus/tundrius</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Lithobates pipiens</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Isoetes bolanderi</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Ammodramus bairdii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Hemileuca sp.</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Coregonus sp.</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Azolla mexicana</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Ostrea lurida</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Rhinichthys cataractae ssp.</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Epioblasma torulosa rangiana</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Alasmidonta varicosa</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Rallus elegans</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Bucephala islandica</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Acipenser medirostris</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Ambystoma jeffersonianum</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Sabatia kennedyana</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Lophiola aurea</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Lachnanthes caroliniana</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Ammocrypta pellucida</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Lampetra richardsoni</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Regina septemvittata</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Fundulus diaphanus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Coregonus huntsmani</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Isotria verticillata</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Syntrichia laevipila</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Stylurus olivaceus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Desmognathus fuscus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Bartramia halleriana</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Balaenoptera borealis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Erioderma mollissimum</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Coturnicops noveboracensis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Isotria medeoloides</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Histrionicus histrionicus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Physconia subpallida</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Salmo salar</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Gonidea angulata</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Symphyotrichum laurentianum</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Braya fernaldii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Tryngites subruficollis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Sturnella magna</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Charadrius montanus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Satyrium semiluna</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Charadrius melodus circumcinctus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Acris blanchardi</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Betula lenta</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Abronia umbellata</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Solidago houghtonii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Euderma maculatum</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Bouteloua dactyloides</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Moxostoma hubbsi</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Hylocichla mustelina</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Braya pilosa</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Calidris canutus rufa</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Barnea truncata</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Microbryum vlassovii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Calidris canutus islandica</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Calidris canutus roselaari type</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Protonotaria citrea</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Sterna dougallii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Grus americana</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Heterodermia sitchensis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Scouleria marginata</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Anarta edwardsii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Lechea maritima</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Passerculus sandwichensis princeps</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Scalopus aquaticus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Hypogymnia heterophylla</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Charadrius melodus melodus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Carex lupuliformis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Coenonympha nipisiquit</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Sclerophora peronella</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Sternotherus odoratus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Pseudocyphellaria rainierensis</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Ardenna creatopus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Balaena mysticetus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Dipodomys ordii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Strix occidentalis caurina</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Juglans cinerea</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Phocoena phocoena vomerina</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Cynomys ludovicianus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Ammannia robusta</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Astragalus robbinsii var. fernaldii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Bidens amplissima</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Dryopteris arguta</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Eleocharis equisetoides</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Gymnocladus dioicus</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Halimolobos virgata</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Isoetes engelmannii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Justicia americana</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Sanicula bipinnatifida</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Solidago riddellii</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Symphyotrichum sericeum</taxonRankValue>
+        </taxonomicClassification>
+        <taxonomicClassification>
+          <taxonRankValue>Vaccinium stamineum</taxonRankValue>
+        </taxonomicClassification>
+      </taxonomicCoverage>
+    </coverage>
+    <contact>
+      <individualName>
+        <givenName>Ilona</givenName>
+        <surName>Naujokaitis-Lewis</surName>
+      </individualName>
+      <organizationName>National Wildlife Research Centre, Environment and Climate Change Canada</organizationName>
+      <address>
+        <deliveryPoint>1125 Colonel By Drive</deliveryPoint>
+        <city>ON</city>
+        <administrativeArea>ON</administrativeArea>
+        <postalCode>K1S 5B6</postalCode>
+        <country>Canada</country>
+      </address>
+      <phone>613-302-0911</phone>
+      <electronicMailAddress>ilona.naujokaitis-lewis@ec.gc.ca</electronicMailAddress>
+    </contact>
+    <dataTable>
+      <entityName>CAN-SAR_database.csv</entityName>
+      <entityDescription>CAN-SAR: A database of Canadian species at risk information</entityDescription>
+      <physical>
+        <objectName>CAN-SAR_database.csv</objectName>
+        <size unit="bytes">2860434</size>
+        <authentication method="MD5">fe7c810709a1d8c04d94ee39f2be7d8f</authentication>
+        <dataFormat>
+          <textFormat>
+            <recordDelimiter>&#13;
+</recordDelimiter>
+            <attributeOrientation>column</attributeOrientation>
+            <simpleDelimited>
+              <fieldDelimiter>,</fieldDelimiter>
+            </simpleDelimited>
+          </textFormat>
+        </dataFormat>
+      </physical>
+      <attributeList>
+        <attribute>
+          <attributeName>rowID</attributeName>
+          <attributeDefinition>Unique identifier for each document. Extraction details: There is one row per document.</attributeDefinition>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>dimensionless</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>integer</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>speciesID</attributeName>
+          <attributeDefinition>Unique identifier for each species or designatable unit. Extraction details: There will be multiple entries for each species if there is more than one document published.</attributeDefinition>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>dimensionless</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>integer</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>common_name</attributeName>
+          <attributeDefinition>Common name of species and population. Extraction details: Common name and population directly transcribed from the title page.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain/>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>species</attributeName>
+          <attributeDefinition>Binomial name of species. Extraction details: Scientific name directly transcribed from the document title.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain/>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>doc_type</attributeName>
+          <attributeDefinition>The type of document. Extraction details: COSEWIC Status Reports includes Status Appraisal Summaries.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>COSEWIC Status Reports</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Recovery Strategies</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Management Plans</code>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>sara_status</attributeName>
+          <attributeDefinition>The status of the species listed under SARA Schedule 1. Extraction details: The Schedule 1 status under SARA. It can be different from the status assessed by COSEWIC. It should be apparent from the 'Protection, status and rank section' of the executive summary in a Status Report, or the preface or executive summary of a Recovery Strategy or Management Plan. The species profile on the SAR Public Registry site also gives the status.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>Endangered</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Threatened</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Special Concern</code>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>doc_citation</attributeName>
+          <attributeDefinition>The citation for the document. Extraction details: Directly transcribed from the 2nd page of the document.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain/>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>url</attributeName>
+          <attributeDefinition>URL for the SAR Public Registry website search page filtered to the species common name. Extraction details: Constructed from the url for the SAR Public Registry species search page using the common name as a keyword.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain/>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>web_pub_date</attributeName>
+          <attributeDefinition>Date the document was made available on the SAR Public Registry website. Extraction details: Directly transcribed from the document entry on the SAR Public Registry website. Found in the square brackets beside the title.</attributeDefinition>
+          <measurementScale>
+            <dateTime>
+              <formatString>YYYY-MM-DD</formatString>
+              <dateTimeDomain/>
+            </dateTime>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>year_published</attributeName>
+          <attributeDefinition>The publication year of the document. Extraction details: From the title page.</attributeDefinition>
+          <measurementScale>
+            <dateTime>
+              <formatString>YYYY</formatString>
+              <dateTimeDomain/>
+            </dateTime>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>date_last_access</attributeName>
+          <attributeDefinition>The date when the document was last accessed. Extraction details: Recorded when the document was downloaded.</attributeDefinition>
+          <measurementScale>
+            <dateTime>
+              <formatString>YYYY-MM-DD</formatString>
+              <dateTimeDomain/>
+            </dateTime>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>status_appraisal_rapid_review</attributeName>
+          <attributeDefinition>Is the document a status appraisal summary or rapid review? Extraction details: 0' unless the title includes 'Status Appraisal Summary' or 'Rapid Review.'</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>0</code>
+                    <definition>No</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>1</code>
+                    <definition>Yes</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>final</attributeName>
+          <attributeDefinition>Is the document a final version? Extraction details: 1' unless the document is a Recovery Strategy or Management Plan and says 'proposed' in the title</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>0</code>
+                    <definition>No</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>1</code>
+                    <definition>Yes</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>amendment</attributeName>
+          <attributeDefinition>Is the document an amendment to an earlier version? Extraction details: 0' unless the document has 'amended' or 'amendment' in the title.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>0</code>
+                    <definition>No</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>1</code>
+                    <definition>Yes</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>taxonomic_group</attributeName>
+          <attributeDefinition>Taxonomic group. Extraction details: The taxonomic group used in the document to describe the species.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>Amphibians</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Arthropods</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Birds</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Fishes (freshwater)</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Fishes (marine)</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Lichens</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Mammals (marine)</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Mammals (terrestrial)</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Molluscs</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Mosses</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Reptiles</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Vascular Plants</code>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>report_writers</attributeName>
+          <attributeDefinition>Last names and first initials of all Status Report writers. Extraction details: From the 'Production note' in the Status Report. Author last name, Initial of first name, e.g. Smith J, Stewart R</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>NA</code>
+                    <definition>not a Status Report</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>not a Status Report</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>EOO</attributeName>
+          <attributeDefinition>Estimated Extent of Occurrence: 'The area included in a polygon without concave angles that encompasses the geographic distribution of all known populations of a wildlife species” https://www.cosewic.ca/index.php/en-ca/about-us/definitions-abbreviations.html. Extraction details: From the 'Technical summary' in the Status Report. When multiple numbers were given the larger was used, if a range was given the mean was used.</attributeDefinition>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>kilometerSquared</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NR</code>
+            <codeExplanation>not recorded or specified as unknown in the report</codeExplanation>
+          </missingValueCode>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>not a Status Report</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>IAO</attributeName>
+          <attributeDefinition>Index of area of occupancy: “The area within the 'extent of occurrence' that is occupied by a taxon, excluding cases of vagrancy” https://www.cosewic.ca/index.php/en-ca/about-us/definitions-abbreviations.html. Extraction details: From the 'Technical summary' in the Status Report. When multiple numbers were specified the larger was used, if a range was specified the mean was used.</attributeDefinition>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>kilometerSquared</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NR</code>
+            <codeExplanation>not recorded or specified as unknown in the report</codeExplanation>
+          </missingValueCode>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>not a Status Report</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>locations</attributeName>
+          <attributeDefinition>The number of locations that the species occupies. A location is defined as: “a geographically or ecologically distinct area in which a single threatening event can rapidly affect all individuals of the taxon present” https://www.cosewic.ca/index.php/en-ca/about-us/definitions-abbreviations.html. Extraction details: From the 'Technical summary' in the Status Report. When multiple numbers were specified the larger was used, if a range was specified the mean was used.</attributeDefinition>
+          <measurementScale>
+            <ratio>
+              <unit>
+                <standardUnit>dimensionless</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>integer</numberType>
+              </numericDomain>
+            </ratio>
+          </measurementScale>
+          <missingValueCode>
+            <code>NR</code>
+            <codeExplanation>not recorded or specified as unknown in the report</codeExplanation>
+          </missingValueCode>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>not a Status Report</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>endemic_NA</attributeName>
+          <attributeDefinition>Whether the species only occurs in North America. Extraction details: From the 'Distribution' section of the Status Report.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>0</code>
+                    <definition>No</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>1</code>
+                    <definition>Yes</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>NA</code>
+                    <definition>not a Status Report</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>not a Status Report</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>endemic_canada</attributeName>
+          <attributeDefinition>Whether the species only occurs in Canada. Extraction details: From the 'Distribution' section of the Status Report.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>0</code>
+                    <definition>No</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>1</code>
+                    <definition>Yes</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>NA</code>
+                    <definition>not a Status Report</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>not a Status Report</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>continuous_USA</attributeName>
+          <attributeDefinition>Whether the species range is continuous with at least one population in the USA. Extraction details: The range is continuous if not all Canadian populations are geographically isolated from American populations. Determined from the 'Distribution' and 'Rescue effect' sections of the Status Report.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>0</code>
+                    <definition>No</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>1</code>
+                    <definition>Yes</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>NA</code>
+                    <definition>not a Status Report</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>not a Status Report</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>cosewic_status</attributeName>
+          <attributeDefinition>Status assessed by COSEWIC. Extraction details: The COSEWIC status from the Status Report title page.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>Endangered</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Threatened</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Special Concern</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Not at Risk</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Extirpated</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Extinct</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>NA</code>
+                    <definition>not a Status Report</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>not a Status Report</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>ranges</attributeName>
+          <attributeDefinition>Provinces, territories, or oceans where the species is present. Extraction details: Extracted from the Status Report.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>BC</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>AB</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>SK</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>MB</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>ON</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>QC</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>NB</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>PE</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>NS</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>NL</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>YT</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>NT</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>NU</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Pacific_Ocean</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Atlantic_Ocean</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Arctic_Ocean</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>NA</code>
+                    <definition>not a Status Report</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>not a Status Report</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>cosewic_examined_date</attributeName>
+          <attributeDefinition>Date that the COSEWIC assessment was completed. Extraction details: Extracted from the SAR Public Registry Species Profile under Last assessment date.</attributeDefinition>
+          <measurementScale>
+            <dateTime>
+              <formatString>YYYY-MM-DD</formatString>
+              <dateTimeDomain/>
+            </dateTime>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>event has not occurred, data is not available, or not a Status Report</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>date_of_listing</attributeName>
+          <attributeDefinition>Date that the species was added to SARA Schedule 1. Extraction details: Extracted from the SAR Public Registry Species Profile under Date added.</attributeDefinition>
+          <measurementScale>
+            <dateTime>
+              <formatString>YYYY-MM-DD</formatString>
+              <dateTimeDomain/>
+            </dateTime>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>event has not occurred, data is not available, or not a Status Report</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>gic_decision</attributeName>
+          <attributeDefinition>The decision made by the Governor in Council (GIC). Extraction details: Extracted from the SAR Public Registry Species Profile under GIC Decision.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>List</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Uplist</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Downlist</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Delist</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>NA</code>
+                    <definition>event has not occurred, data is not available, or not a Status Report</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>event has not occurred, data is not available, or not a Status Report</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>Critical_habitat</attributeName>
+          <attributeDefinition>Whether critical habitat is identified in the Recovery Strategy. Extraction details: Based on the critical habitat section of the Recovery Strategy. If critical habitat is described as fully identified or identified to the extent possible then a 'Y' was recorded. If critical habitat was described as partially identified then a 'P' was recorded. If critical habitat was not identified then an 'N' was recorded and if the document is not a Recovery Strategy then NA was recorded.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>Y</code>
+                    <definition>Yes</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>P</code>
+                    <definition>Partially</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>N</code>
+                    <definition>No</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>NA</code>
+                    <definition>not a Recovery Strategy</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>not a Recovery Strategy</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>action_subtype</attributeName>
+          <attributeDefinition>Sub-types of actions described in the Recovery Strategy or Management Plan. Extraction details: The actions described in the Recovery Strategy or Management Plan that are completed, underway or recommended for recovery. The actions were categorized into 16 types of actions which are described in the Action Types sheet.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>See Action Types sheet</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>NA</code>
+                    <definition>not a recovery document</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>not a recovery document</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>notes_action_subtype</attributeName>
+          <attributeDefinition>Note by the data extractor explaining the reason for the action classification or a quote from the document that demonstrates it. Extraction details: Optional field included if some clarification was needed.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>NA</code>
+                    <definition>not a recovery document</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>not a recovery document</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>CC_action</attributeName>
+          <attributeDefinition>Whether any actions are described in the Management Plan or Recovery Strategy that address climate change. Extraction details: An action was considered to address climate change if climate change was listed as the threat addressed or the reason the action was necessary.&#13;
+</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>0</code>
+                    <definition>No</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>1</code>
+                    <definition>Yes</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>NA</code>
+                    <definition>not a recovery document</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>not a recovery document</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>CC_action_subtype</attributeName>
+          <attributeDefinition>The sub-type of action that addresses climate change. Extraction details: The action sub-type for the action(s) that address climate change.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>NA</code>
+                    <definition>CC_action is not '1' or not a recovery document</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>CC_action is not '1' or not a recovery document</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>notes_CC_action_subtype</attributeName>
+          <attributeDefinition>Note by the data extractor explaining the reason for the action classification or a quote from the document that demonstrates it. Extraction details: Optional field included if some clarification was needed.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain/>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>action_type</attributeName>
+          <attributeDefinition>Types of actions described in the Recovery Strategy or Management Plan. Extraction details: Action sub-types were grouped in to 4 action types based on the table in the Action Types sheet.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>NA</code>
+                    <definition>not a recovery document</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>not a recovery document</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>CC_action_type</attributeName>
+          <attributeDefinition>The type of action that addresses climate change. Extraction details: The action type for the action(s) that address climate change. An action was considered to address climate change if climate change was listed as the threat addressed or the reason the action was necessary.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>NA</code>
+                    <definition>CC_action is not '1' or not a recovery document</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>CC_action is not '1' or not a recovery document</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>CC_not_mentioned</attributeName>
+          <attributeDefinition>Whether climate change was not mentioned any where in the document. Extraction details: Documents were searched for the word climat* and related words warm*, temperature and drought to determine if anthropogenic climate change was mentioned.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>0</code>
+                    <definition>No</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>1</code>
+                    <definition>Yes</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>CC_unknown</attributeName>
+          <attributeDefinition>Whether the threat of climate change was described as unknown. Extraction details: For documents without a threats calculator, when the threat of climate change is described as unknown, or as having unknown effects on the species. &#13;
+Where a document uses a threats calculator, if 'unknown' is assigned to impact, scope, severity, or timing. &#13;
+Or, for all documents, if further studies on the effects of climate change are described as needed.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>0</code>
+                    <definition>No</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>1</code>
+                    <definition>Yes</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>CC_in_knowledge_gap</attributeName>
+          <attributeDefinition>Whether the threat of climate change was in the knowledge gap section. Extraction details: '0' if climate change was not in the 'Knowledge gaps' section, &#13;
+'1' if it was identified in the 'Knowledge gaps' section, &#13;
+'NR' if no knowledge gaps section is present in the document, &#13;
+'NA' if climate change is not identified as a threat.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>0</code>
+                    <definition>No</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>1</code>
+                    <definition>Yes</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>NA</code>
+                    <definition>CC_threat is not 1</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>NR</code>
+                    <definition>no knowledge gaps section</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>CC_threat is not 1</codeExplanation>
+          </missingValueCode>
+          <missingValueCode>
+            <code>NR</code>
+            <codeExplanation>no knowledge gaps section</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>CC_unknown_impact</attributeName>
+          <attributeDefinition>Whether the impact of climate change was described as unknown. See X#_iucn_impact below for definition of impact. Extraction details: Identified based on the threats calculator or the text explaining the threat. &#13;
+'1' if it is identified as unknown (uncertain, incomplete data, lack of studies),&#13;
+'0' if it is known, &#13;
+'NR' if it is not mentioned or not discussed. &#13;
+Prioritized the threats calculator for this information and if a level 2 threat was identified as unknown, enter the data as unknown. &#13;
+'NA' if climate change is not identified as a threat.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>0</code>
+                    <definition>No</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>1</code>
+                    <definition>Yes</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>NA</code>
+                    <definition>CC_threat is not 1</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>NR</code>
+                    <definition>not mentioned</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>CC_threat is not 1</codeExplanation>
+          </missingValueCode>
+          <missingValueCode>
+            <code>NR</code>
+            <codeExplanation>not mentioned</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>CC_unknown_scope</attributeName>
+          <attributeDefinition>Whether the scope of climate change was described as unknown. See X#_iucn_scope below for definition of scope. Extraction details: Identified based on the threats calculator or the text explaining the threat. &#13;
+'1' if it is identified as unknown (uncertain, incomplete data, lack of studies),&#13;
+'0' if it is known, &#13;
+'NR' if it is not mentioned or not discussed. &#13;
+Prioritized the threats calculator for this information and if a level 2 threat was identified as unknown, enter the data as unknown. &#13;
+'NA' if climate change is not identified as a threat.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>0</code>
+                    <definition>No</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>1</code>
+                    <definition>Yes</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>NA</code>
+                    <definition>CC_threat is not 1</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>NR</code>
+                    <definition>not mentioned</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>CC_threat is not 1</codeExplanation>
+          </missingValueCode>
+          <missingValueCode>
+            <code>NR</code>
+            <codeExplanation>not mentioned</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>CC_unknown_severity</attributeName>
+          <attributeDefinition>Whether the severity of climate change was described as unknown. See X#_iucn_severity below for definition of severity. Extraction details: Identified based on the threats calculator or the text explaining the threat. &#13;
+'1' if it is identified as unknown (uncertain, incomplete data, lack of studies),&#13;
+'0' if it is known, &#13;
+'NR' if it is not mentioned or not discussed. &#13;
+Prioritized the threats calculator for this information and if a level 2 threat was identified as unknown, enter the data as unknown. &#13;
+'NA' if climate change is not identified as a threat.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>0</code>
+                    <definition>No</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>1</code>
+                    <definition>Yes</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>NA</code>
+                    <definition>CC_threat is not 1</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>NR</code>
+                    <definition>not mentioned</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>CC_threat is not 1</codeExplanation>
+          </missingValueCode>
+          <missingValueCode>
+            <code>NR</code>
+            <codeExplanation>not mentioned</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>CC_unknown_timing</attributeName>
+          <attributeDefinition>Whether the timing of climate change was described as unknown. See X#_iucn_timing below for definition of timing. Extraction details: Identified based on the threats calculator or the text explaining the threat. &#13;
+'1' if it is identified as unknown (uncertain, incomplete data, lack of studies),&#13;
+'0' if it is known,&#13;
+'NR' if it is not mentioned or not discussed. Prioritized the threats calculator for this information and if a level 2 threat was identified as unknown, enter the data as unknown. &#13;
+'NA' if climate change is not identified as a threat.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>0</code>
+                    <definition>No</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>1</code>
+                    <definition>Yes</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>NA</code>
+                    <definition>CC_threat is not 1</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>NR</code>
+                    <definition>not mentioned</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>CC_threat is not 1</codeExplanation>
+          </missingValueCode>
+          <missingValueCode>
+            <code>NR</code>
+            <codeExplanation>not mentioned</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>CC_threat</attributeName>
+          <attributeDefinition>Whether climate change is identified as a threat. Extraction details: If the threats calculator was included in the document, climate change was considered a threat if the 'Climate change and severe weather' threat class had an impact that was more than negligible or if climate change was described outside the threats calculator as a threat or potential threat.&#13;
+&#13;
+If a threats calculator is not completed it is considered identified as a threat if it is described in the threats and limiting factors section as having a negative or potentially negative impact on the species. &#13;
+&#13;
+Note it is possible for the 'Climate change and severe weather' threat category to be identified as having an impact without climate change being identified, such as cases where natural storms, flooding or drought that are not related to climate change are a threat.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>0</code>
+                    <definition>No</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>1</code>
+                    <definition>Yes</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>CC_relative_impact</attributeName>
+          <attributeDefinition>The impact of climate change relative to other threats. Extraction details: Based on descriptions of threats in the document, the relative impact of climate change was scored as '0' if it was not a threat, '1' if it was described as a minor, potential, possible, or other threat, '2' if it was a significant threat but not the most important or if it was among the list of threats with no indication of relative importance or '3' if it was among the most important threats described.</attributeDefinition>
+          <measurementScale>
+            <ordinal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>0</code>
+                    <definition>Not a threat</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>1</code>
+                    <definition>Less important threat</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>2</code>
+                    <definition>Intermediate threat</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>3</code>
+                    <definition>Most important threat</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>NA</code>
+                    <definition>CC_threat is not 1</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </ordinal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>CC_threat is not 1</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>threat_calculator</attributeName>
+          <attributeDefinition>Whether an 'IUCN Threats Assessment' was included in the document. Extraction details: The threats calculator is either included in the 'Threats' section of the document or as an appendix.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>0</code>
+                    <definition>No</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>1</code>
+                    <definition>Yes</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>TC_version</attributeName>
+          <attributeDefinition>The version of the threats classification scheme that was used. Extraction details: There are 2 possible versions, v1.1 where threat 8 has 3 level 2 categories and there is no 11.5, and v2.3 where threat 8 has 6 level 2 categories and 11.5 is other impacts. If categories 8 and 11 are not included in the threats calculator assumed version 1.1.</attributeDefinition>
+          <measurementScale>
+            <ordinal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>1.1000000000000001</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>2.2999999999999998</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>NA</code>
+                    <definition>no threats calculator available</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </ordinal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>no threats calculator available</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>TC_date</attributeName>
+          <attributeDefinition>Date given on threats calculator. Extraction details: Directly transcribed from the threats calculator table.</attributeDefinition>
+          <measurementScale>
+            <dateTime>
+              <formatString>YYYY-MM-DD</formatString>
+              <dateTimeDomain/>
+            </dateTime>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Blank or no threats calculator</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>TC_assessors</attributeName>
+          <attributeDefinition>Names of assessors listed on threats calculator. Extraction details: Directly transcribed from the threats calculator table.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>NA</code>
+                    <definition>Blank or no threats calculator</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Blank or no threats calculator</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>TC_references</attributeName>
+          <attributeDefinition>References listed on threats calculator. Extraction details: Directly transcribed from the threats calculator table.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>NA</code>
+                    <definition>Blank or no threats calculator</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Blank or no threats calculator</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>TC_calculated_overall_impact</attributeName>
+          <attributeDefinition>Calculated overall threat impact. Extraction details: Directly transcribed from the threats calculator table. Can be a range i.e. High - Low.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>Very High</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>High</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Medium</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Low</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>NA</code>
+                    <definition>Blank or no threats calculator</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Blank or no threats calculator</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>TC_assigned_overall_impact</attributeName>
+          <attributeDefinition>Assigned overall threat impact. Extraction details: Directly transcribed from the threats calculator table. Can be a range i.e. High - Low.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>Very High</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>High</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Medium</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Low</code>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>NA</code>
+                    <definition>Blank or no threats calculator</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Blank or no threats calculator</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>TC_impact_adjustment_reasons</attributeName>
+          <attributeDefinition>Impact adjustment reasons. Extraction details: Directly transcribed from the threats calculator table.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>NA</code>
+                    <definition>Blank or no threats calculator</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Blank or no threats calculator</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>TC_overall_comments</attributeName>
+          <attributeDefinition>Overall threat comments. Extraction details: Directly transcribed from the threats calculator table.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>NA</code>
+                    <definition>Blank or no threats calculator</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Blank or no threats calculator</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>X#_threat_identified</attributeName>
+          <attributeDefinition>Whether the level 1 threat class was identified. The # indicates which threat class of the 11 level 1 classes was identified. Extraction details: If a threats calculator was used the threat is considered identified if the impact is anything other than blank or 'Not a Threat'. If a threats calculator was not used threats described in the document were classified into the appropriate category based on version 1.1 of the IUCN-CMP Direct Threats Classification (Salafsky et al, 2008). See Threat Classes sheet for class definitions. &#13;
+When a threats calculator was used but only level 2 threats were filled in, the level 1 threat was considered identified if any level 2 threats were identified. Impact, scope, severity and timing were left as 'NA' if level 2 threats were filled in but not level 1.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>0</code>
+                    <definition>No</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>1</code>
+                    <definition>Yes</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>X#.#_threat_identified</attributeName>
+          <attributeDefinition>Whether the level 2 threat class was identified. The # indicates which of the level 2 threat classes was identified e.g.: 2.2. Extraction details: If a threats calculator was used the threat is considered identified if the impact is anything other than blank or 'Not a Threat'. If a threats calculator was not used threats described in the document were classified into the appropriate category based on version 1.1 of the IUCN-CMP Direct Threats Classification (Salafsky et al, 2008). See Threat Classes sheet for class definitions. When there was inadequate or incomplete information about a level 2 threat (e.g.: do not specify what kind of agriculture (farm, crop, etc.) a '2' is recorded for all level 2 threats that could be the one described.</attributeDefinition>
+          <measurementScale>
+            <ordinal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>0</code>
+                    <definition>No</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>1</code>
+                    <definition>Yes</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>2</code>
+                    <definition>Potentially identified</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </ordinal>
+          </measurementScale>
+        </attribute>
+        <attribute>
+          <attributeName>X#_iucn_impact</attributeName>
+          <attributeDefinition>The degree to which a species or ecosystem is observed, inferred, or suspected to be directly or indirectly threatened by the above threat (COSEWIC, 2012). Extraction details: The impact value from the 'IUCN Threats Assessment Worksheet' for the level 1 or 2 threat. When the value is a range the mean was recorded.</attributeDefinition>
+          <measurementScale>
+            <ordinal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>-2</code>
+                    <definition>Not Calculated</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>-1</code>
+                    <definition>Unknown</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>0</code>
+                    <definition>Not a threat/ Not applicable</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>1</code>
+                    <definition>&gt; 3% (Negligible)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>2</code>
+                    <definition>3% (Low)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>3</code>
+                    <definition>15% (Medium)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>4</code>
+                    <definition>40% (High)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>5</code>
+                    <definition>75% (Very High)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>NA</code>
+                    <definition>Blank or no threats calculator</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </ordinal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Blank or no threats calculator</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>X#_iucn_scope</attributeName>
+          <attributeDefinition>The proportion of the species or ecosystem that can reasonably be expected to be affected by the threat within 10 years with continuation of current circumstances and trends (COSEWIC, 2012). Extraction details: The scope value from the 'IUCN Threats Assessment Worksheet' for the level 1 or 2 threat. When there was a range of values specified, the mean was recorded.</attributeDefinition>
+          <measurementScale>
+            <ordinal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>-2</code>
+                    <definition>Not Calculated</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>-1</code>
+                    <definition>Unknown</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>0</code>
+                    <definition>Not a threat/ Not applicable</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>1</code>
+                    <definition>Affects  &lt; 1% of the population (Negligible)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>2</code>
+                    <definition>Affects 1–10% of the population (Small)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>3</code>
+                    <definition>Affects 11–30% of the population (Restricted)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>4</code>
+                    <definition>Affects 31–70% of the population (Large)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>5</code>
+                    <definition>Affects 71–100% of the population (Pervasive)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>NA</code>
+                    <definition>Blank or no threats calculator</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </ordinal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Blank or no threats calculator</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>X#_iucn_severity</attributeName>
+          <attributeDefinition>The level of damage to the species or ecosystem from the above threat that can reasonably be expected with continuation of current circumstances and trends (including potential new threats), assessed within a 10-year or three-generation timeframe, whichever is longer (up to 100 years) (COSEWIC, 2012). Extraction details: The severity value from the 'IUCN Threats Assessment Worksheet' for the level 1 or 2 threat. When there was a range of values specified, the mean was recorded.</attributeDefinition>
+          <measurementScale>
+            <ordinal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>-2</code>
+                    <definition>Not Calculated</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>-1</code>
+                    <definition>Unknown</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>0</code>
+                    <definition>&gt; 0% reduction of the species’ population within next 10 years or 3 generations (Neutral or Potential Benefit)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>1</code>
+                    <definition>&lt; 1% reduction of the species’ population within next 10 years or 3 generations (Negligible)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>2</code>
+                    <definition>1–10% reduction of the species’ population within next 10 years or 3 generations (Slight)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>3</code>
+                    <definition>11–30% reduction of the species’ population within next 10 years or 3 generations (Moderate)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>4</code>
+                    <definition>31–70% reduction of the species’ population within next 10 years or 3 generations (Serious)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>5</code>
+                    <definition>71–100% reduction of the species’ population within next 10 years or 3 generations (Extreme)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>NA</code>
+                    <definition>Blank or no threats calculator</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </ordinal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Blank or no threats calculator</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>X#_iucn_timing</attributeName>
+          <attributeDefinition>The immediacy of the above threat to the species (COSEWIC, 2012). Extraction details: The timing value from the 'IUCN Threats Assessment Worksheet' for the level 1 or 2 threat. When there was a range of values specified, the mean was recorded.</attributeDefinition>
+          <measurementScale>
+            <ordinal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>-2</code>
+                    <definition>Not Calculated</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>-1</code>
+                    <definition>Unknown</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>0</code>
+                    <definition>Not a threat/Not applicable</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>1</code>
+                    <definition>Only in the past and unlikely to return, or no direct effect but limiting (Insignificant/Negligible)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>2</code>
+                    <definition>Only in the long term future or now suspended (Low)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>3</code>
+                    <definition>Only in the short-term future or now suspended (Moderate)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>4</code>
+                    <definition>Continuing (High)</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>NA</code>
+                    <definition>Blank or no threats calculator</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </ordinal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Blank or no threats calculator</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>X#_iucn_comments</attributeName>
+          <attributeDefinition>Comments about the level 1 or 2 threat included in the threats calculator table. Extraction details: Directly transcribed from the threats calculator table.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>NA</code>
+                    <definition>Blank or no threats calculator</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Blank or no threats calculator</codeExplanation>
+          </missingValueCode>
+        </attribute>
+        <attribute>
+          <attributeName>X#_notes</attributeName>
+          <attributeDefinition>Note by the data extractor explaining the reason for the threat classification or a quote from the document that demonstrates it. Extraction details: Where the threat descriptions were not clear, and thus classification of threats could be affected, the data extractor may include notes to explain the selection.</attributeDefinition>
+          <measurementScale>
+            <nominal>
+              <nonNumericDomain>
+                <enumeratedDomain>
+                  <codeDefinition>
+                    <code>NA</code>
+                    <definition>Blank or no threats calculator</definition>
+                  </codeDefinition>
+                </enumeratedDomain>
+              </nonNumericDomain>
+            </nominal>
+          </measurementScale>
+          <missingValueCode>
+            <code>NA</code>
+            <codeExplanation>Blank or no threats calculator</codeExplanation>
+          </missingValueCode>
+        </attribute>
+      </attributeList>
+    </dataTable>
+  </dataset>
+</eml:eml>
