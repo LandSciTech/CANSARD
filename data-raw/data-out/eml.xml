@@ -2,22 +2,20 @@
 <eml:eml xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:stmml="http://www.xml-cml.org/schema/stmml-1.2" packageId="doi:10.17605/OSF.IO/E4A58" system="doi" xsi:schemaLocation="https://eml.ecoinformatics.org/eml-2.2.0 https://eml.ecoinformatics.org/eml-2.2.0/eml.xsd">
   <dataset>
     <title>CAN-SAR: A database for Canadian species at risk information</title>
-	<creator id="https://orcid.org/0000-0001-9644-5343">
+    <creator id="https://orcid.org/0000-0001-9644-5343">
       <individualName>
         <givenName>Sarah</givenName>
         <surName>Endicott</surName>
       </individualName>
-	  <electronicMailAddress>sarah.endicott@ec.gc.ca</electronicMailAddress>
+      <electronicMailAddress>sarah.endicott@ec.gc.ca</electronicMailAddress>
     </creator>
-	<associatedParty id="https://orcid.org/0000-0001-9504-4484">
+    <creator id="https://orcid.org/0000-0001-9504-4484">
       <individualName>
         <givenName>Ilona</givenName>
         <surName>Naujokaitis-Lewis</surName>
       </individualName>
       <electronicMailAddress>ilona.naujokaitis-lewis@ec.gc.ca</electronicMailAddress>
-      <role>principalInvestigator</role>
-      <role>author</role>
-    </associatedParty>
+    </creator>
     <associatedParty>
       <individualName>
         <givenName>Jessica M.</givenName>
@@ -26,15 +24,10 @@
       <role>author</role>
     </associatedParty>
     <pubDate>2022</pubDate>
-	<licensed>
-      <licenseName>Creative Commons Attribution 4.0 International Public License</licenseName>
-      <url>https://creativecommons.org/licenses/by/4.0/</url>
-      <identifier>CC BY 4.0</identifier>
-    </licensed>
-	<abstract>
+    <abstract>
       <markdown>CAN-SAR: A database of Canadian Species at Risk information is an initiative led by Dr. Ilona Naujokaitis-Lewis from Environment Climate Change Canada. The aim of this database is to provide open and accessible data reflecting information obtained from Canadian species at risk listing and recovery planning documents. Ongoing efforts include development of a living database that will facilitate contributions from other parties in an effort to increase efficiencies and decrease multiple (redundant) efforts with the broad over-arching goal of improving the conservation of species at risk. **NOTE:** The current version of CAN-SAR includes documents available as of **March 23, 2021** for species with SARA statuses Special Concern, Threatened, or Endangered. For the authoritative source of current species at risk information please consult the SARA Public Registry (https://www.canada.ca/en/environment-climate-change/services/species-risk-public-registry.html).</markdown>
     </abstract>
-	<keywordSet>
+    <keywordSet>
       <keyword>endangered species</keyword>
       <keyword>biodiversity</keyword>
       <keywordThesaurus>LTER controlled vocabulary</keywordThesaurus>
@@ -43,7 +36,12 @@
       <keyword>populations</keyword>
       <keywordThesaurus>LTER core area</keywordThesaurus>
     </keywordSet>
-	<coverage>
+    <licensed>
+      <licenseName>Creative Commons Attribution 4.0 International Public License</licenseName>
+      <url>https://creativecommons.org/licenses/by/4.0/</url>
+      <identifier>CC BY 4.0</identifier>
+    </licensed>
+    <coverage>
       <geographicCoverage>
         <geographicDescription>Canada</geographicDescription>
         <boundingCoordinates>
@@ -1794,7 +1792,9 @@
           <measurementScale>
             <nominal>
               <nonNumericDomain>
-                <enumeratedDomain/>
+                <textDomain>
+                  <definition>Common name of species and population.</definition>
+                </textDomain>
               </nonNumericDomain>
             </nominal>
           </measurementScale>
@@ -1805,7 +1805,9 @@
           <measurementScale>
             <nominal>
               <nonNumericDomain>
-                <enumeratedDomain/>
+                <textDomain>
+                  <definition>Binomial name of species.</definition>
+                </textDomain>
               </nonNumericDomain>
             </nominal>
           </measurementScale>
@@ -1819,12 +1821,15 @@
                 <enumeratedDomain>
                   <codeDefinition>
                     <code>COSEWIC Status Reports</code>
+                    <definition>COSEWIC Status Reports</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>Recovery Strategies</code>
+                    <definition>Recovery Strategies</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>Management Plans</code>
+                    <definition>Management Plans</definition>
                   </codeDefinition>
                 </enumeratedDomain>
               </nonNumericDomain>
@@ -1840,12 +1845,15 @@
                 <enumeratedDomain>
                   <codeDefinition>
                     <code>Endangered</code>
+                    <definition>Endangered</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>Threatened</code>
+                    <definition>Threatened</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>Special Concern</code>
+                    <definition>Special Concern</definition>
                   </codeDefinition>
                 </enumeratedDomain>
               </nonNumericDomain>
@@ -1858,7 +1866,9 @@
           <measurementScale>
             <nominal>
               <nonNumericDomain>
-                <enumeratedDomain/>
+                <textDomain>
+                  <definition>The citation for the document.</definition>
+                </textDomain>
               </nonNumericDomain>
             </nominal>
           </measurementScale>
@@ -1869,7 +1879,9 @@
           <measurementScale>
             <nominal>
               <nonNumericDomain>
-                <enumeratedDomain/>
+                <textDomain>
+                  <definition>URL for the SAR Public Registry website search page filtered to the species common name.</definition>
+                </textDomain>
               </nonNumericDomain>
             </nominal>
           </measurementScale>
@@ -1973,39 +1985,51 @@
                 <enumeratedDomain>
                   <codeDefinition>
                     <code>Amphibians</code>
+                    <definition>Amphibians</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>Arthropods</code>
+                    <definition>Arthropods</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>Birds</code>
+                    <definition>Birds</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>Fishes (freshwater)</code>
+                    <definition>Fishes (freshwater)</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>Fishes (marine)</code>
+                    <definition>Fishes (marine)</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>Lichens</code>
+                    <definition>Lichens</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>Mammals (marine)</code>
+                    <definition>Mammals (marine)</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>Mammals (terrestrial)</code>
+                    <definition>Mammals (terrestrial)</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>Molluscs</code>
+                    <definition>Molluscs</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>Mosses</code>
+                    <definition>Mosses</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>Reptiles</code>
+                    <definition>Reptiles</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>Vascular Plants</code>
+                    <definition>Vascular Plants</definition>
                   </codeDefinition>
                 </enumeratedDomain>
               </nonNumericDomain>
@@ -2018,12 +2042,9 @@
           <measurementScale>
             <nominal>
               <nonNumericDomain>
-                <enumeratedDomain>
-                  <codeDefinition>
-                    <code>NA</code>
-                    <definition>not a Status Report</definition>
-                  </codeDefinition>
-                </enumeratedDomain>
+                <textDomain>
+                  <definition>Last names and first initials of all Status Report writers.</definition>
+                </textDomain>
               </nonNumericDomain>
             </nominal>
           </measurementScale>
@@ -2191,21 +2212,27 @@
                 <enumeratedDomain>
                   <codeDefinition>
                     <code>Endangered</code>
+                    <definition>Endangered</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>Threatened</code>
+                    <definition>Threatened</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>Special Concern</code>
+                    <definition>Special Concern</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>Not at Risk</code>
+                    <definition>Not at Risk</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>Extirpated</code>
+                    <definition>Extirpated</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>Extinct</code>
+                    <definition>Extinct</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>NA</code>
@@ -2229,51 +2256,67 @@
                 <enumeratedDomain>
                   <codeDefinition>
                     <code>BC</code>
+                    <definition>BC</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>AB</code>
+                    <definition>AB</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>SK</code>
+                    <definition>SK</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>MB</code>
+                    <definition>MB</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>ON</code>
+                    <definition>ON</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>QC</code>
+                    <definition>QC</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>NB</code>
+                    <definition>NB</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>PE</code>
+                    <definition>PE</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>NS</code>
+                    <definition>NS</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>NL</code>
+                    <definition>NL</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>YT</code>
+                    <definition>YT</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>NT</code>
+                    <definition>NT</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>NU</code>
+                    <definition>NU</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>Pacific_Ocean</code>
+                    <definition>Pacific_Ocean</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>Atlantic_Ocean</code>
+                    <definition>Atlantic_Ocean</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>Arctic_Ocean</code>
+                    <definition>Arctic_Ocean</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>NA</code>
@@ -2325,15 +2368,19 @@
                 <enumeratedDomain>
                   <codeDefinition>
                     <code>List</code>
+                    <definition>List</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>Uplist</code>
+                    <definition>Uplist</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>Downlist</code>
+                    <definition>Downlist</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>Delist</code>
+                    <definition>Delist</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>NA</code>
@@ -2389,10 +2436,75 @@
                 <enumeratedDomain>
                   <codeDefinition>
                     <code>See Action Types sheet</code>
+                    <definition>See Action Types sheet</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>NA</code>
                     <definition>not a recovery document</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Education</code>
+                    <definition>Community outreach, stewardship or education activities including providing information, hosting meetings, and coordinating with stakeholders.</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Mitigate climate change</code>
+                    <definition>Actions aimed at reducing or preventing greenhouse gas emission.</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Monitoring</code>
+                    <definition>Gathering data to document trends over space and time, including population, harvesting, or habitat trends, and to assess effectiveness and track progress towards conservation and population objectives.</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Research</code>
+                    <definition>Producing new knowledge that contributes to improved understanding of a species, including but not limited to life history, population size and distribution, response to threats and response to actions.</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Regulate human activities</code>
+                    <definition>Imposing restrictions on direct human threats such as changing logging, fishing or hunting rules, or legislation to manage other threats like pollution.</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Habitat restoration</code>
+                    <definition>Modifying habitat to improve suitability for species, including connectivity features like fish ladders, and culverts.</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Invasive species removal</code>
+                    <definition>Removing invasive species that have negative impacts on species or habitats.</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Protection</code>
+                    <definition>Protecting habitat in any way including by zoning or creating protected areas. Including when a large portion of the population exists inside a protected area.</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Treat disease</code>
+                    <definition>Treating individuals or populations to prevent disease.</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Manage native species negatively impacting species at risk</code>
+                    <definition>Relocating, culling, or excluding native predators including herbivores and cormorants.</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Seed storage</code>
+                    <definition>Storing plant seeds in case of a need for reintroduction.</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Feeding</code>
+                    <definition>Artificially increasing the amount of prey or food available.</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Emergency response</code>
+                    <definition>Emergency measures to prevent extinction or extirpation, or prevent mortality by taking direct action.</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Captive breeding</code>
+                    <definition>Ex situ breeding to recover or maintain the population.</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Re-establishing populations</code>
+                    <definition>Artificially reintroducing or augmenting populations at inhabited or previously inhabited sites.</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Translocation</code>
+                    <definition>Moving species to previously unoccupied sites.</definition>
                   </codeDefinition>
                 </enumeratedDomain>
               </nonNumericDomain>
@@ -2409,12 +2521,9 @@
           <measurementScale>
             <nominal>
               <nonNumericDomain>
-                <enumeratedDomain>
-                  <codeDefinition>
-                    <code>NA</code>
-                    <definition>not a recovery document</definition>
-                  </codeDefinition>
-                </enumeratedDomain>
+                <textDomain>
+                  <definition>Note by the data extractor explaining the reason for the action classification or a quote from the document that demonstrates it.</definition>
+                </textDomain>
               </nonNumericDomain>
             </nominal>
           </measurementScale>
@@ -2460,8 +2569,68 @@
               <nonNumericDomain>
                 <enumeratedDomain>
                   <codeDefinition>
-                    <code>NA</code>
-                    <definition>CC_action is not '1' or not a recovery document</definition>
+                    <code>Education</code>
+                    <definition>Community outreach, stewardship or education activities including providing information, hosting meetings, and coordinating with stakeholders.</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Mitigate climate change</code>
+                    <definition>Actions aimed at reducing or preventing greenhouse gas emission.</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Monitoring</code>
+                    <definition>Gathering data to document trends over space and time, including population, harvesting, or habitat trends, and to assess effectiveness and track progress towards conservation and population objectives.</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Research</code>
+                    <definition>Producing new knowledge that contributes to improved understanding of a species, including but not limited to life history, population size and distribution, response to threats and response to actions.</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Regulate human activities</code>
+                    <definition>Imposing restrictions on direct human threats such as changing logging, fishing or hunting rules, or legislation to manage other threats like pollution.</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Habitat restoration</code>
+                    <definition>Modifying habitat to improve suitability for species, including connectivity features like fish ladders, and culverts.</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Invasive species removal</code>
+                    <definition>Removing invasive species that have negative impacts on species or habitats.</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Protection</code>
+                    <definition>Protecting habitat in any way including by zoning or creating protected areas. Including when a large portion of the population exists inside a protected area.</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Treat disease</code>
+                    <definition>Treating individuals or populations to prevent disease.</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Manage native species negatively impacting species at risk</code>
+                    <definition>Relocating, culling, or excluding native predators including herbivores and cormorants.</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Seed storage</code>
+                    <definition>Storing plant seeds in case of a need for reintroduction.</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Feeding</code>
+                    <definition>Artificially increasing the amount of prey or food available.</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Emergency response</code>
+                    <definition>Emergency measures to prevent extinction or extirpation, or prevent mortality by taking direct action.</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Captive breeding</code>
+                    <definition>Ex situ breeding to recover or maintain the population.</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Re-establishing populations</code>
+                    <definition>Artificially reintroducing or augmenting populations at inhabited or previously inhabited sites.</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Translocation</code>
+                    <definition>Moving species to previously unoccupied sites.</definition>
                   </codeDefinition>
                 </enumeratedDomain>
               </nonNumericDomain>
@@ -2478,7 +2647,9 @@
           <measurementScale>
             <nominal>
               <nonNumericDomain>
-                <enumeratedDomain/>
+                <textDomain>
+                  <definition>Note by the data extractor explaining the reason for the action classification or a quote from the document that demonstrates it.</definition>
+                </textDomain>
               </nonNumericDomain>
             </nominal>
           </measurementScale>
@@ -2491,8 +2662,20 @@
               <nonNumericDomain>
                 <enumeratedDomain>
                   <codeDefinition>
-                    <code>NA</code>
-                    <definition>not a recovery document</definition>
+                    <code>Habitat management</code>
+                    <definition>See action sub-types: Regulate human activities, Habitat restoration, Invasive species removal, Protection, Treat disease, Manage native species negatively impacting species at risk</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Outreach and stewardship</code>
+                    <definition>See action sub-types: Education, Mitigate climate change</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Population management</code>
+                    <definition>See action sub-types: Seed storage, Feeding, Emergency response, Captive breeding, Re-establishing populations, Translocation</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Research and monitoring</code>
+                    <definition>See action sub-types: Monitoring, Research</definition>
                   </codeDefinition>
                 </enumeratedDomain>
               </nonNumericDomain>
@@ -2511,8 +2694,20 @@
               <nonNumericDomain>
                 <enumeratedDomain>
                   <codeDefinition>
-                    <code>NA</code>
-                    <definition>CC_action is not '1' or not a recovery document</definition>
+                    <code>Habitat management</code>
+                    <definition>See action sub-types: Regulate human activities, Habitat restoration, Invasive species removal, Protection, Treat disease, Manage native species negatively impacting species at risk</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Outreach and stewardship</code>
+                    <definition>See action sub-types: Education, Mitigate climate change</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Population management</code>
+                    <definition>See action sub-types: Seed storage, Feeding, Emergency response, Captive breeding, Re-establishing populations, Translocation</definition>
+                  </codeDefinition>
+                  <codeDefinition>
+                    <code>Research and monitoring</code>
+                    <definition>See action sub-types: Monitoring, Research</definition>
                   </codeDefinition>
                 </enumeratedDomain>
               </nonNumericDomain>
@@ -2856,9 +3051,11 @@ Note it is possible for the 'Climate change and severe weather' threat category 
                 <enumeratedDomain>
                   <codeDefinition>
                     <code>1.1000000000000001</code>
+                    <definition>1.1000000000000001</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>2.2999999999999998</code>
+                    <definition>2.2999999999999998</definition>
                   </codeDefinition>
                   <codeDefinition>
                     <code>NA</code>
@@ -2893,12 +3090,9 @@ Note it is possible for the 'Climate change and severe weather' threat category 
           <measurementScale>
             <nominal>
               <nonNumericDomain>
-                <enumeratedDomain>
-                  <codeDefinition>
-                    <code>NA</code>
-                    <definition>Blank or no threats calculator</definition>
-                  </codeDefinition>
-                </enumeratedDomain>
+                <textDomain>
+                  <definition>Names of assessors listed on threats calculator.</definition>
+                </textDomain>
               </nonNumericDomain>
             </nominal>
           </measurementScale>
@@ -2913,12 +3107,9 @@ Note it is possible for the 'Climate change and severe weather' threat category 
           <measurementScale>
             <nominal>
               <nonNumericDomain>
-                <enumeratedDomain>
-                  <codeDefinition>
-                    <code>NA</code>
-                    <definition>Blank or no threats calculator</definition>
-                  </codeDefinition>
-                </enumeratedDomain>
+                <textDomain>
+                  <definition>References listed on threats calculator.</definition>
+                </textDomain>
               </nonNumericDomain>
             </nominal>
           </measurementScale>
@@ -2933,24 +3124,9 @@ Note it is possible for the 'Climate change and severe weather' threat category 
           <measurementScale>
             <nominal>
               <nonNumericDomain>
-                <enumeratedDomain>
-                  <codeDefinition>
-                    <code>Very High</code>
-                  </codeDefinition>
-                  <codeDefinition>
-                    <code>High</code>
-                  </codeDefinition>
-                  <codeDefinition>
-                    <code>Medium</code>
-                  </codeDefinition>
-                  <codeDefinition>
-                    <code>Low</code>
-                  </codeDefinition>
-                  <codeDefinition>
-                    <code>NA</code>
-                    <definition>Blank or no threats calculator</definition>
-                  </codeDefinition>
-                </enumeratedDomain>
+                <textDomain>
+                  <definition>Calculated overall threat impact.</definition>
+                </textDomain>
               </nonNumericDomain>
             </nominal>
           </measurementScale>
@@ -2965,24 +3141,9 @@ Note it is possible for the 'Climate change and severe weather' threat category 
           <measurementScale>
             <nominal>
               <nonNumericDomain>
-                <enumeratedDomain>
-                  <codeDefinition>
-                    <code>Very High</code>
-                  </codeDefinition>
-                  <codeDefinition>
-                    <code>High</code>
-                  </codeDefinition>
-                  <codeDefinition>
-                    <code>Medium</code>
-                  </codeDefinition>
-                  <codeDefinition>
-                    <code>Low</code>
-                  </codeDefinition>
-                  <codeDefinition>
-                    <code>NA</code>
-                    <definition>Blank or no threats calculator</definition>
-                  </codeDefinition>
-                </enumeratedDomain>
+                <textDomain>
+                  <definition>Assigned overall threat impact.</definition>
+                </textDomain>
               </nonNumericDomain>
             </nominal>
           </measurementScale>
@@ -2997,12 +3158,9 @@ Note it is possible for the 'Climate change and severe weather' threat category 
           <measurementScale>
             <nominal>
               <nonNumericDomain>
-                <enumeratedDomain>
-                  <codeDefinition>
-                    <code>NA</code>
-                    <definition>Blank or no threats calculator</definition>
-                  </codeDefinition>
-                </enumeratedDomain>
+                <textDomain>
+                  <definition>Impact adjustment reasons.</definition>
+                </textDomain>
               </nonNumericDomain>
             </nominal>
           </measurementScale>
@@ -3017,12 +3175,9 @@ Note it is possible for the 'Climate change and severe weather' threat category 
           <measurementScale>
             <nominal>
               <nonNumericDomain>
-                <enumeratedDomain>
-                  <codeDefinition>
-                    <code>NA</code>
-                    <definition>Blank or no threats calculator</definition>
-                  </codeDefinition>
-                </enumeratedDomain>
+                <textDomain>
+                  <definition>Overall threat comments.</definition>
+                </textDomain>
               </nonNumericDomain>
             </nominal>
           </measurementScale>
@@ -3286,12 +3441,9 @@ When a threats calculator was used but only level 2 threats were filled in, the 
           <measurementScale>
             <nominal>
               <nonNumericDomain>
-                <enumeratedDomain>
-                  <codeDefinition>
-                    <code>NA</code>
-                    <definition>Blank or no threats calculator</definition>
-                  </codeDefinition>
-                </enumeratedDomain>
+                <textDomain>
+                  <definition>Comments about the level 1 or 2 threat included in the threats calculator table.</definition>
+                </textDomain>
               </nonNumericDomain>
             </nominal>
           </measurementScale>
@@ -3306,12 +3458,9 @@ When a threats calculator was used but only level 2 threats were filled in, the 
           <measurementScale>
             <nominal>
               <nonNumericDomain>
-                <enumeratedDomain>
-                  <codeDefinition>
-                    <code>NA</code>
-                    <definition>Blank or no threats calculator</definition>
-                  </codeDefinition>
-                </enumeratedDomain>
+                <textDomain>
+                  <definition>Note by the data extractor explaining the reason for the threat classification or a quote from the document that demonstrates it.</definition>
+                </textDomain>
               </nonNumericDomain>
             </nominal>
           </measurementScale>

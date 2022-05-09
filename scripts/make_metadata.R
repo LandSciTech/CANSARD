@@ -7,6 +7,7 @@ library(readxl)
 library(dplyr)
 library(stringr)
 library(tidyr)
+library(emld)
 
 # Parameters to set #====================
 
@@ -35,7 +36,8 @@ attribs <- transmute(data_dict, attributeName = `Column header`,
                                                   Format == "Ordinal" ~ "ordinal",
                                                   str_detect(Format, "not a") ~ "nominal",
                                                   str_detect(Format, "sheet") ~ "nominal"),
-                     domain = case_when(is.na(measurementScale) ~ "textDomain",
+                     domain = case_when(Format == "Text" ~ "textDomain",
+                                        str_detect(Format, "not a") ~ "textDomain",
                                         measurementScale == "ratio" ~ "numericDomain",
                                         measurementScale == "dateTime" ~ "dateTimeDomain",
                                         measurementScale %in% c("ordinal", "nominal") ~ "enumeratedDomain")
@@ -48,10 +50,32 @@ facts <- data_dict %>% select(`Column header`, `Possible values`:ncol(.)) %>%
   pivot_longer(-attributeName) %>%
   select(-name) %>%
   filter(!is.na(value)) %>%
-  separate(value, into = c("code", "definition"), sep = ": ", fill = "right")
+  separate(value, into = c("code", "definition"), sep = ": ", fill = "right") %>%
+  mutate(definition = ifelse(is.na(definition), code, definition))
 
 missVals <- facts %>% filter(code %in% c("NA", "NR"))
 
+facts <- facts %>% group_by(attributeName) %>%
+  filter(!all(code %in% c("NA", "NR")))
+
+# facts is missing the action types
+action_table <- read_xlsx("data-raw/data-out/CAN-SAR_data_dictionary.xlsx",
+                          sheet = 3)
+action_types <- action_table %>% group_by(`Action type`) %>%
+  summarise(definition = paste0("See action sub-types: ",
+                                paste0(`Action sub-types`, collapse = ", "))) %>%
+  transmute(attributeName = "action_type, CC_action_type",
+            code = `Action type`,
+            definition = definition) %>%
+  separate_rows(attributeName, sep = ", ")
+
+action_subtypes <- action_table %>%
+  transmute(attributeName = "action_subtype, CC_action_subtype",
+            code = `Action sub-types`,
+            definition = Description) %>%
+  separate_rows(attributeName, sep = ", ")
+
+facts <- bind_rows(facts, action_types, action_subtypes)
 
 eml_attribs <- set_attributes(attribs, facts, missingValues = missVals)
 
@@ -78,14 +102,10 @@ sarah <- person(given = "Sarah", family = "Endicott", role = "cre",
                 comment = c(ORCID = "0000-0001-9644-5343")) %>%
   as_emld()
 
-sarah$role <- "author"
-
-ilona <- person(given = "Ilona", family = "Naujokaitis-Lewis",
+ilona <- person(given = "Ilona", family = "Naujokaitis-Lewis", role = "cre",
                 email = "ilona.naujokaitis-lewis@ec.gc.ca",
                 comment = c(ORCID = "0000-0001-9504-4484")) %>%
   as_emld()
-
-ilona$role <- c("principalInvestigator", "author")
 
 jessica <-  person(given = "Jessica M.", family = "Guezen") %>%
   as_emld()
@@ -132,11 +152,11 @@ license <- list(licenseName = "Creative Commons Attribution 4.0 International Pu
 
 dataset <- list(
   title = title,
-  creator = sarah,
+  creator = list(sarah, ilona),
   pubDate = pubDate,
   licensed = license,
   abstract = list(markdown = abstract),
-  associatedParty = list(ilona, jessica),
+  associatedParty = jessica,
   keywordSet = keywordSet,
   coverage = cover,
   contact = contact,
