@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# CAN-SAR: A database for Canadian species at risk information
+# CAN-SAR: A database of Canadian species at risk information
 
 <!-- badges: start -->
 
@@ -9,19 +9,14 @@
 <!-- badges: end -->
 
 The CANSARD repository is a home for the development version of CAN-SAR:
-A database for Canadian species at risk information, tracks changes
+A database of Canadian species at risk information. It tracks changes
 overtime, and automates the validation process. To access the production
 version of the database go to the [OSF
 repository](https://osf.io/e4a58/)
 
 ## Description
+CAN-SAR: A Database of Canadian Species at Risk Information is an initiative led by Dr. Ilona Naujokaitis-Lewis from Environment Climate Change Canada. The aim of this database is to provide open and accessible data reflecting information obtained from Canadian species at risk listing and recovery planning documents. Ongoing efforts include development of a living database that will facilitate contributions from other parties in an effort to increase efficiencies and decrease multiple (redundant) efforts with the broad over-arching goal of improving the conservation of species at risk.
 
-CAN-SAR: A database for Canadian species at risk information is an
-initiative led by Dr. Ilona Naujokaitis-Lewis from Environment Climate
-Change Canada. The aim of this database is to provide open and
-accessible data reflecting information obtained from Canadian species at
-risk listing and recovery planning documents. Ongoing efforts include
-development of a living database that will facilitate contributions from
-other parties in an effort to increase efficiencies and decrease
-multiple (redundant) efforts with the broad over-arching goal of
-improving the conservation of species at risk.
+**NOTE:** The current version of CAN-SAR includes documents available as of March 23, 2021 for species with SARA statuses Endangered, Threatened and Special Concern. For the authoritative source of current species at risk information please consult the SARA Public Registry.
+
+
