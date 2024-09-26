@@ -3,11 +3,11 @@ library(dplyr)
 library(stringr)
 library(tidyr)
 # load the database
-dat_pth <- "../data-raw/"
+dat_pth <- "data-raw"
 # fls <- list.files(paste0(dat_pth, "data-out/"), full.names = TRUE)
 # fls <- fls[which(file.mtime(fls) == max(file.mtime(fls)))]
 
-db <- read.csv(paste0(dat_pth, "data-out/CAN-SAR_database.csv"), stringsAsFactors = FALSE)
+db <- read.csv(here::here(dat_pth, "data-out/CAN-SAR_database.csv"), stringsAsFactors = FALSE)
 
 # #Create db_expected and check vals are correct
 # db_expected <-  data.frame(colnms = colnames(db)) %>%
@@ -20,7 +20,7 @@ db <- read.csv(paste0(dat_pth, "data-out/CAN-SAR_database.csv"), stringsAsFactor
 
 # write.csv(db_expected, "data/interim/expectedValues2.csv", quote = TRUE, row.names = FALSE)
 
-db_expected <- read.csv(paste0(dat_pth, "data-out/expectedValues.csv"))
+db_expected <- read.csv(here::here(dat_pth, "data-out/expectedValues.csv"))
 
 test_that("all values are in expected for that column", {
   # see db_expected for vars that have a specific list of possible values
@@ -45,7 +45,7 @@ test_that("all values are in expected for that column", {
     mutate(vals_in = pull(db, colnms)%>% str_split(", ") %>% unlist() %>%
              as.character() %>%  str_trim() %>%
              str_remove(",") %>% tolower() %>% ifelse(is.na(.), "NA", .) %>%
-             str_subset("") %>%
+             str_subset(".") %>%
              unique() %>% list(),
            pass = vals_in[[1]] %in% (vals %>% str_split(", ") %>%
                                        unlist()) %>%
@@ -283,11 +283,11 @@ test_that("Data is internally consistent",{
     col_th <- purrr::map(th_num, ~paste0("X", .x, col_th)) %>% unlist() %>%
       str_subset("notes|comments", negate = TRUE)
 
-    tim <- db %>% select(all_of(col_th)) %>% select(contains("timing"))
-    scp <- db %>% select(all_of(col_th)) %>% select(contains("scope"))
-    sev <- db %>% select(all_of(col_th)) %>% select(contains("severity"))
-    imp <- db %>% select(all_of(col_th)) %>% select(contains("impact"))
-    ided <- db %>% select(all_of(col_th)) %>% select(contains("identified"))
+    tim <- db %>% select(all_of(col_th)) %>% pull(contains("timing"))
+    scp <- db %>% select(all_of(col_th)) %>% pull(contains("scope"))
+    sev <- db %>% select(all_of(col_th)) %>% pull(contains("severity"))
+    imp <- db %>% select(all_of(col_th)) %>% pull(contains("impact"))
+    ided <- db %>% select(all_of(col_th)) %>% pull(contains("identified"))
 
     fail <- ifelse(ided == 0 & (scp != 0 & sev != 0 & tim > 2) &
                      (!is.na(scp) & !is.na(sev)),
