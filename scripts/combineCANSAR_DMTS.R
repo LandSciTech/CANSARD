@@ -212,7 +212,7 @@ nms_to_add <- setdiff(names(db), names(sp_to_add))
 
 sp_to_add[, nms_to_add] <- "NE"
 
-# TODO: fix in database
+# Other fixes fix in database
 
 # making changes one at a time and saving csv and committing so that history is clear
 
@@ -247,3 +247,8 @@ db <- db %>%
 
 readr::write_csv(db, here::here(dat_pth, "data-out/CAN-SAR_database.csv"))
 
+db <- db %>% mutate(across(c(everything(), -rowID, -speciesID, -year_published, -final, -date_of_listing),
+                     as.character)) %>%
+  bind_rows(sp_to_add) %>%
+  bind_rows(sr_to_add)
+readr::write_csv(db, here::here(dat_pth, "data-out/CAN-SAR_database.csv"))
