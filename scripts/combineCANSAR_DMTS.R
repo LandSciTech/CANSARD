@@ -13,7 +13,7 @@ dat_pth <- "data-raw"
 
 db <- readr::read_csv(here::here(dat_pth, "data-out/CAN-SAR_database.csv"),
                       locale = readr::locale(encoding = "ISO-8859-1"))
-
+readr::write_csv(db, here::here(dat_pth, "data-out/CAN-SAR_database.csv"))
 # exported from SAR DMTS listing search page filtered by SARA Schedule = Schedule 1
 dmts <- readr::read_csv(here::here(dat_pth, "data-raw/SAR_DMTS_FullExport-20240926-154900.csv"))
 
@@ -222,13 +222,28 @@ Fe_fix <- db %>% filter(species == "Fissidens exillis") %>% select(rowID, specie
   mutate(species = "Fissidens exilis",
          date_of_listing = c(as.Date("2006-08-15"), NA))
 
-db2 <- db %>%
+db <- db %>%
   rows_update(Fe_fix, by = c("rowID", "speciesID"))
 
-write.csv(db2, here::here(dat_pth, "data-out/CAN-SAR_database.csv"))
+readr::write_csv(db, here::here(dat_pth, "data-out/CAN-SAR_database.csv"))
 
 # typo in Urocyon cinereoargenteus gray fox recovery strategy species? Actually
 # it looks like it is in the original extraction which is missing the e? Looks
 # like we can remove the old recovery strategy entry and change the speciesID so
 # that they are the same in both years because the new entry is marked final and
 # has more data extracted.
+Uc_fix <- db %>% filter(str_detect(species, "Urocyon cinere?oargenteus")) %>%
+  select(rowID, speciesID, species) %>%
+  mutate(species = "Urocyon cinereoargenteus",
+         speciesID = 60)
+
+# deleting row without threats extracted where there is a newer row for that RS
+Uc_del <- db %>% filter(str_detect(species, "Urocyon cinere?oargenteus"), action_type == "NE") %>%
+  select(rowID, speciesID)
+
+db <- db %>%
+  rows_update(Uc_fix, by = c("rowID")) %>%
+  rows_delete(Uc_del, by = c("rowID"))
+
+readr::write_csv(db, here::here(dat_pth, "data-out/CAN-SAR_database.csv"))
+
